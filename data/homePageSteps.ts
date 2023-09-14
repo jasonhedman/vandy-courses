@@ -1,8 +1,7 @@
 import {Step} from "@/types/Step";
 
 import {TfiWrite} from "react-icons/tfi";
-import {AiOutlineSearch} from "react-icons/ai";
-import {GrSchedules} from "react-icons/gr";
+import {AiFillCalendar, AiOutlineSearch} from "react-icons/ai";
 
 const homePageSteps: Step[] = [
     {
@@ -16,7 +15,7 @@ const homePageSteps: Step[] = [
         description: "Find the best courses for you."
     },
     {
-        icon: GrSchedules,
+        icon: AiFillCalendar,
         title: "Build Schedule",
         description: "Build your schedule with the courses you want."
     }

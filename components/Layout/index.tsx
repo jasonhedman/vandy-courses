@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Box, Container} from "@chakra-ui/react";
+import {Container, Flex} from "@chakra-ui/react";
 
 import Navbar from "@/components/Navbar";
 import useAuth from "@/hooks/useAuth";
@@ -17,15 +17,15 @@ const Layout: React.FC<Props> = ({ children, authGate }) => {
     const { isConnected, loading } = useAuth();
 
     return (
-        <Box
-            w={'100%'}
-            p={8}
+        <Container
+            maxW={'6xl'}
+            py={8}
         >
-            <Navbar />
-            <Container
-                maxW={'6xl'}
-                py={8}
+            <Flex
+                direction={'column'}
+                gap={8}
             >
+                <Navbar/>
                 {
                     authGate ? (
                         loading ? (
@@ -41,8 +41,8 @@ const Layout: React.FC<Props> = ({ children, authGate }) => {
                         children
                     )
                 }
-            </Container>
-        </Box>
+            </Flex>
+        </Container>
     );
 };
 

@@ -1,3 +1,15 @@
+# Project Overview
+
+## Client
+
+Our client is the Vanderbilt Student Government, but our project is built to be used by all current and incoming Vanderbilt students. We are building a crowdsourced course registration helper that will allow students to review courses and provide suggestions for new students. It would allow students to construct their semester schedule and plan future semesters in one unified dashboard, taking into account their majors, minors, and personal interests.
+
+## Scope
+
+Our project scope will be a course review system that allows students to rate the courses based on a variety of metrics, such as difficulty. Ratings will be completed through a form. The data will be stored in a database and used to help generate recommended schedules that fit students’ preferences. We will also incorporate a log-in system to validate Vanderbilt students. Finally, students will be able to share their schedules with peers. Additional features will also be considered such as syncing schedules with peers and schedule previews for students who are looking to add a major or minor, but only if time permits. 
+
+# Tech Stack
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

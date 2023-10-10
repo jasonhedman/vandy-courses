@@ -6,6 +6,13 @@ export interface ReviewInput {
     content: string;
     rating: number;
     difficulty: number;
+
+    skippability: number;
+    takeHomeExams: boolean;
+    sleepScore: number;
+    effortForA: number;
+    chatGptability: number;
+    profChillScore: number;
 }
 
 export interface Review extends ReviewInput {

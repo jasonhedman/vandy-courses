@@ -1,4 +1,5 @@
 import {Course, Term} from "@/types/VandyAPI";
+import {Professor} from "@/types/Professor";
 
 const baseEndpoint = "https://courses.clubfair.io/v1"
 
@@ -33,3 +34,17 @@ export const fetchCourses = async (termId: string): Promise<Course[]> => fetchDa
 })
     .then(courses => courses as Course[])
     .catch(() => []);
+
+export const fetchProfessors = async (): Promise<Professor[]> => {
+    // TODO: Implement this once Dylan writes Professor endpoint
+    return [
+        {
+            name: 'John Doe',
+            id: '1'
+        },
+        {
+            name: 'Jane Doe',
+            id: '2'
+        }
+    ]
+}

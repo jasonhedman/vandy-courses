@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Flex, HStack, Image } from '@chakra-ui/react'
+import {Card, Flex, HStack, Image} from '@chakra-ui/react'
 
 import AuthButton from '../AuthButton/AuthButton'
 import NavLink from './NavLink'
@@ -10,38 +10,42 @@ import ColorModeToggle from "@/components/Navbar/ColorModeToggle";
 
 const Navbar = () => {
   return (
-    <Flex
-        alignItems="center"
-        w='100%'
-        gap={4}
-        h='60px'
-        bg='navbar.500'
-        rounded='md'
-        px={4}
-    >
-        <Image 
-            src="/logo.png"
-            height='40px'
-            alt='Vanderbilt Logo'
-        />
-        <HStack
-            mr='auto'
+      <Card
+        p={2}
+      >
+        <Flex
+            alignItems="center"
+            w='100%'
+            gap={4}
+            h='60px'
+            bg='navbar.500'
+            rounded='md'
+            px={4}
         >
-            {
-                routes.map((route, index) => (
-                    <NavLink
-                        key={index}
-                        href={route.href}
-                        text={route.text}
-                    />
-                ))
-            }
-        </HStack>
-        <HStack>
-            <ColorModeToggle />
-            <AuthButton />
-        </HStack>
-    </Flex>
+            <Image
+                src="/logo.png"
+                height='40px'
+                alt='Vanderbilt Logo'
+            />
+            <HStack
+                mr='auto'
+            >
+                {
+                    routes.map((route, index) => (
+                        <NavLink
+                            key={index}
+                            href={route.href}
+                            text={route.text}
+                        />
+                    ))
+                }
+            </HStack>
+            <HStack>
+                <ColorModeToggle />
+                <AuthButton />
+            </HStack>
+        </Flex>
+      </Card>
   )
 }
 

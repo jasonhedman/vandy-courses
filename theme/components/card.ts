@@ -6,7 +6,7 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 
 const baseStyle = definePartsStyle((props) => ({
     container: {
-        backgroundColor: mode("white", "whiteAlpha.50")(props),
+        backgroundColor: mode("white", "whiteAlpha.200")(props),
         p: 4,
         display: "flex",
         flexDirection: "column",
@@ -25,6 +25,10 @@ const baseStyle = definePartsStyle((props) => ({
 
 const sizes = {}
 
-const Card = defineMultiStyleConfig({ baseStyle, sizes })
+const defaultProps = {
+    variant: "outline",
+}
+
+const Card = defineMultiStyleConfig({ baseStyle, sizes, defaultProps })
 
 export default Card

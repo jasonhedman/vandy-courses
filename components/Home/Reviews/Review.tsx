@@ -4,6 +4,7 @@ import { Review as ReviewType } from '@/types/Review';
 import {Badge, Card, Flex, Heading, HStack, Text, VStack} from "@chakra-ui/react";
 import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
 import UpvoteDownvote from "@/components/Home/Reviews/UpvoteDownvote";
+import {MAXIMUM_RATING} from "@/data/reviewConstants";
 
 interface Props {
     review: ReviewType
@@ -30,7 +31,7 @@ const Review: React.FC<Props> = ({ review }) => {
                         <Badge
                             colorScheme={'blue'}
                         >
-                            {review.professorId}
+                            {review.professor.name}
                         </Badge>
                     </HStack>
                     <Heading
@@ -49,16 +50,14 @@ const Review: React.FC<Props> = ({ review }) => {
                 >
                     <RatingDisplay
                         rating={review.difficulty}
-                        // TODO: replace this with the constant post merge
-                        maxRating={5}
+                        maxRating={MAXIMUM_RATING}
                         label={"Difficulty"}
                         color={"orange.500"}
                         size={"75px"}
                     />
                     <RatingDisplay
                         rating={review.rating}
-                        // TODO: replace this with the constant post merge
-                        maxRating={5}
+                        maxRating={MAXIMUM_RATING}
                         label={"Rating"}
                         color={"green.500"}
                         size={"75px"}

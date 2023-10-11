@@ -23,6 +23,7 @@ const courseConverter: FirestoreDataConverter<Course> = {
             id: data.id,
             name: data.name,
             description: data.description,
+            numReviews: data.numReviews
         };
     },
 };

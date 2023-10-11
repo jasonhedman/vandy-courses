@@ -4,3 +4,9 @@ export interface Vote {
     reviewId: string;
     isUpvote: boolean;
 }
+
+export enum VoteStatus {
+    NONE,
+    UPVOTED,
+    DOWNVOTED
+}

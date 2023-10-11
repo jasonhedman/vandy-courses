@@ -11,7 +11,7 @@ const baseStyle = definePartsStyle((props) => ({
     },
     list: {
         py: 0,
-        bg: mode("white", "whiteAlpha.50")(props),
+        bg: mode("white", "#2D2D2D")(props),
         boxShadow: mode("lg", "dark-lg")(props),
         backgroundClip: "border-box",
         rounded: "md",

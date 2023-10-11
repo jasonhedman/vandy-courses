@@ -5,12 +5,16 @@ import SignInWithGoogleButton from "@/components/AuthButton/SignInWithGoogleButt
 const NotConnected = () => {
     return (
         <Card>
-            <VStack>
-                <Heading>
+            <VStack
+                spacing={4}
+            >
+                <Heading
+                    size={'lg'}
+                >
                     You are not signed in
                 </Heading>
                 <Text>
-                    You must be signed in to view this page
+                    You must be signed in with your Vanderbilt Google account to view this page.
                 </Text>
                 <SignInWithGoogleButton />
             </VStack>

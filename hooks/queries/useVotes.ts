@@ -1,5 +1,7 @@
-import {useCollectionData} from "react-firebase-hooks/firestore";
 import {and, query, where} from "@firebase/firestore";
+
+import {useCollectionData} from "react-firebase-hooks/firestore";
+
 import votesCollection from "@/firebase/firestore/converters/voteConverter";
 
 const useVotes = (userId: string, reviewId: string) => {

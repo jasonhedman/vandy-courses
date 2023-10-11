@@ -1,8 +1,6 @@
 import React from 'react'
 
-import {Box, Icon, Text, VStack} from '@chakra-ui/react'
-
-import Card from "@/components/Utilities/Card"
+import {Box, Icon, Text, VStack, Card} from '@chakra-ui/react'
 
 import {Step} from "@/types/Step";
 
@@ -13,10 +11,7 @@ interface Props {
 const Step: React.FC<Props> = ({ offering }) => {
 
     return (
-        <Card
-            alignItems='center'
-            gap={4}
-        >
+        <Card>
             <Box
                 borderRadius='full'
                 boxSize={20}

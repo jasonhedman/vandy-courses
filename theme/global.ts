@@ -1,14 +1,14 @@
-import { GlobalStyles } from "@chakra-ui/theme-tools"
+import { GlobalStyles, mode } from "@chakra-ui/theme-tools"
 
 const styles : GlobalStyles = {
-    global: {
+    global: (props) => ({
         body: {
-            bg: "background.500",
+            bg: mode("blackAlpha.50", "whiteAlpha.50")(props),
         },
         p: {
-            color: "white",
+            color: mode("black", "white")(props),
         }
-    },
+    }),
 }
 
 export default styles

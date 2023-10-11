@@ -1,4 +1,6 @@
-export const colors = {
+import {Colors} from "@chakra-ui/react";
+
+export const colors: Colors = {
     brand: {
         50: "#FAF6F0",
         100: "#F6F0E4",
@@ -10,12 +12,6 @@ export const colors = {
         700: "#916F31",
         800: "#5F4920",
         900: "#322611"
-    },
-    background: {
-        500: "#121212",
-    },
-    navbar: {
-        500: "#242424",
     },
     text: {
         400: "#b3b3b3",

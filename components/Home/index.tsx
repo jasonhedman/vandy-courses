@@ -10,7 +10,6 @@ const HomePage = () => {
         >
             <Heading
                 size={'lg'}
-                color={'white'}
             >
                 Welcome to Vandy Courses
             </Heading>

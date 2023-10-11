@@ -1,6 +1,6 @@
 import {addDoc, collection, doc, increment, updateDoc} from "@firebase/firestore";
 
-import db from "@/firebase/db";
+import firestore from "@/firebase/firestore";
 
 import {ReviewInput} from "@/types/Review";
 
@@ -8,7 +8,7 @@ import {ReviewInput} from "@/types/Review";
 
 // adds a review to the database
 export const addReview = async (reviewInput: ReviewInput) => {
-    return addDoc(collection(db, "reviews"), {
+    return addDoc(collection(firestore, "reviews"), {
         ...reviewInput,
         score: 0,
     })
@@ -21,7 +21,7 @@ export const addReview = async (reviewInput: ReviewInput) => {
 
 // upvotes or downvotes a review
 export const voteReview = async (reviewId: string, isUpvote: boolean) => {
-    return updateDoc(doc(db, "reviews", reviewId), {
+    return updateDoc(doc(firestore, "reviews", reviewId), {
         score: increment(isUpvote ? 1 : -1),
     });
 }

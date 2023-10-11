@@ -2,7 +2,7 @@ import {useState} from "react";
 
 import {query} from "@firebase/firestore";
 
-import {useCollectionDataOnce} from "react-firebase-hooks/firestore";
+import {useCollectionData} from "react-firebase-hooks/firestore";
 
 import coursesCollection from "@/firebase/firestore/converters/courseConverter";
 
@@ -15,7 +15,7 @@ const useReviews = () => {
     const [course, setCourse] = useState<Course | null>(null);
 
     // TODO: add configurable querying
-    const [reviews, loading, error] = useCollectionDataOnce(query(coursesCollection));
+    const [reviews, loading, error] = useCollectionData(query(coursesCollection));
 
     return {
         reviews,

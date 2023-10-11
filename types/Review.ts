@@ -1,11 +1,6 @@
-import {CourseId} from "@/types/Course";
-import {ProfessorId} from "@/types/Professor";
-
-export type ReviewId = string;
-
 export interface ReviewInput {
-    courseId: CourseId;
-    professorId: ProfessorId;
+    courseId: string;
+    professorId: string;
     userId: string;
     title: string;
     content: string;
@@ -14,6 +9,6 @@ export interface ReviewInput {
 }
 
 export interface Review extends ReviewInput {
-    id: ReviewId;
+    id: string;
     score: number;
 }

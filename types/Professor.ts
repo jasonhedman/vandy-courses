@@ -1,6 +1,4 @@
-export type ProfessorId = string;
-
 export interface Professor {
-    id: ProfessorId;
+    id: string;
     name: string;
 }

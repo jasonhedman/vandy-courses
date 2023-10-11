@@ -3,7 +3,7 @@ import React from 'react';
 import {Button} from "@chakra-ui/react";
 import {FcGoogle} from "react-icons/fc";
 
-import useLogin from "@/hooks/useSignIn";
+import useLogin from "@/hooks/auth/useSignIn";
 
 const SignInWithGoogleButton = () => {
 

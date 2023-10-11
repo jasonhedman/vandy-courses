@@ -18,8 +18,14 @@ const baseStyle = definePartsStyle((props) => ({
         rounded:'lg',
         shadow: 'xl'
     },
-    header: {},
-    body: {},
+    header: {
+        py: 1,
+        px: 0
+    },
+    body: {
+        py: 1,
+        px: 0
+    },
     footer: {},
 }))
 

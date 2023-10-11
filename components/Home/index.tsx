@@ -1,19 +1,23 @@
 import React from 'react';
-import {Heading, VStack} from "@chakra-ui/react";
-import Steps from "@/components/Home/Steps";
+
+import {VStack} from "@chakra-ui/react";
+
+import ExploreHeader from "@/components/Home/ExploreHeader";
+import Reviews from "@/components/Home/Reviews";
+
+import dummyReviews from "@/data/dummyReviews";
 
 const HomePage = () => {
+
     return (
         <VStack
             w={'100%'}
-            spacing={8}
+            spacing={4}
         >
-            <Heading
-                size={'lg'}
-            >
-                Welcome to Vandy Courses
-            </Heading>
-            <Steps />
+            <ExploreHeader />
+            <Reviews
+                reviews={dummyReviews}
+            />
         </VStack>
     );
 };

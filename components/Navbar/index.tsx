@@ -1,11 +1,12 @@
 import React from 'react'
 
-import { Flex, Box, HStack, Image } from '@chakra-ui/react'
+import { Flex, HStack, Image } from '@chakra-ui/react'
 
 import AuthButton from '../AuthButton/AuthButton'
 import NavLink from './NavLink'
 
 import routes from './routes'
+import ColorModeToggle from "@/components/Navbar/ColorModeToggle";
 
 const Navbar = () => {
   return (
@@ -36,11 +37,10 @@ const Navbar = () => {
                 ))
             }
         </HStack>
-        <Box
-            display={{base: 'none', md: 'block'}}
-        >
+        <HStack>
+            <ColorModeToggle />
             <AuthButton />
-        </Box>
+        </HStack>
     </Flex>
   )
 }

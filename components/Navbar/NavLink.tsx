@@ -14,7 +14,6 @@ const NavLink : React.FC<Route> = ({ href, text}) => {
     >
         <Button
             variant='ghost'
-            color={'white'}
         >
             {text}
         </Button>

@@ -1,5 +1,7 @@
+export type CourseId = string;
+
 export interface Course {
-    id: string;
+    id: CourseId;
     name: string;
     description: string;
 }

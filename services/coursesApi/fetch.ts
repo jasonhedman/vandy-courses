@@ -33,6 +33,10 @@ export const fetchCourses = async (termId: string): Promise<Course[]> => fetchDa
     term_id: termId,
 })
     .then(courses => courses as Course[])
+    .then(courses => courses.map(course => ({
+        ...course,
+        $id: course.$id.replace(" ", "_")
+    })))
     .catch(() => []);
 
 export const fetchProfessors = async (): Promise<Professor[]> => {

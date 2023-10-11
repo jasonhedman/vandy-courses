@@ -12,7 +12,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 
 import SignInWithGoogleButton from "@/components/AuthButton/SignInWithGoogleButton";
 
-import useAuth from "@/hooks/useAuth";
+import useAuth from "@/hooks/auth/useAuth";
 
 const AuthButton = () => {
 

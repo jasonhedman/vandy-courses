@@ -26,19 +26,14 @@ const AuthButton = () => {
 
     if(isConnected) {
         return (
-            <Menu
-                colorScheme="whiteAlpha"
-            >
+            <Menu>
                 <MenuButton 
                     as={Button} 
                     rightIcon={<ChevronDownIcon />}
-                    colorScheme="whiteAlpha"
                 >
                     {user?.displayName}
                 </MenuButton>
-                <MenuList
-                    
-                >
+                <MenuList>
                     <MenuItem
                         onClick={() => onSignOut()}
                     >

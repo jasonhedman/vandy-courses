@@ -1,9 +1,9 @@
 import {doc, setDoc} from "@firebase/firestore";
 
-import db from "@/firebase/db";
+import firestore from "@/firebase/firestore";
 
 import {Course} from "@/types/Course";
 
 export const setCourse = async (course: Course) => {
-    return setDoc(doc(db, "courses", course.id), course);
+    return setDoc(doc(firestore, "courses", course.id), course);
 }

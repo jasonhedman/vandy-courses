@@ -1,6 +1,6 @@
 import {useFormik} from "formik";
 
-import useAuth from "@/hooks/useAuth";
+import useAuth from "@/hooks/auth/useAuth";
 
 import {addReview} from "@/services/reviews";
 
@@ -8,6 +8,7 @@ import {ReviewInput} from "@/types/Review";
 
 import * as Yup from 'yup';
 import {ObjectSchema} from "yup";
+
 import {MAXIMUM_RATING, MINIMUM_DIFFICULTY, MINIMUM_RATING} from "@/data/reviewConstants";
 
 const ReviewSchema: ObjectSchema<ReviewInput> = Yup.object().shape({

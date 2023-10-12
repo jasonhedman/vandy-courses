@@ -15,12 +15,12 @@ export const addReview = async (reviewInput: ReviewInput) => {
     await updateDoc(doc, {
         id: doc.id,
     })
-    await updateCourseNumReviews(reviewInput.courseId, true);
+    await updateCourseNumReviews(reviewInput.courseId, 1);
 }
 
 // upvotes or downvotes a review
-export const voteReview = async (reviewId: string, isUpvote: boolean) => {
+export const voteReview = async (reviewId: string, amountIncrement: number) => {
     return updateDoc(doc(firestore, "reviews", reviewId), {
-        score: increment(isUpvote ? 1 : -1),
+        score: increment(amountIncrement),
     });
 }

@@ -68,7 +68,8 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                         Close
                     </Button>
                     <Button
-                        variant='ghost'
+                        variant='solid'
+                        colorScheme='brand'
                         onClick={() => handleSubmit()}
                         isDisabled={disabled}
                     >

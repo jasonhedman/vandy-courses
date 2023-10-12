@@ -17,7 +17,7 @@ const voteConverter: FirestoreDataConverter<Vote> = {
             id: review.id,
             reviewId: review.reviewId,
             userId: review.userId,
-            isUpvote: review.isUpvote
+            voteStatus: review.voteStatus
         };
     },
     fromFirestore(
@@ -29,11 +29,11 @@ const voteConverter: FirestoreDataConverter<Vote> = {
             id: data.id,
             reviewId: data.reviewId,
             userId: data.userId,
-            isUpvote: data.isUpvote,
+            voteStatus: data.voteStatus
         };
     },
 };
 
-const votesCollection = collection(firestore, 'reviews').withConverter(voteConverter);
+const votesCollection = collection(firestore, 'votes').withConverter(voteConverter);
 
 export default votesCollection;

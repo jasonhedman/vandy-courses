@@ -1,4 +1,4 @@
-import {query} from "@firebase/firestore";
+import {orderBy, query} from "@firebase/firestore";
 
 import {useCollectionData} from "react-firebase-hooks/firestore";
 
@@ -10,7 +10,10 @@ import {Professor} from "@/types/Professor";
 const useReviews = (course: Course | null, professor: Professor | null) => {
 
     // TODO: add configurable querying
-    const [reviews, loading, error] = useCollectionData(query(reviewsCollection));
+    const [reviews, loading, error] = useCollectionData(query(
+        reviewsCollection,
+        orderBy("score", "desc")
+    ));
 
     return {
         reviews: reviews || [],

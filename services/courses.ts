@@ -8,8 +8,8 @@ export const setCourse = async (course: Course) => {
     return setDoc(doc(firestore, "courses", course.id), {course});
 }
 
-export const updateCourseNumReviews = async (courseId: string, isIncrement: boolean) => {
+export const updateCourseNumReviews = async (courseId: string, amountIncrement: number) => {
     return updateDoc(doc(firestore, "courses", courseId), {
-        numReviews: increment(isIncrement ? 1 : -1)
+        numReviews: increment(amountIncrement)
     });
 }

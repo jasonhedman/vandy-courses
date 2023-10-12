@@ -7,7 +7,7 @@ const useCourses = () => {
     const [courses, loading, error] = useCollectionDataOnce(coursesCollection);
 
     return {
-        courses,
+        courses: courses || [],
         loading,
         error,
     }

@@ -5,5 +5,5 @@ import firestore from "@/firebase/firestore";
 import {Professor} from "@/types/Professor";
 
 export const setProfessor = async (professor: Professor) => {
-    return setDoc(doc(firestore, "professor", professor.id), professor);
+    return setDoc(doc(firestore, "professors", professor.id), professor);
 }

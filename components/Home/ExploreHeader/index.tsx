@@ -1,10 +1,22 @@
 import React from 'react';
 
 import {Card, Flex} from "@chakra-ui/react";
-import AutoCompleteMenu from "@/components/Utilities/AutoCompleteMenu";
-import WriteReviewButton from "@/components/Home/ExploreHeader/WriteReviewButton";
 
-const ExploreHeader = () => {
+import WriteReviewButton from "@/components/Home/ExploreHeader/WriteReviewButton";
+import ProfessorMenu from "@/components/Home/FormComponents/ProfessorMenu";
+import CourseMenu from "@/components/Home/FormComponents/CourseMenu";
+
+import {Course} from "@/types/Course";
+import {Professor} from "@/types/Professor";
+
+interface Props {
+    course: Course | null,
+    setCourse: (course: Course | null) => void,
+    professor: Professor | null,
+    setProfessor: (professor: Professor | null) => void,
+}
+
+const ExploreHeader: React.FC<Props> = ({ setCourse, setProfessor }) => {
     return (
         <Card>
             <Flex
@@ -12,21 +24,11 @@ const ExploreHeader = () => {
                 alignItems={'flex-end'}
                 gap={4}
             >
-                <AutoCompleteMenu
-                    label={"Course"}
-                    placeholder={"Find a Course"}
-                    options={[
-                        "Computer Science",
-                        "Mathematics",
-                    ]}
+                <CourseMenu
+                    setCourse={setCourse}
                 />
-                <AutoCompleteMenu
-                    label={"Professor"}
-                    placeholder={"Find a Professor"}
-                    options={[
-                        "Alex Zhang",
-                        "John Doe",
-                    ]}
+                <ProfessorMenu
+                    setProfessor={setProfessor}
                 />
                 <WriteReviewButton />
             </Flex>

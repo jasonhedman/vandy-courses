@@ -22,8 +22,7 @@ const ProfessorMenu: React.FC<Props> = ({ setProfessor, onBlur, error }) => {
             options={professors || []}
             onSelect={setProfessor}
             onBlur={onBlur}
-            helperText={error}
-            helperTextColor={'red.500'}
+            error={error}
         />
     );
 };

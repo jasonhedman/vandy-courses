@@ -2,6 +2,8 @@ import auth from "@/firebase/auth";
 import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 const provider = new GoogleAuthProvider();
 
+provider.setCustomParameters({hd: "vanderbilt.edu"})
+
 import {useAuthState} from "react-firebase-hooks/auth";
 
 const useLogin = () => {

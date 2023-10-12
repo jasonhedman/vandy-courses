@@ -1,30 +1,21 @@
-import {useState} from "react";
-
 import {query} from "@firebase/firestore";
 
 import {useCollectionData} from "react-firebase-hooks/firestore";
 
-import coursesCollection from "@/firebase/firestore/converters/courseConverter";
+import reviewsCollection from "@/firebase/firestore/converters/reviewConverter";
 
 import {Course} from "@/types/Course";
 import {Professor} from "@/types/Professor";
 
-const useReviews = () => {
-
-    const [professor, setProfessor] = useState<Professor | null>(null);
-    const [course, setCourse] = useState<Course | null>(null);
+const useReviews = (course: Course | null, professor: Professor | null) => {
 
     // TODO: add configurable querying
-    const [reviews, loading, error] = useCollectionData(query(coursesCollection));
+    const [reviews, loading, error] = useCollectionData(query(reviewsCollection));
 
     return {
-        reviews,
+        reviews: reviews || [],
         loading,
-        error,
-        professor,
-        setProfessor,
-        course,
-        setCourse
+        error
     }
 
 }

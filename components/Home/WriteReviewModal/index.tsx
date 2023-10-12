@@ -27,7 +27,11 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
     const { touched, errors, handleSubmit, setFieldValue, setFieldTouched, disabled } = useCreateReview();
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            variant={'outline'}
+        >
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Write a Review</ModalHeader>

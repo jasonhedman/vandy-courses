@@ -26,6 +26,7 @@ interface Props<T> {
 const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, helperText, helperTextColor, placeholder }: Props<T>) => {
 
     const menuBackground = useColorModeValue('white', '#2D2D2D');
+    const menuBorderColor = useColorModeValue("gray.200", "whiteAlpha.300");
 
     return (
         <FormControl
@@ -58,6 +59,8 @@ const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, 
                         <AutoCompleteList
                             bg={menuBackground}
                             p={0}
+                            border='1px solid'
+                            borderColor={menuBorderColor}
                         >
                             {options.map((option, id) => (
                                 <AutoCompleteItem
@@ -66,6 +69,7 @@ const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, 
                                     textTransform="capitalize"
                                     m={0}
                                     onClick={() => onSelect(option)}
+
                                 >
                                     {optionLabels[id]}
                                 </AutoCompleteItem>

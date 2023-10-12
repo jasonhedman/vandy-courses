@@ -63,6 +63,7 @@ const Review: React.FC<Props> = ({ review }) => {
                         size={"75px"}
                     />
                     <UpvoteDownvote
+                        reviewId={review.id}
                         score={review.score}
                     />
                 </HStack>

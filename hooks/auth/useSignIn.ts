@@ -9,11 +9,10 @@ const useLogin = () => {
     const [user, loading, error] = useAuthState(auth);
 
     const onSignIn = async () => {
-        const result = await signInWithPopup(auth, provider)
+        await signInWithPopup(auth, provider)
             .catch((error) => {
                 console.log(error)
             })
-        console.log(result);
     }
 
     return {

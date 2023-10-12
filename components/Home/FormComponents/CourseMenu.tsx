@@ -24,8 +24,7 @@ const CourseMenu: React.FC<Props> = ({ setCourse, onBlur, error }) => {
             options={courses || []}
             onSelect={setCourse}
             onBlur={onBlur}
-            helperText={error}
-            helperTextColor={'red.500'}
+            error={error}
         />
     );
 };

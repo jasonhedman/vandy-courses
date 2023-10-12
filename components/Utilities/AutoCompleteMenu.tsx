@@ -1,9 +1,7 @@
 import React, {ChangeEvent} from 'react';
 
 import {
-    FormControl,
-    FormHelperText,
-    FormLabel, Icon,
+    Icon,
     InputGroup,
     InputRightElement,
     useColorModeValue
@@ -11,6 +9,7 @@ import {
 
 import {AutoComplete, AutoCompleteInput, AutoCompleteItem, AutoCompleteList} from "@choc-ui/chakra-autocomplete";
 import {FiChevronDown, FiChevronRight} from "react-icons/fi";
+import FormElement from "@/components/Home/FormComponents/FormElement";
 
 interface Props<T> {
     label: string;
@@ -18,22 +17,20 @@ interface Props<T> {
     options: T[];
     onSelect: (value: T | null) => void;
     onBlur?: () => void;
-    helperText?: string;
-    helperTextColor?: string;
+    error?: string;
     placeholder?: string;
 }
 
-const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, helperText, helperTextColor, placeholder }: Props<T>) => {
+const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, error, placeholder }: Props<T>) => {
 
     const menuBackground = useColorModeValue('white', '#2D2D2D');
     const menuBorderColor = useColorModeValue("gray.200", "whiteAlpha.300");
 
     return (
-        <FormControl
-            colorScheme={'brand'}
-            py={0}
+        <FormElement
+            label={label}
+            error={error}
         >
-            <FormLabel>{label}</FormLabel>
             <AutoComplete
                 openOnFocus
                 restoreOnBlurIfEmpty={false}
@@ -78,16 +75,7 @@ const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, 
                     </>
                 )}
             </AutoComplete>
-            {
-                helperText && (
-                    <FormHelperText
-                        color={helperTextColor}
-                    >
-                        {helperText}
-                    </FormHelperText>
-                )
-            }
-        </FormControl>
+        </FormElement>
     );
 };
 

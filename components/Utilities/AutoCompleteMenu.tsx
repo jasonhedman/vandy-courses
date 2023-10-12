@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 
 import {
     FormControl,
@@ -12,14 +12,18 @@ import {
 import {AutoComplete, AutoCompleteInput, AutoCompleteItem, AutoCompleteList} from "@choc-ui/chakra-autocomplete";
 import {FiChevronDown, FiChevronRight} from "react-icons/fi";
 
-interface Props {
+interface Props<T> {
     label: string;
-    options: string[];
+    optionLabels: string[];
+    options: T[];
+    onSelect: (value: T | null) => void;
+    onBlur?: () => void;
     helperText?: string;
+    helperTextColor?: string;
     placeholder?: string;
 }
 
-const AutoCompleteMenu: React.FC<Props> = ({ label, options, helperText, placeholder }) => {
+const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, helperText, helperTextColor, placeholder }: Props<T>) => {
 
     const menuBackground = useColorModeValue('white', '#2D2D2D');
 
@@ -40,6 +44,12 @@ const AutoCompleteMenu: React.FC<Props> = ({ label, options, helperText, placeho
                                 variant="outline"
                                 placeholder={placeholder}
                                 focusBorderColor="brand.500"
+                                onBlur={onBlur}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                    if (e.target.value === "") {
+                                        onSelect(null);
+                                    }
+                                }}
                             />
                             <InputRightElement>
                                 <Icon as={isOpen ? FiChevronRight : FiChevronDown} />
@@ -52,11 +62,12 @@ const AutoCompleteMenu: React.FC<Props> = ({ label, options, helperText, placeho
                             {options.map((option, id) => (
                                 <AutoCompleteItem
                                     key={`option-${id}`}
-                                    value={option}
+                                    value={optionLabels[id]}
                                     textTransform="capitalize"
                                     m={0}
+                                    onClick={() => onSelect(option)}
                                 >
-                                    {option}
+                                    {optionLabels[id]}
                                 </AutoCompleteItem>
                             ))}
                         </AutoCompleteList>
@@ -64,7 +75,13 @@ const AutoCompleteMenu: React.FC<Props> = ({ label, options, helperText, placeho
                 )}
             </AutoComplete>
             {
-                helperText && <FormHelperText>{helperText}</FormHelperText>
+                helperText && (
+                    <FormHelperText
+                        color={helperTextColor}
+                    >
+                        {helperText}
+                    </FormHelperText>
+                )
             }
         </FormControl>
     );

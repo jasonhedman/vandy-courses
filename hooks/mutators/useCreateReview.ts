@@ -16,9 +16,9 @@ const ReviewSchema: ObjectSchema<ReviewInput> = Yup.object().shape({
         .required('Course ID is Required'),
     professor: Yup.object().shape({
         id: Yup.string()
-            .required('Professor ID is Required'),
+            .required('Professor is Required'),
         name: Yup.string()
-            .required('Professor Name is Required')
+            .required('Professor is Required')
     })
         .required('Professor is Required'),
     userId: Yup.string()
@@ -64,7 +64,15 @@ const useCreateReview = () => {
 
     const { user } = useAuth()
 
-    const { values, errors, touched, handleChange, handleSubmit } = useFormik<ReviewInput>({
+    const {
+        values,
+        errors,
+        touched,
+        setFieldValue,
+        setFieldTouched,
+        handleChange,
+        handleSubmit
+    } = useFormik<ReviewInput>({
         initialValues: {
             courseId: "",
             professor: {
@@ -92,9 +100,12 @@ const useCreateReview = () => {
     return {
         values,
         errors,
+        setFieldValue,
+        setFieldTouched,
         touched,
         handleChange,
         handleSubmit,
+        disabled: Object.keys(errors).length > 0 || Object.keys(touched).length === 0
     }
 }
 

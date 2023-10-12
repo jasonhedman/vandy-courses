@@ -1,8 +1,11 @@
-export interface Vote {
-    id: string;
+export interface VoteInput {
     userId: string;
     reviewId: string;
-    isUpvote: boolean;
+    voteStatus: VoteStatus;
+}
+
+export interface Vote extends VoteInput {
+    id: string;
 }
 
 export enum VoteStatus {

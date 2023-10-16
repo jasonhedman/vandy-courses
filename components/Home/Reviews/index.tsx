@@ -14,16 +14,16 @@ interface Props {
 
 const Reviews: React.FC<Props> = ({ reviews }) => {
 
-    const { review, onClose, isOpen, openModal } = useReviewModal();
+    const { reviewId, onClose, isOpen, openModal } = useReviewModal();
 
     return (
         <>
             {
-                review && (
+                reviewId && (
                     <ReviewModal
                         isOpen={isOpen}
                         onClose={onClose}
-                        review={review}
+                        reviewId={reviewId}
                     />
                 )
             }
@@ -38,7 +38,7 @@ const Reviews: React.FC<Props> = ({ reviews }) => {
                             <Review
                                 key={review.id}
                                 review={review}
-                                onClick={() => openModal(review)}
+                                onClick={() => openModal(review.id)}
                             />
                         ))
                     ) : (

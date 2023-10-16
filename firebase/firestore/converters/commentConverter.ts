@@ -7,10 +7,13 @@ import {
     WithFieldValue
 } from "@firebase/firestore";
 
+import moment from "moment/moment";
+
 import firestore from "@/firebase/firestore";
 
-import {Comment} from "@/types/Comment";
 import {COMMENTS_COLLECTION, REVIEWS_COLLECTION} from "@/firebase/firestore/collections";
+
+import {Comment} from "@/types/Comment";
 
 const commentConverter: FirestoreDataConverter<Comment> = {
     toFirestore(review: WithFieldValue<Comment>): DocumentData {
@@ -33,7 +36,7 @@ const commentConverter: FirestoreDataConverter<Comment> = {
             userId: data.userId,
             content: data.content,
             score: data.score,
-            createdAt: data.createdAt.toDate(),
+            createdAt: moment.unix(data.createdAt.seconds),
         };
     },
 };

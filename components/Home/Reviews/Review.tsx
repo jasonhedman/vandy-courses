@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Flex, Heading, HStack, Text, VStack} from "@chakra-ui/react";
+import {Flex, Heading, HStack, Text, useColorModeValue, VStack} from "@chakra-ui/react";
 
 import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
 import ReviewUpvoteDownvote from "@/components/Home/Reviews/ReviewUpvoteDownvote";
@@ -17,6 +17,9 @@ interface Props {
 }
 
 const Review: React.FC<Props> = ({ review, onClick }) => {
+
+    const timeColor = useColorModeValue("blackAlpha.700", "whiteAlpha.700");
+
     return (
         <ClickableCard
             onClick={onClick}
@@ -40,6 +43,12 @@ const Review: React.FC<Props> = ({ review, onClick }) => {
                     </Heading>
                     <Text>
                         {review.content}
+                    </Text>
+                    <Text
+                        fontSize='xs'
+                        color={timeColor}
+                    >
+                        {review.createdAt.fromNow()}
                     </Text>
                 </VStack>
                 <HStack

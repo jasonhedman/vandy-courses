@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {MouseEventHandler} from 'react';
 import {IconProps, Text, VStack} from "@chakra-ui/react";
 import {ChevronDownIcon, ChevronUpIcon} from "@chakra-ui/icons";
 import useVoteReview from "@/hooks/mutators/useVoteReview";
@@ -22,6 +22,18 @@ const UpvoteDownvote: React.FC<Props> = ({ reviewId, score }) => {
 
     const { onUpvote, onDownvote, voteStatus } = useVoteReview(reviewId);
 
+    const handleUpvote: MouseEventHandler<SVGElement> = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        await onUpvote();
+    }
+
+    const handleDownvote: MouseEventHandler<SVGElement> = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        await onDownvote();
+    }
+
     return (
         <VStack
             spacing={0}
@@ -29,7 +41,7 @@ const UpvoteDownvote: React.FC<Props> = ({ reviewId, score }) => {
             <ChevronUpIcon
                 {...iconStyles}
                 color={voteStatus === VoteStatus.UPVOTED ? 'green.500' : undefined}
-                onClick={onUpvote}
+                onClick={handleUpvote}
             />
             <Text
                 fontWeight={'bold'}
@@ -39,7 +51,7 @@ const UpvoteDownvote: React.FC<Props> = ({ reviewId, score }) => {
             <ChevronDownIcon
                 {...iconStyles}
                 color={voteStatus === VoteStatus.DOWNVOTED ? 'red.500' : undefined}
-                onClick={onDownvote}
+                onClick={handleDownvote}
             />
         </VStack>
     );

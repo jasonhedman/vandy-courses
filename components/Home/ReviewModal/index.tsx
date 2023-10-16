@@ -37,8 +37,12 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, review }) => {
                     <VStack
                         align={'start'}
                         spacing={4}
+                        w={'100%'}
                     >
-                        <HStack>
+                        <HStack
+                            w={'100%'}
+                            justify={'space-between'}
+                        >
                             <VStack
                                 align={'start'}
                             >

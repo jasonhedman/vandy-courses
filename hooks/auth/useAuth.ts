@@ -1,10 +1,19 @@
+import { useState, useEffect } from "react";
+
 import auth from "@/firebase/auth";
 
 import {useAuthState, useSignOut} from "react-firebase-hooks/auth";
+import {User} from "@firebase/auth";
 
 const useAuth = () => {
 
-    const [user, loading, error] = useAuthState(auth);
+    const [rawUser, loading, error] = useAuthState(auth);
+
+    const [user, setUser] = useState<User | null| undefined>(rawUser);
+
+    useEffect(() => {
+        setUser(rawUser);
+    }, [rawUser]);
 
     const [signOut] = useSignOut(auth);
 

@@ -2,22 +2,20 @@ import {useState} from "react";
 
 import {useDisclosure} from "@chakra-ui/react";
 
-import {Review} from "@/types/Review";
-
 const useReviewModal = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const [review, setReview] = useState<Review>();
+    const [reviewId, setReviewId] = useState<string>();
 
-    const openModal = (review: Review) => {
-        setReview(review);
+    const openModal = (reviewId: string) => {
+        setReviewId(reviewId);
         onOpen();
     }
 
     return {
         isOpen,
         onClose,
-        review,
+        reviewId,
         openModal
     }
 }

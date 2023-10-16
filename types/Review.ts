@@ -1,5 +1,7 @@
 import {Professor} from "@/types/Professor";
 
+import {Moment} from "moment";
+
 export interface ReviewInput {
     courseId: string;
     professor: Professor;
@@ -19,5 +21,5 @@ export interface ReviewInput {
 export interface Review extends ReviewInput {
     id: string;
     score: number;
-    createdAt: Date;
+    createdAt: Moment;
 }

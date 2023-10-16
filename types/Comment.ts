@@ -1,3 +1,5 @@
+import {Moment} from "moment";
+
 export interface CommentInput {
     reviewId: string;
     content: string;
@@ -7,5 +9,5 @@ export interface CommentInput {
 export interface Comment extends CommentInput {
     id: string;
     score: number;
-    createdAt: Date;
+    createdAt: Moment;
 }

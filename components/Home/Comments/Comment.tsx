@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, useColorModeValue, HStack} from "@chakra-ui/react";
+import {Text, useColorModeValue, HStack, VStack} from "@chakra-ui/react";
 
 import CommentUpvoteDownvote from "@/components/Home/Comments/CommentUpvoteDownvote";
 
@@ -12,7 +12,8 @@ interface Props {
 
 const Comment: React.FC<Props> = ({ comment }) => {
 
-    const borderColor = useColorModeValue('blackAlpha.400', 'whietAlpha.400')
+    const borderColor = useColorModeValue('blackAlpha.400', 'whiteAlpha.400');
+    const timeColor = useColorModeValue('blackAlpha.700', 'whiteAlpha.700');
 
     return (
         <HStack
@@ -23,11 +24,21 @@ const Comment: React.FC<Props> = ({ comment }) => {
             p={2}
             justifyContent={'space-between'}
         >
-            <Text
-                flex={1}
+            <VStack
+                align={'start'}
             >
-                {comment.content}
-            </Text>
+                <Text
+                    flex={1}
+                >
+                    {comment.content}
+                </Text>
+                <Text
+                    fontSize={'xs'}
+                    color={timeColor}
+                >
+                    {comment.createdAt.fromNow()}
+                </Text>
+            </VStack>
             <CommentUpvoteDownvote
                 reviewId={comment.reviewId}
                 commentId={comment.id}

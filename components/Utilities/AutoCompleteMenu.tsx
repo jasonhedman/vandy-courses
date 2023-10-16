@@ -9,7 +9,7 @@ import {
 
 import {AutoComplete, AutoCompleteInput, AutoCompleteItem, AutoCompleteList} from "@choc-ui/chakra-autocomplete";
 import {FiChevronDown, FiChevronRight} from "react-icons/fi";
-import FormElement from "@/components/Home/FormComponents/FormElement";
+import FormElement from "@/components/Utilities/FormComponents/FormElement";
 
 interface Props<T> {
     label: string;

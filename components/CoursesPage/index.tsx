@@ -17,7 +17,7 @@ const Courses = () => {
 
     if (loading) {
         return (
-            <Skeleton height="100px" />
+            <Skeleton />
         )
     }
 

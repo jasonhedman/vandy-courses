@@ -27,6 +27,10 @@ const useReviews = (course: Course | null, professor: Professor | null) => {
         ...queryParams
     ));
 
+    if(error) {
+        console.error(error);
+    }
+
     return {
         reviews: reviews === undefined ? [] : reviews.filter((review) => review.id),
         loading,

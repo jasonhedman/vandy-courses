@@ -1,5 +1,5 @@
 import React from 'react';
-import FormElement from "@/components/Home/FormComponents/FormElement";
+import FormElement from "@/components/Utilities/FormComponents/FormElement";
 import {Checkbox} from "@chakra-ui/react";
 
 interface Props {

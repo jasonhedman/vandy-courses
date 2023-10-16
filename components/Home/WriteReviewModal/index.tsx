@@ -12,11 +12,11 @@ import {
     VStack
 } from '@chakra-ui/react'
 
-import CourseMenu from "@/components/Home/FormComponents/CourseMenu";
-import ProfessorMenu from "@/components/Home/FormComponents/ProfessorMenu";
-import TextInput from "@/components/Home/FormComponents/TextInput";
-import SliderInput from "@/components/Home/FormComponents/SliderInput";
-import TextareaInput from "@/components/Home/FormComponents/TextareaInput";
+import CourseMenu from "@/components/Utilities/FormComponents/CourseMenu";
+import ProfessorMenu from "@/components/Utilities/FormComponents/ProfessorMenu";
+import TextInput from "@/components/Utilities/FormComponents/TextInput";
+import SliderInput from "@/components/Utilities/FormComponents/SliderInput";
+import TextareaInput from "@/components/Utilities/FormComponents/TextareaInput";
 
 import useCreateReview from "@/hooks/mutators/useCreateReview";
 

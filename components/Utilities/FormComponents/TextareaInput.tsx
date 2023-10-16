@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 
 import { Textarea } from "@chakra-ui/react";
 
-import FormElement from "@/components/Home/FormComponents/FormElement";
+import FormElement from "@/components/Utilities/FormComponents/FormElement";
 
 interface Props {
     label: string,

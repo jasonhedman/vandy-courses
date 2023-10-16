@@ -1,10 +1,9 @@
 import React from 'react';
 
-import {Container, Flex} from "@chakra-ui/react";
+import {Container, Flex, Skeleton} from "@chakra-ui/react";
 
 import Navbar from "@/components/Navbar";
 import useAuth from "@/hooks/auth/useAuth";
-import LoadingIndicator from "@/components/Utilities/LoadingIndicator";
 import NotConnected from "@/components/Layout/NotConnected";
 
 interface Props {
@@ -29,7 +28,7 @@ const Layout: React.FC<Props> = ({ children, authGate }) => {
                 {
                     authGate ? (
                         loading ? (
-                            <LoadingIndicator />
+                            <Skeleton />
                         ) : (
                             isConnected ? (
                                 children

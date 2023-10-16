@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, VStack} from "@chakra-ui/react";
+import {Card, Text, VStack} from "@chakra-ui/react";
 
 import Review from "@/components/Home/Reviews/Review";
 
@@ -34,17 +34,19 @@ const Reviews: React.FC<Props> = ({ reviews }) => {
             >
                 {
                     reviews.length > 0 ? (
-                        reviews.map((review, index) => (
+                        reviews.map((review) => (
                             <Review
-                                key={index}
+                                key={review.id}
                                 review={review}
                                 onClick={() => openModal(review)}
                             />
                         ))
                     ) : (
-                        <Text>
-                            No Reviews!
-                        </Text>
+                        <Card>
+                            <Text>
+                                No Reviews!
+                            </Text>
+                        </Card>
                     )
                 }
             </VStack>

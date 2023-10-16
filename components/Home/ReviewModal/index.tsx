@@ -14,6 +14,8 @@ import ReviewBadges from "@/components/Home/Reviews/ReviewBadges";
 import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
 import {MAXIMUM_RATING} from "@/data/reviewConstants";
 import UpvoteDownvote from "@/components/Home/Reviews/UpvoteDownvote";
+import Comments from "@/components/Home/Comments";
+import WriteComment from "@/components/Home/Comments/WriteComment";
 
 interface Props {
     isOpen: boolean,
@@ -63,7 +65,6 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, review }) => {
                                 score={review.score}
                             />
                         </HStack>
-
                         <Divider />
                         <Heading
                             size={'md'}
@@ -113,8 +114,19 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, review }) => {
                                 label={"Sleep Score"}
                                 color={"teal.500"}
                             />
-
                         </SimpleGrid>
+                        <Divider />
+                        <Heading
+                            size={'md'}
+                            fontWeight={'bold'}
+                            mb={0}
+                        >
+                            Comments
+                        </Heading>
+                        <WriteComment reviewId={review.id} />
+                        <Comments
+                            reviewId={review.id}
+                        />
                     </VStack>
                 </ModalBody>
                 <ModalFooter />

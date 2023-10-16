@@ -19,6 +19,7 @@ const Course: React.FC<Props> = ({ course, onClick }) => {
         >
             <VStack
                 align={'start'}
+                h={'100%'}
             >
                 <CourseBadges
                     course={course}
@@ -34,6 +35,7 @@ const Course: React.FC<Props> = ({ course, onClick }) => {
                 <Text
                     fontSize={'sm'}
                     fontWeight={'semibold'}
+                    mt={'auto'}
                 >
                     {course.numReviews} Review{course.numReviews === 1 ? "" : "s"}
                 </Text>

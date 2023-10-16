@@ -1,6 +1,8 @@
 import React from 'react';
 
-import {Text, useColorModeValue, VStack} from "@chakra-ui/react";
+import {Text, useColorModeValue, HStack} from "@chakra-ui/react";
+
+import CommentUpvoteDownvote from "@/components/Home/Comments/CommentUpvoteDownvote";
 
 import { Comment as CommentType } from "@/types/Comment";
 
@@ -13,18 +15,25 @@ const Comment: React.FC<Props> = ({ comment }) => {
     const borderColor = useColorModeValue('blackAlpha.400', 'whietAlpha.400')
 
     return (
-        <VStack
+        <HStack
             w={'100%'}
-            align={'start'}
             borderWidth={0.5}
             borderColor={borderColor}
             rounded={'md'}
             p={2}
+            justifyContent={'space-between'}
         >
-            <Text>
+            <Text
+                flex={1}
+            >
                 {comment.content}
             </Text>
-        </VStack>
+            <CommentUpvoteDownvote
+                reviewId={comment.reviewId}
+                commentId={comment.id}
+                score={comment.score}
+            />
+        </HStack>
     );
 };
 

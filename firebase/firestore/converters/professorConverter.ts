@@ -9,6 +9,7 @@ import {
 
 import firestore from "@/firebase/firestore";
 import {Professor} from "@/types/Professor";
+import {PROFESSORS_COLLECTION} from "@/firebase/firestore/collections";
 
 const professorConverter: FirestoreDataConverter<Professor> = {
     toFirestore(course: WithFieldValue<Professor>): DocumentData {
@@ -26,6 +27,6 @@ const professorConverter: FirestoreDataConverter<Professor> = {
     },
 };
 
-const professorsCollection = collection(firestore, 'professors').withConverter(professorConverter);
+const professorsCollection = collection(firestore, PROFESSORS_COLLECTION).withConverter(professorConverter);
 
 export default professorsCollection;

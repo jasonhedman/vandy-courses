@@ -1,6 +1,5 @@
 export interface VoteInput {
     userId: string;
-    reviewId: string;
     voteStatus: VoteStatus;
 }
 

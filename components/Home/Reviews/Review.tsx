@@ -3,7 +3,7 @@ import React from 'react';
 import {Flex, Heading, HStack, Text, VStack} from "@chakra-ui/react";
 
 import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
-import UpvoteDownvote from "@/components/Home/Reviews/UpvoteDownvote";
+import ReviewUpvoteDownvote from "@/components/Home/Reviews/ReviewUpvoteDownvote";
 import ClickableCard from "@/components/Utilities/ClickableCard";
 import ReviewBadges from "@/components/Home/Reviews/ReviewBadges";
 
@@ -59,7 +59,7 @@ const Review: React.FC<Props> = ({ review, onClick }) => {
                         color={"green.500"}
                         size={"75px"}
                     />
-                    <UpvoteDownvote
+                    <ReviewUpvoteDownvote
                         reviewId={review.id}
                         score={review.score}
                     />

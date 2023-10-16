@@ -13,7 +13,7 @@ import {Review} from "@/types/Review";
 import ReviewBadges from "@/components/Home/Reviews/ReviewBadges";
 import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
 import {MAXIMUM_RATING} from "@/data/reviewConstants";
-import UpvoteDownvote from "@/components/Home/Reviews/UpvoteDownvote";
+import ReviewUpvoteDownvote from "@/components/Home/Reviews/ReviewUpvoteDownvote";
 import Comments from "@/components/Home/Comments";
 import WriteComment from "@/components/Home/Comments/WriteComment";
 
@@ -60,7 +60,7 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, review }) => {
                                     {review.content}
                                 </Text>
                             </VStack>
-                            <UpvoteDownvote
+                            <ReviewUpvoteDownvote
                                 reviewId={review.id}
                                 score={review.score}
                             />

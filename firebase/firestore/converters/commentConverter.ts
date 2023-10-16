@@ -10,6 +10,7 @@ import {
 import firestore from "@/firebase/firestore";
 
 import {Comment} from "@/types/Comment";
+import {COMMENTS_COLLECTION, REVIEWS_COLLECTION} from "@/firebase/firestore/collections";
 
 const commentConverter: FirestoreDataConverter<Comment> = {
     toFirestore(review: WithFieldValue<Comment>): DocumentData {
@@ -37,7 +38,7 @@ const commentConverter: FirestoreDataConverter<Comment> = {
     },
 };
 
-const commentsCollection = (reviewId: string) => collection(firestore, 'reviews', reviewId, 'comments')
+const commentsCollection = (reviewId: string) => collection(firestore, REVIEWS_COLLECTION, reviewId, COMMENTS_COLLECTION)
     .withConverter(commentConverter);
 
 export default commentsCollection;

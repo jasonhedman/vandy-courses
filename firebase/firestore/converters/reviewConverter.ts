@@ -11,6 +11,7 @@ import firestore from "@/firebase/firestore";
 
 import {Review} from "@/types/Review";
 import {Professor} from "@/types/Professor";
+import {REVIEWS_COLLECTION} from "@/firebase/firestore/collections";
 
 const reviewConverter: FirestoreDataConverter<Review> = {
     toFirestore(review: WithFieldValue<Review>): DocumentData {
@@ -65,6 +66,6 @@ const reviewConverter: FirestoreDataConverter<Review> = {
     },
 };
 
-const reviewsCollection = collection(firestore, 'reviews').withConverter(reviewConverter);
+const reviewsCollection = collection(firestore, REVIEWS_COLLECTION).withConverter(reviewConverter);
 
 export default reviewsCollection;

@@ -31,7 +31,9 @@ const HomePage = () => {
             />
             {
                 loading ? (
-                    <Skeleton />
+                    <Skeleton
+                        w={'100%'}
+                    />
                 ) : (
                     <Reviews
                         reviews={reviews}

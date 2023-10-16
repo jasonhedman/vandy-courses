@@ -12,9 +12,6 @@ const useLogin = () => {
 
     const onSignIn = async () => {
         await signInWithPopup(auth, provider)
-            .catch((error) => {
-                console.log(error)
-            })
     }
 
     return {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Text, VStack} from "@chakra-ui/react";
+import {Card, Text, VStack} from "@chakra-ui/react";
 
 import Review from "@/components/Home/Reviews/Review";
 
@@ -14,16 +14,16 @@ interface Props {
 
 const Reviews: React.FC<Props> = ({ reviews }) => {
 
-    const { review, onClose, isOpen, openModal } = useReviewModal();
+    const { reviewId, onClose, isOpen, openModal } = useReviewModal();
 
     return (
         <>
             {
-                review && (
+                reviewId && (
                     <ReviewModal
                         isOpen={isOpen}
                         onClose={onClose}
-                        review={review}
+                        reviewId={reviewId}
                     />
                 )
             }
@@ -34,17 +34,19 @@ const Reviews: React.FC<Props> = ({ reviews }) => {
             >
                 {
                     reviews.length > 0 ? (
-                        reviews.map((review, index) => (
+                        reviews.map((review) => (
                             <Review
-                                key={index}
+                                key={review.id}
                                 review={review}
-                                onClick={() => openModal(review)}
+                                onClick={() => openModal(review.id)}
                             />
                         ))
                     ) : (
-                        <Text>
-                            No Reviews!
-                        </Text>
+                        <Card>
+                            <Text>
+                                No Reviews!
+                            </Text>
+                        </Card>
                     )
                 }
             </VStack>

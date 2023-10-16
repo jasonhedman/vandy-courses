@@ -16,7 +16,7 @@ interface Props {
     setProfessor: (professor: Professor | null) => void,
 }
 
-const ExploreHeader: React.FC<Props> = ({ setCourse, setProfessor }) => {
+const ExploreHeader: React.FC<Props> = ({ course, setCourse, professor, setProfessor }) => {
     return (
         <Card>
             <Flex
@@ -25,10 +25,14 @@ const ExploreHeader: React.FC<Props> = ({ setCourse, setProfessor }) => {
                 gap={4}
             >
                 <CourseMenu
+                    course={course}
                     setCourse={setCourse}
+                    closeButton
                 />
                 <ProfessorMenu
+                    professor={professor}
                     setProfessor={setProfessor}
+                    closeButton
                 />
                 <WriteReviewButton />
             </Flex>

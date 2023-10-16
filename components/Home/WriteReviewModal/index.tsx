@@ -14,12 +14,14 @@ import {
 
 import CourseMenu from "@/components/Home/FormComponents/CourseMenu";
 import ProfessorMenu from "@/components/Home/FormComponents/ProfessorMenu";
+import TextInput from "@/components/Home/FormComponents/TextInput";
+import SliderInput from "@/components/Home/FormComponents/SliderInput";
+import TextareaInput from "@/components/Home/FormComponents/TextareaInput";
 
 import useCreateReview from "@/hooks/mutators/useCreateReview";
-import TextInput from "@/components/Home/FormComponents/TextInput";
-import CheckboxInput from "@/components/Home/FormComponents/CheckboxInput";
-import SliderInput from "@/components/Home/FormComponents/SliderInput";
-import {MAXIMUM_RATING} from "@/data/reviewConstants";
+
+import {MAXIMUM_RATING, MINIMUM_RATING} from "@/data/reviewConstants";
+
 
 interface Props {
     isOpen: boolean,
@@ -29,6 +31,11 @@ interface Props {
 const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
     const { touched, errors, values, handleSubmit, setFieldValue, setFieldTouched, disabled } = useCreateReview();
+
+    const onSubmit = async () => {
+        await handleSubmit();
+        onClose();
+    }
 
     return (
         <Modal
@@ -74,17 +81,62 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             onBlur={() => setFieldTouched("title", true)}
                             error={touched.title ? errors.title : undefined}
                         />
+                        <TextareaInput
+                            label={"Content"}
+                            placeholder={"Write your review content here"}
+                            value={values.content}
+                            onChange={(value) => setFieldValue('content', value)}
+                            onBlur={() => setFieldTouched("content", true)}
+                            error={touched.content ? errors.content : undefined}
+                        />
                         <SliderInput
                             label={"Difficulty"}
                             value={values.difficulty}
                             onChange={(value) => setFieldValue('difficulty', value)}
-                            min={1}
+                            min={MINIMUM_RATING}
                             max={MAXIMUM_RATING}
                         />
-                        <CheckboxInput
-                            label={"Take Home Exams"}
-                            value={values.takeHomeExams}
-                            onChange={(value) => setFieldValue('takeHomeExams', value)}
+                        <SliderInput
+                            label={"Rating"}
+                            value={values.rating}
+                            onChange={(value) => setFieldValue('rating', value)}
+                            min={MINIMUM_RATING}
+                            max={MAXIMUM_RATING}
+                        />
+                        <SliderInput
+                            label={"Skippability"}
+                            value={values.skippability}
+                            onChange={(value) => setFieldValue('skippability', value)}
+                            min={MINIMUM_RATING}
+                            max={MAXIMUM_RATING}
+                        />
+                        <SliderInput
+                            label={"Sleepy Score"}
+                            value={values.sleepScore}
+                            onChange={(value) => setFieldValue('sleepScore', value)}
+                            min={MINIMUM_RATING}
+                            max={MAXIMUM_RATING}
+                        />
+                        <SliderInput
+                            label={"Effort for an A"}
+                            value={values.effortForA}
+                            onChange={(value) => setFieldValue('effortForA', value)}
+                            min={MINIMUM_RATING}
+                            max={MAXIMUM_RATING}
+                        />
+                        <SliderInput
+                            label={"How useful is ChatGPT?"}
+                            value={values.chatGptability}
+                            onChange={(value) => setFieldValue('chatGptability', value)}
+                            min={MINIMUM_RATING}
+                            max={MAXIMUM_RATING}
+                        />
+                        <SliderInput
+                            label={"Professor Chill Index"}
+                            value={values.profChillScore}
+                            onChange={(value) => setFieldValue('profChillScore', value)}
+                            min={MINIMUM_RATING}
+                            max={MAXIMUM_RATING}
                         />
 
                     </VStack>
@@ -101,7 +153,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     <Button
                         variant='solid'
                         colorScheme='brand'
-                        onClick={() => handleSubmit()}
+                        onClick={onSubmit}
                         isDisabled={disabled}
                     >
                         Submit

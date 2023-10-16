@@ -16,7 +16,7 @@ const useReviews = (course: Course | null, professor: Professor | null) => {
     ));
 
     return {
-        reviews: reviews || [],
+        reviews: reviews === undefined ? [] : reviews.filter((review) => review.id),
         loading,
         error
     }

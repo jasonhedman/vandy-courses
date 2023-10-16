@@ -26,7 +26,7 @@ const Review: React.FC<Props> = ({ review }) => {
                         <Badge
                             colorScheme={'green'}
                         >
-                            {review.courseId}
+                            {review.courseId.replace("_", " ")}
                         </Badge>
                         <Badge
                             colorScheme={'blue'}

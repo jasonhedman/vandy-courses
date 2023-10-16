@@ -9,7 +9,7 @@ import {ReviewInput} from "@/types/Review";
 import * as Yup from 'yup';
 import {ObjectSchema} from "yup";
 
-import {MAXIMUM_RATING, MINIMUM_RATING} from "@/data/reviewConstants";
+import {AVERAGE_RATING, MAXIMUM_RATING, MINIMUM_RATING} from "@/data/reviewConstants";
 
 const ReviewSchema: ObjectSchema<ReviewInput> = Yup.object().shape({
     courseId: Yup.string()
@@ -82,14 +82,14 @@ const useCreateReview = () => {
             userId: user?.uid || "",
             title: "",
             content: "",
-            rating: MINIMUM_RATING,
-            difficulty: MINIMUM_RATING,
-            skippability: MINIMUM_RATING,
+            rating: AVERAGE_RATING,
+            difficulty: AVERAGE_RATING,
+            skippability: AVERAGE_RATING,
             takeHomeExams: false,
-            sleepScore: MINIMUM_RATING,
-            effortForA: MINIMUM_RATING,
-            chatGptability: MINIMUM_RATING,
-            profChillScore: MINIMUM_RATING,
+            sleepScore: AVERAGE_RATING,
+            effortForA: AVERAGE_RATING,
+            chatGptability: AVERAGE_RATING,
+            profChillScore: AVERAGE_RATING,
         },
         validationSchema: ReviewSchema,
         onSubmit: async values => {

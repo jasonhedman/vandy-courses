@@ -12,7 +12,6 @@ const useVoteReview = (reviewId: string) => {
 
     const { votes, loading } = useVotes(user?.uid || "", reviewId);
 
-
     const onUpvote = async () => {
         if(loading || !user) return;
         if(votes?.length)

@@ -1,16 +1,16 @@
 import useAuth from "@/hooks/auth/useAuth";
-import useReviewVotes from "@/hooks/queries/useReviewVotes";
+import useCommentVotes from "@/hooks/queries/useCommentVotes";
 
-import {voteReview} from "@/services/reviews";
-import {addReviewVote, updateReviewVote} from "@/services/reviewVotes";
+import {voteComment} from "@/services/comment";
+import {addCommentVote, updateCommentVote} from "@/services/commentVotes";
 
 import {VoteStatus} from "@/types/Vote";
 
-const useVoteReview = (reviewId: string) => {
+const useVoteComment = (reviewId: string, commentId: string) => {
 
     const { user } = useAuth();
 
-    const { votes, loading } = useReviewVotes(user?.uid || "", reviewId);
+    const { votes, loading } = useCommentVotes(user?.uid || "", reviewId, commentId);
 
     const onUpvote = async () => {
         if(loading || !user) return;
@@ -20,14 +20,14 @@ const useVoteReview = (reviewId: string) => {
             if(voteStatus != VoteStatus.UPVOTED)
             {
                 await Promise.all([
-                    voteReview(reviewId, voteStatus == VoteStatus.DOWNVOTED ? 2 : 1),
-                    updateReviewVote(reviewId, votes[0].id, VoteStatus.UPVOTED)
+                    voteComment(reviewId, commentId, voteStatus == VoteStatus.DOWNVOTED ? 2 : 1),
+                    updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.UPVOTED)
                 ])
             }
         } else {
             await Promise.all([
-                await voteReview(reviewId, 1),
-                await addReviewVote(reviewId, {
+                await voteComment(reviewId, commentId, 1),
+                await addCommentVote(reviewId, commentId,{
                     userId: user.uid || "",
                     voteStatus: VoteStatus.UPVOTED,
                 })
@@ -43,14 +43,14 @@ const useVoteReview = (reviewId: string) => {
             if(voteStatus != VoteStatus.DOWNVOTED)
             {
                 await Promise.all([
-                    voteReview(reviewId, voteStatus == VoteStatus.UPVOTED ? -2 : -1),
-                    updateReviewVote(reviewId, votes[0].id, VoteStatus.DOWNVOTED)
+                    voteComment(reviewId, commentId,voteStatus == VoteStatus.UPVOTED ? -2 : -1),
+                    updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.DOWNVOTED)
                 ])
             }
         } else {
             await Promise.all([
-                await voteReview(reviewId, -1),
-                await addReviewVote(reviewId, {
+                await voteComment(reviewId, commentId,-1),
+                await addCommentVote(reviewId, commentId,{
                     userId: user.uid || "",
                     voteStatus: VoteStatus.DOWNVOTED,
                 })
@@ -67,4 +67,4 @@ const useVoteReview = (reviewId: string) => {
 
 }
 
-export default useVoteReview;
+export default useVoteComment;

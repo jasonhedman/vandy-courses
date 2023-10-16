@@ -1,30 +1,35 @@
-import React, {ChangeEvent} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 
 import {
     Icon,
     InputGroup,
     InputRightElement,
-    useColorModeValue
+    HStack,
+    useColorModeValue, IconButton
 } from "@chakra-ui/react";
 
 import {AutoComplete, AutoCompleteInput, AutoCompleteItem, AutoCompleteList} from "@choc-ui/chakra-autocomplete";
-import {FiChevronDown, FiChevronRight} from "react-icons/fi";
-import FormElement from "@/components/Home/FormComponents/FormElement";
+import {FiChevronDown, FiChevronRight, FiX} from "react-icons/fi";
+import FormElement from "@/components/Utilities/FormComponents/FormElement";
 
 interface Props<T> {
     label: string;
+    value: T | null;
     optionLabels: string[];
     options: T[];
     onSelect: (value: T | null) => void;
     onBlur?: () => void;
     error?: string;
     placeholder?: string;
+    closeButton?: boolean;
 }
 
-const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, error, placeholder }: Props<T>) => {
+const AutoCompleteMenu = <T,>({ label, value, optionLabels, options, onSelect, onBlur, error, placeholder, closeButton }: Props<T>) => {
 
     const menuBackground = useColorModeValue('white', '#2D2D2D');
     const menuBorderColor = useColorModeValue("gray.200", "whiteAlpha.300");
+
+    const [inputValue, setInputValue] = useState("");
 
     return (
         <FormElement
@@ -36,10 +41,11 @@ const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, 
                 restoreOnBlurIfEmpty={false}
             >
                 {({ isOpen }: { isOpen: boolean }) => (
-                    <>
+                    <HStack>
                         <InputGroup>
                             <AutoCompleteInput
                                 variant="outline"
+                                value={inputValue}
                                 placeholder={placeholder}
                                 focusBorderColor="brand.500"
                                 onBlur={onBlur}
@@ -47,6 +53,7 @@ const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, 
                                     if (e.target.value === "") {
                                         onSelect(null);
                                     }
+                                    setInputValue(e.target.value);
                                 }}
                             />
                             <InputRightElement>
@@ -65,14 +72,30 @@ const AutoCompleteMenu = <T,>({ label, optionLabels, options, onSelect, onBlur, 
                                     value={optionLabels[id]}
                                     textTransform="capitalize"
                                     m={0}
-                                    onClick={() => onSelect(option)}
+                                    onClick={() => {
+                                        setInputValue(optionLabels[id]);
+                                        onSelect(option)
+                                    }}
 
                                 >
                                     {optionLabels[id]}
                                 </AutoCompleteItem>
                             ))}
                         </AutoCompleteList>
-                    </>
+                        {
+                            (closeButton && value != null) && (
+                                <IconButton
+                                    aria-label={'clear'}
+                                    icon={<Icon as={FiX} />}
+                                    onClick={() => {
+                                        onSelect(null);
+                                        setInputValue("");
+                                    }}
+                                />
+                            )
+                        }
+
+                    </HStack>
                 )}
             </AutoComplete>
         </FormElement>

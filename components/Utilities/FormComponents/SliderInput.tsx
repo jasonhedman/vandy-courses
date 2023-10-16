@@ -2,7 +2,7 @@ import React from 'react';
 
 import {HStack, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text} from "@chakra-ui/react";
 
-import FormElement from "@/components/Home/FormComponents/FormElement";
+import FormElement from "@/components/Utilities/FormComponents/FormElement";
 
 interface Props {
     label: string,

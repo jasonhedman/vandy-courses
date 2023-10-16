@@ -1,4 +1,5 @@
 import {Review} from "@/types/Review";
+import moment from "moment";
 
 const dummyReviews: Review[] = [
     {
@@ -20,7 +21,7 @@ const dummyReviews: Review[] = [
         title: "My favorite class with my favorite professor",
         content: "Algorithms is a very useful class for technical interviews. Dan Arena makes the class engaging and fun",
         score: 8,
-        createdAt: new Date()
+        createdAt: moment()
     },
     {
         id: "2",
@@ -41,7 +42,7 @@ const dummyReviews: Review[] = [
         title: "Great class, but not my favorite professor",
         content: "Algorithms is a very useful class for technical interviews. Julie Johnson is a good professor, but I wish I had Dan Arena instead",
         score: 6,
-        createdAt: new Date()
+        createdAt: moment()
     }
 ];
 

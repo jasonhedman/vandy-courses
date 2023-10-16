@@ -10,12 +10,12 @@ import {
 import firestore from "@/firebase/firestore";
 
 import {Vote} from "@/types/Vote";
+import {COMMENTS_COLLECTION, REVIEWS_COLLECTION, VOTES_COLLECTION} from "@/firebase/firestore/collections";
 
 const voteConverter: FirestoreDataConverter<Vote> = {
     toFirestore(review: WithFieldValue<Vote>): DocumentData {
         return {
             id: review.id,
-            reviewId: review.reviewId,
             userId: review.userId,
             voteStatus: review.voteStatus
         };
@@ -27,13 +27,17 @@ const voteConverter: FirestoreDataConverter<Vote> = {
         const data = snapshot.data(options);
         return {
             id: data.id,
-            reviewId: data.reviewId,
             userId: data.userId,
             voteStatus: data.voteStatus
         };
     },
 };
 
-const votesCollection = collection(firestore, 'votes').withConverter(voteConverter);
+export const reviewVotesCollection = (
+    reviewId: string
+) => collection(firestore, REVIEWS_COLLECTION, reviewId, VOTES_COLLECTION).withConverter(voteConverter);
 
-export default votesCollection;
+export const commentVotesCollection = (
+    reviewId: string,
+    commentId: string
+) => collection(firestore, REVIEWS_COLLECTION, reviewId, COMMENTS_COLLECTION, commentId, VOTES_COLLECTION).withConverter(voteConverter);

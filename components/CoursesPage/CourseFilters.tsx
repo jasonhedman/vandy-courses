@@ -2,14 +2,14 @@ import React from 'react';
 
 import {Card, Flex} from "@chakra-ui/react";
 
-import DepartmentMenu from "@/components/Home/FormComponents/DepartmentMenu";
+import DepartmentMenu from "@/components/Utilities/FormComponents/DepartmentMenu";
 
 interface Props {
     department: string | null,
     setDepartment: (course: string | null) => void,
 }
 
-const CourseFilters: React.FC<Props> = ({ setDepartment }) => {
+const CourseFilters: React.FC<Props> = ({ department, setDepartment }) => {
     return (
         <Card>
             <Flex
@@ -18,6 +18,7 @@ const CourseFilters: React.FC<Props> = ({ setDepartment }) => {
                 gap={4}
             >
                 <DepartmentMenu
+                    department={department}
                     setDepartment={setDepartment}
                 />
             </Flex>

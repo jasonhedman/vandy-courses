@@ -3,8 +3,8 @@ import React from 'react';
 import {Card, Flex} from "@chakra-ui/react";
 
 import WriteReviewButton from "@/components/Home/ExploreHeader/WriteReviewButton";
-import ProfessorMenu from "@/components/Home/FormComponents/ProfessorMenu";
-import CourseMenu from "@/components/Home/FormComponents/CourseMenu";
+import ProfessorMenu from "@/components/Utilities/FormComponents/ProfessorMenu";
+import CourseMenu from "@/components/Utilities/FormComponents/CourseMenu";
 
 import {Course} from "@/types/Course";
 import {Professor} from "@/types/Professor";
@@ -16,7 +16,7 @@ interface Props {
     setProfessor: (professor: Professor | null) => void,
 }
 
-const ExploreHeader: React.FC<Props> = ({ setCourse, setProfessor }) => {
+const ExploreHeader: React.FC<Props> = ({ course, setCourse, professor, setProfessor }) => {
     return (
         <Card>
             <Flex
@@ -25,10 +25,14 @@ const ExploreHeader: React.FC<Props> = ({ setCourse, setProfessor }) => {
                 gap={4}
             >
                 <CourseMenu
+                    course={course}
                     setCourse={setCourse}
+                    closeButton
                 />
                 <ProfessorMenu
+                    professor={professor}
                     setProfessor={setProfessor}
+                    closeButton
                 />
                 <WriteReviewButton />
             </Flex>

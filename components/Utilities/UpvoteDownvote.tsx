@@ -1,26 +1,29 @@
 import React, {MouseEventHandler} from 'react';
+
 import {IconProps, Text, VStack} from "@chakra-ui/react";
 import {ChevronDownIcon, ChevronUpIcon} from "@chakra-ui/icons";
-import useVoteReview from "@/hooks/mutators/useVoteReview";
+
 import {VoteStatus} from "@/types/Vote";
 
 interface Props {
-    reviewId: string,
-    score: number
+    onUpvote: () => Promise<void>,
+    onDownvote: () => Promise<void>,
+    voteStatus: VoteStatus,
+    score: number,
+    iconSize?: string,
+    scoreSize?: string
 }
 
-const iconStyles: IconProps = {
-    boxSize: '2rem',
-    _hover: {
-        cursor: 'pointer',
-        opacity: 0.5
-    },
-    transition: 'all 0.2s ease-in-out'
-}
+const UpvoteDownvote: React.FC<Props> = ({ onUpvote, onDownvote, voteStatus, score, iconSize = "2rem", scoreSize }) => {
 
-const UpvoteDownvote: React.FC<Props> = ({ reviewId, score }) => {
-
-    const { onUpvote, onDownvote, voteStatus } = useVoteReview(reviewId);
+    const iconStyles: IconProps = {
+        boxSize: iconSize,
+        _hover: {
+            cursor: 'pointer',
+            opacity: 0.5
+        },
+        transition: 'all 0.2s ease-in-out'
+    }
 
     const handleUpvote: MouseEventHandler<SVGElement> = async (e) => {
         e.preventDefault();
@@ -45,6 +48,7 @@ const UpvoteDownvote: React.FC<Props> = ({ reviewId, score }) => {
             />
             <Text
                 fontWeight={'bold'}
+                fontSize={scoreSize}
             >
                 {score}
             </Text>

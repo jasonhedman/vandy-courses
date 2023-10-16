@@ -1,5 +1,5 @@
 import {
-    collection,
+    collection, doc,
     DocumentData,
     FirestoreDataConverter,
     QueryDocumentSnapshot,
@@ -11,6 +11,8 @@ import firestore from "@/firebase/firestore";
 
 import {Review} from "@/types/Review";
 import {Professor} from "@/types/Professor";
+import {REVIEWS_COLLECTION} from "@/firebase/firestore/collections";
+import moment from "moment";
 
 const reviewConverter: FirestoreDataConverter<Review> = {
     toFirestore(review: WithFieldValue<Review>): DocumentData {
@@ -60,11 +62,11 @@ const reviewConverter: FirestoreDataConverter<Review> = {
             chatGptability: data.chatGptability,
             profChillScore: data.profChillScore,
             score: data.score,
-            createdAt: data.createdAt.toDate()
+            createdAt: moment.unix(data.createdAt.seconds)
         };
     },
 };
 
-const reviewsCollection = collection(firestore, 'reviews').withConverter(reviewConverter);
+export const reviewsCollection = collection(firestore, REVIEWS_COLLECTION).withConverter(reviewConverter);
 
-export default reviewsCollection;
+export const reviewDocument = (reviewId: string) => doc(firestore, REVIEWS_COLLECTION, reviewId).withConverter(reviewConverter);

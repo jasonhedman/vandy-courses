@@ -12,11 +12,11 @@ import {
     VStack
 } from '@chakra-ui/react'
 
-import CourseMenu from "@/components/Home/FormComponents/CourseMenu";
-import ProfessorMenu from "@/components/Home/FormComponents/ProfessorMenu";
-import TextInput from "@/components/Home/FormComponents/TextInput";
-import SliderInput from "@/components/Home/FormComponents/SliderInput";
-import TextareaInput from "@/components/Home/FormComponents/TextareaInput";
+import CourseMenu from "@/components/Utilities/FormComponents/CourseMenu";
+import ProfessorMenu from "@/components/Utilities/FormComponents/ProfessorMenu";
+import TextInput from "@/components/Utilities/FormComponents/TextInput";
+import SliderInput from "@/components/Utilities/FormComponents/SliderInput";
+import TextareaInput from "@/components/Utilities/FormComponents/TextareaInput";
 
 import useCreateReview from "@/hooks/mutators/useCreateReview";
 
@@ -52,6 +52,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                         spacing={4}
                     >
                         <CourseMenu
+                            course={null}
                             setCourse={(course) => {
                                 setFieldValue('courseId', course?.id || "")
                             }}
@@ -59,6 +60,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             error={touched.courseId ? errors.courseId : undefined}
                         />
                         <ProfessorMenu
+                            professor={null}
                             setProfessor={(professor) => {
                                 if(professor === null) {
                                     setFieldValue('professor.id', "");

@@ -52,6 +52,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                         spacing={4}
                     >
                         <CourseMenu
+                            course={null}
                             setCourse={(course) => {
                                 setFieldValue('courseId', course?.id || "")
                             }}
@@ -59,6 +60,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             error={touched.courseId ? errors.courseId : undefined}
                         />
                         <ProfessorMenu
+                            professor={null}
                             setProfessor={(professor) => {
                                 if(professor === null) {
                                     setFieldValue('professor.id', "");

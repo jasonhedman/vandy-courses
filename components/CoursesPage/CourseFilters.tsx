@@ -9,7 +9,7 @@ interface Props {
     setDepartment: (course: string | null) => void,
 }
 
-const CourseFilters: React.FC<Props> = ({ setDepartment }) => {
+const CourseFilters: React.FC<Props> = ({ department, setDepartment }) => {
     return (
         <Card>
             <Flex
@@ -18,6 +18,7 @@ const CourseFilters: React.FC<Props> = ({ setDepartment }) => {
                 gap={4}
             >
                 <DepartmentMenu
+                    department={department}
                     setDepartment={setDepartment}
                 />
             </Flex>

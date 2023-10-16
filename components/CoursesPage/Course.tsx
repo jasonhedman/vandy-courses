@@ -1,24 +1,28 @@
 import React from 'react';
 
+import {Heading, Text, VStack} from "@chakra-ui/react";
+
+import CourseBadges from "@/components/CoursesPage/CourseBadges";
+import ClickableCard from "@/components/Utilities/ClickableCard";
+
 import { Course as CourseType } from "@/types/Course";
-import {Badge, Card, Heading, Text, VStack} from "@chakra-ui/react";
 
 interface Props {
     course: CourseType
+    onClick: () => void
 }
 
-const Course: React.FC<Props> = ({ course }) => {
+const Course: React.FC<Props> = ({ course, onClick }) => {
     return (
-        <Card>
+        <ClickableCard
+            onClick={onClick}
+        >
             <VStack
                 align={'start'}
             >
-                <Badge
-                    size={'lg'}
-                    colorScheme={'brand'}
-                >
-                    {course.id.replace("_", " ").toUpperCase().slice(0, 15)}{course.id.length > 15 ? "..." : ""}
-                </Badge>
+                <CourseBadges
+                    course={course}
+                />
                 <Heading
                     size="sm"
                 >
@@ -31,10 +35,10 @@ const Course: React.FC<Props> = ({ course }) => {
                     fontSize={'sm'}
                     fontWeight={'semibold'}
                 >
-                    {course.numReviews} Reviews
+                    {course.numReviews} Review{course.numReviews === 1 ? "" : "s"}
                 </Text>
             </VStack>
-        </Card>
+        </ClickableCard>
     );
 };
 

@@ -1,18 +1,26 @@
 import React from 'react';
 
-import { Review as ReviewType } from '@/types/Review';
-import {Badge, Card, Flex, Heading, HStack, Text, VStack} from "@chakra-ui/react";
+import {Flex, Heading, HStack, Text, VStack} from "@chakra-ui/react";
+
 import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
 import UpvoteDownvote from "@/components/Home/Reviews/UpvoteDownvote";
+import ClickableCard from "@/components/Utilities/ClickableCard";
+import ReviewBadges from "@/components/Home/Reviews/ReviewBadges";
+
 import {MAXIMUM_RATING} from "@/data/reviewConstants";
 
+import { Review as ReviewType } from '@/types/Review';
+
 interface Props {
-    review: ReviewType
+    review: ReviewType,
+    onClick: () => void
 }
 
-const Review: React.FC<Props> = ({ review }) => {
+const Review: React.FC<Props> = ({ review, onClick }) => {
     return (
-        <Card>
+        <ClickableCard
+            onClick={onClick}
+        >
             <Flex
                 justifyContent={'space-between'}
                 alignItems={'center'}
@@ -22,18 +30,7 @@ const Review: React.FC<Props> = ({ review }) => {
                     spacing={2}
                     flex={1}
                 >
-                    <HStack>
-                        <Badge
-                            colorScheme={'green'}
-                        >
-                            {review.courseId.replace("_", " ")}
-                        </Badge>
-                        <Badge
-                            colorScheme={'blue'}
-                        >
-                            {review.professor.name}
-                        </Badge>
-                    </HStack>
+                    <ReviewBadges review={review} />
                     <Heading
                         size={'md'}
                         fontWeight={'bold'}
@@ -68,7 +65,7 @@ const Review: React.FC<Props> = ({ review }) => {
                     />
                 </HStack>
             </Flex>
-        </Card>
+        </ClickableCard>
     );
 };
 

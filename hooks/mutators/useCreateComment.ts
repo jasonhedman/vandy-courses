@@ -11,6 +11,7 @@ import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {ObjectSchema} from "yup";
 
+// schema for validating comment input
 const CommentSchema: ObjectSchema<CommentInput> = Yup.object().shape({
     reviewId: Yup.string()
         .required('Review ID is Required')
@@ -23,9 +24,12 @@ const CommentSchema: ObjectSchema<CommentInput> = Yup.object().shape({
         .min(1, 'User ID is Required'),
 });
 
+// custom hook for creating a comment on a review
 const useCreateComment = (reviewId: string) => {
+
     const { user } = useAuth();
 
+    // handles form state and validation
     const {
         values,
         errors,
@@ -49,6 +53,7 @@ const useCreateComment = (reviewId: string) => {
         },
     });
 
+    // set the user id when the user changes
     useEffect(() => {
         if(!user) return;
         setFieldValue('userId', user?.uid || '');

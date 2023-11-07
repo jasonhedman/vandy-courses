@@ -1,4 +1,5 @@
 export interface ReportInput {
+    userId: string;
     reviewId: string;
     type: ReportType;
     description: string;

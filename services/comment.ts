@@ -20,9 +20,11 @@ export const addComment = async (commentInput: CommentInput) => {
     })
 }
 
-// increments a comment's score by a given amount
-export const voteComment = async (reviewId: string, commentId: string, amountIncrement: number) => {
+// upvotes or downvotes a review
+export const voteComment = async (reviewId: string, commentId: string, amountIncrement: number): Promise<boolean> => {
     return updateDoc(doc(firestore, REVIEWS_COLLECTION, reviewId, COMMENTS_COLLECTION, commentId), {
         score: increment(amountIncrement),
-    });
+    })
+        .then(() => true)
+        .catch(() => false)
 }

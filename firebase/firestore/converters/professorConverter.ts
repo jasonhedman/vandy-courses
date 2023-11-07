@@ -8,9 +8,11 @@ import {
 } from "@firebase/firestore";
 
 import firestore from "@/firebase/firestore";
-import {Professor} from "@/types/Professor";
 import {PROFESSORS_COLLECTION} from "@/firebase/firestore/collections";
 
+import {Professor} from "@/types/Professor";
+
+// converts a professor document to a Professor object, allowing for typed queries and strict type checking
 const professorConverter: FirestoreDataConverter<Professor> = {
     toFirestore(course: WithFieldValue<Professor>): DocumentData {
         return { id: course.id, name: course.name };
@@ -27,6 +29,7 @@ const professorConverter: FirestoreDataConverter<Professor> = {
     },
 };
 
+// collection reference for querying professors
 const professorsCollection = collection(firestore, PROFESSORS_COLLECTION).withConverter(professorConverter);
 
 export default professorsCollection;

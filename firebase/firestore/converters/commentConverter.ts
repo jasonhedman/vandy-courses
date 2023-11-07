@@ -15,6 +15,7 @@ import {COMMENTS_COLLECTION, REVIEWS_COLLECTION} from "@/firebase/firestore/coll
 
 import {Comment} from "@/types/Comment";
 
+// converts a comment document to a Comment object, allowing for typed queries and strict type checking
 const commentConverter: FirestoreDataConverter<Comment> = {
     toFirestore(review: WithFieldValue<Comment>): DocumentData {
         return {
@@ -36,11 +37,13 @@ const commentConverter: FirestoreDataConverter<Comment> = {
             userId: data.userId,
             content: data.content,
             score: data.score,
+            // timestamps are delivered as Moment.js objects to allow for easy formatting
             createdAt: moment.unix(data.createdAt.seconds),
         };
     },
 };
 
+// collection reference for querying comments on reviews
 const commentsCollection = (reviewId: string) => collection(firestore, REVIEWS_COLLECTION, reviewId, COMMENTS_COLLECTION)
     .withConverter(commentConverter);
 

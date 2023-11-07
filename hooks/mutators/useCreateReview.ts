@@ -11,6 +11,7 @@ import {ObjectSchema} from "yup";
 
 import {AVERAGE_RATING, MAXIMUM_RATING, MINIMUM_RATING} from "@/data/reviewConstants";
 
+// schema for validating review input
 const ReviewSchema: ObjectSchema<ReviewInput> = Yup.object().shape({
     courseId: Yup.string()
         .required('Course ID is Required'),
@@ -60,10 +61,12 @@ const ReviewSchema: ObjectSchema<ReviewInput> = Yup.object().shape({
 });
 
 
+// custom hook to handle the creation of reviews
 const useCreateReview = () => {
 
     const { user } = useAuth()
 
+    // formik hook to handle the form input and validation
     const {
         values,
         errors,

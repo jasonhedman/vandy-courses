@@ -20,7 +20,8 @@ const ReportSchema: ObjectSchema<ReportInput> = Yup.object().shape({
 
 
 const useCreateReport = (reviewId: string) => {
-
+    const { user } = useAuth()
+    
     const {
         values,
         errors,
@@ -31,6 +32,7 @@ const useCreateReport = (reviewId: string) => {
         handleSubmit
     } = useFormik<ReportInput>({
         initialValues: {
+            userId: user?.uid || "",
             reviewId,
             type: ReportType.INAPPROPRIATE,
             description: "",

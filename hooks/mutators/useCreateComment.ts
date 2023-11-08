@@ -11,21 +11,29 @@ import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {ObjectSchema} from "yup";
 
+import filter from "leo-profanity";
+
+// schema for validating comment input
 const CommentSchema: ObjectSchema<CommentInput> = Yup.object().shape({
     reviewId: Yup.string()
         .required('Review ID is Required')
-        .min(1, 'Review ID is Required'),
+        .min(1, 'Review ID is Required')
+        .test('profanity check', 'Profanity is not allowed', (val) => !filter.check(val)),
     content: Yup.string()
         .required('Content is Required')
-        .min(1, 'Content is Required'),
+        .min(1, 'Content is Required')
+        .test('profanity check', 'Profanity is not allowed', (val) => !filter.check(val)),
     userId: Yup.string()
         .required('User ID is Required')
         .min(1, 'User ID is Required'),
 });
 
+// custom hook for creating a comment on a review
 const useCreateComment = (reviewId: string) => {
+
     const { user } = useAuth();
 
+    // handles form state and validation
     const {
         values,
         errors,
@@ -49,6 +57,7 @@ const useCreateComment = (reviewId: string) => {
         },
     });
 
+    // set the user id when the user changes
     useEffect(() => {
         if(!user) return;
         setFieldValue('userId', user?.uid || '');

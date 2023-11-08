@@ -2,6 +2,7 @@ import {Professor} from "@/types/Professor";
 
 import {Moment} from "moment";
 
+// input for creating a review
 export interface ReviewInput {
     courseId: string;
     professor: Professor;
@@ -18,6 +19,7 @@ export interface ReviewInput {
     profChillScore: number;
 }
 
+// full review data
 export interface Review extends ReviewInput {
     id: string;
     score: number;

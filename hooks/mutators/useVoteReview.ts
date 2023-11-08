@@ -24,6 +24,12 @@ const useVoteReview = (reviewId: string) => {
                     updateReviewVote(reviewId, votes[0].id, VoteStatus.UPVOTED)
                 ])
             }
+            else {
+                await Promise.all([
+                    voteReview(reviewId, -1),
+                    updateReviewVote(reviewId, votes[0].id, VoteStatus.NONE)
+                ])
+            }
         } else {
             await Promise.all([
                 await voteReview(reviewId, 1),
@@ -45,6 +51,12 @@ const useVoteReview = (reviewId: string) => {
                 await Promise.all([
                     voteReview(reviewId, voteStatus == VoteStatus.UPVOTED ? -2 : -1),
                     updateReviewVote(reviewId, votes[0].id, VoteStatus.DOWNVOTED)
+                ])
+            }
+            else {
+                await Promise.all([
+                    voteReview(reviewId, 1),
+                    updateReviewVote(reviewId, votes[0].id, VoteStatus.NONE)
                 ])
             }
         } else {

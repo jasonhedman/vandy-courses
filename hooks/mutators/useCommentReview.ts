@@ -24,6 +24,12 @@ const useVoteComment = (reviewId: string, commentId: string) => {
                     updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.UPVOTED)
                 ])
             }
+            else {
+                await Promise.all([
+                    voteComment(reviewId, commentId, -1),
+                    updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.NONE)
+                ])
+            }
         } else {
             await Promise.all([
                 await voteComment(reviewId, commentId, 1),
@@ -45,6 +51,12 @@ const useVoteComment = (reviewId: string, commentId: string) => {
                 await Promise.all([
                     voteComment(reviewId, commentId,voteStatus == VoteStatus.UPVOTED ? -2 : -1),
                     updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.DOWNVOTED)
+                ])
+            }
+            else {
+                await Promise.all([
+                    voteComment(reviewId, commentId, 1),
+                    updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.NONE)
                 ])
             }
         } else {

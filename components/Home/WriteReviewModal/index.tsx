@@ -22,8 +22,6 @@ import useCreateReview from "@/hooks/mutators/useCreateReview";
 
 import {MAXIMUM_RATING, MINIMUM_RATING} from "@/data/reviewConstants";
 
-import filter from 'leo-profanity';
-
 interface Props {
     isOpen: boolean,
     onClose: () => void
@@ -43,6 +41,8 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
             isOpen={isOpen}
             onClose={onClose}
             variant={'outline'}
+            size={'2xl'}
+            scrollBehavior={'inside'}
         >
             <ModalOverlay />
             <ModalContent>
@@ -82,8 +82,8 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             value={values.title}
                             onChange={(value) => setFieldValue("title", value)}
                             onBlur={() => {
-                                var cleanTitle = filter.clean(values.title)
-                                setFieldValue("title", cleanTitle)
+                                // const cleanTitle = filter.clean(values.title)
+                                // setFieldValue("title", cleanTitle)
                                 setFieldTouched("title", true)
                             }}
                             error={touched.title ? errors.title : undefined}
@@ -94,8 +94,8 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             value={values.content}
                             onChange={(value) => setFieldValue("content", value)}
                             onBlur={() => {
-                                var cleanContent = filter.clean(values.content)
-                                setFieldValue("content", cleanContent)
+                                // var cleanContent = filter.clean(values.content)
+                                // setFieldValue("content", cleanContent)
                                 setFieldTouched("content", true)
                             }}
                             error={touched.content ? errors.content : undefined}

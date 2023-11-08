@@ -35,9 +35,13 @@ const useVoteComment = (reviewId: string, commentId: string) => {
                     updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.UPVOTED)
                 ])
             }
-        }
-        // if the user has not voted on the comment before
-        else {
+            else {
+                await Promise.all([
+                    voteComment(reviewId, commentId, -1),
+                    updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.NONE)
+                ])
+            }
+        } else {
             await Promise.all([
                 // increments the vote count by 1
                 await voteComment(reviewId, commentId, 1),
@@ -70,9 +74,13 @@ const useVoteComment = (reviewId: string, commentId: string) => {
                     updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.DOWNVOTED)
                 ])
             }
-        }
-        // if the user has not voted on the comment before
-        else {
+            else {
+                await Promise.all([
+                    voteComment(reviewId, commentId, 1),
+                    updateCommentVote(reviewId, commentId, votes[0].id, VoteStatus.NONE)
+                ])
+            }
+        } else {
             await Promise.all([
                 // decrements the vote count by 1
                 await voteComment(reviewId, commentId,-1),

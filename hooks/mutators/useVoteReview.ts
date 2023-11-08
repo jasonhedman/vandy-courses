@@ -31,9 +31,13 @@ const useVoteReview = (reviewId: string) => {
                     updateReviewVote(reviewId, votes[0].id, VoteStatus.UPVOTED)
                 ])
             }
-        }
-        // if the user has not voted on the review before
-        else {
+            else {
+                await Promise.all([
+                    voteReview(reviewId, -1),
+                    updateReviewVote(reviewId, votes[0].id, VoteStatus.NONE)
+                ])
+            }
+        } else {
             await Promise.all([
                 // increments the score by 1
                 await voteReview(reviewId, 1),
@@ -64,9 +68,13 @@ const useVoteReview = (reviewId: string) => {
                     updateReviewVote(reviewId, votes[0].id, VoteStatus.DOWNVOTED)
                 ])
             }
-        }
-        // if the user has not voted on the review before
-        else {
+            else {
+                await Promise.all([
+                    voteReview(reviewId, 1),
+                    updateReviewVote(reviewId, votes[0].id, VoteStatus.NONE)
+                ])
+            }
+        } else {
             await Promise.all([
                 // decrements the score by 1
                 await voteReview(reviewId, -1),

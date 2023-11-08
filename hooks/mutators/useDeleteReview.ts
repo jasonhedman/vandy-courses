@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import useAuth from "@/hooks/auth/useAuth";
 
-import { deleteReview as deleteReviewService } from "@/firebase/firestore/converters/commentConverter";
+import {deleteReview} from "@/services/reviews";
 
 const useDeleteReview = (reviewId: string) => {
     const { user } = useAuth();
@@ -15,7 +15,7 @@ const useDeleteReview = (reviewId: string) => {
         setLoading(true);
 
         try {
-            await deleteReviewService(reviewId);
+            await deleteReview(reviewId);
             setIsDeleted(true);
         } catch (error) {
             console.error("Failed to delete the review:", error);

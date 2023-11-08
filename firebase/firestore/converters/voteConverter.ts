@@ -8,10 +8,11 @@ import {
 } from "@firebase/firestore";
 
 import firestore from "@/firebase/firestore";
-
-import {Vote} from "@/types/Vote";
 import {COMMENTS_COLLECTION, REVIEWS_COLLECTION, VOTES_COLLECTION} from "@/firebase/firestore/collections";
 
+import {Vote} from "@/types/Vote";
+
+// converts a vote document to a Vote object, allowing for typed queries and strict type checking
 const voteConverter: FirestoreDataConverter<Vote> = {
     toFirestore(review: WithFieldValue<Vote>): DocumentData {
         return {
@@ -33,10 +34,12 @@ const voteConverter: FirestoreDataConverter<Vote> = {
     },
 };
 
+// collection reference for querying votes on reviews
 export const reviewVotesCollection = (
     reviewId: string
 ) => collection(firestore, REVIEWS_COLLECTION, reviewId, VOTES_COLLECTION).withConverter(voteConverter);
 
+// collection reference for querying votes on comments
 export const commentVotesCollection = (
     reviewId: string,
     commentId: string

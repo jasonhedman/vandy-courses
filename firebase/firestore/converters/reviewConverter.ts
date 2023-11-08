@@ -14,6 +14,7 @@ import {Professor} from "@/types/Professor";
 import {REVIEWS_COLLECTION} from "@/firebase/firestore/collections";
 import moment from "moment";
 
+// converts a review document to a Review object, allowing for typed queries and strict type checking
 const reviewConverter: FirestoreDataConverter<Review> = {
     toFirestore(review: WithFieldValue<Review>): DocumentData {
         return {
@@ -62,11 +63,13 @@ const reviewConverter: FirestoreDataConverter<Review> = {
             chatGptability: data.chatGptability,
             profChillScore: data.profChillScore,
             score: data.score,
+            // timestamps are delivered as Moment.js objects to allow for easy formatting
             createdAt: moment.unix(data.createdAt.seconds)
         };
     },
 };
 
+// collection reference for querying reviews
 export const reviewsCollection = collection(firestore, REVIEWS_COLLECTION).withConverter(reviewConverter);
 
 export const reviewDocument = (reviewId: string) => doc(firestore, REVIEWS_COLLECTION, reviewId).withConverter(reviewConverter);

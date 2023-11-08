@@ -29,6 +29,7 @@ const AutoCompleteMenu = <T,>({ label, value, optionLabels, options, onSelect, o
     const menuBackground = useColorModeValue('white', '#2D2D2D');
     const menuBorderColor = useColorModeValue("gray.200", "whiteAlpha.300");
 
+    const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
     const [inputValue, setInputValue] = useState("");
 
     return (
@@ -40,7 +41,7 @@ const AutoCompleteMenu = <T,>({ label, value, optionLabels, options, onSelect, o
                 openOnFocus
                 restoreOnBlurIfEmpty={false}
             >
-                {({ isOpen }: { isOpen: boolean }) => (
+                {({ isOpen, onOpen, onClose }: { isOpen: boolean, onOpen: () => {}, onClose: () => {} }) => (
                     <HStack>
                         <InputGroup>
                             <AutoCompleteInput
@@ -55,9 +56,21 @@ const AutoCompleteMenu = <T,>({ label, value, optionLabels, options, onSelect, o
                                     }
                                     setInputValue(e.target.value);
                                 }}
+                                ref={setInputRef}
                             />
                             <InputRightElement>
-                                <Icon as={isOpen ? FiChevronRight : FiChevronDown} />
+                                <Icon
+                                    as={isOpen ? FiChevronRight : FiChevronDown}
+                                    onClick={() => {
+                                        if (isOpen) {
+                                            onClose();
+                                        } else {
+                                            onOpen();
+                                            inputRef?.focus();
+                                        }
+                                    }}
+                                    _hover={{ cursor: 'pointer' }}
+                                />
                             </InputRightElement>
                         </InputGroup>
                         <AutoCompleteList
@@ -76,7 +89,6 @@ const AutoCompleteMenu = <T,>({ label, value, optionLabels, options, onSelect, o
                                         setInputValue(optionLabels[id]);
                                         onSelect(option)
                                     }}
-
                                 >
                                     {optionLabels[id]}
                                 </AutoCompleteItem>

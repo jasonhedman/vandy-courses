@@ -34,6 +34,7 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId }) => {
             isOpen={isOpen}
             onClose={onClose}
             size={'2xl'}
+            scrollBehavior={'inside'}
         >
             <ModalOverlay />
             <ModalContent>

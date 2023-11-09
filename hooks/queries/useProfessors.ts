@@ -8,7 +8,7 @@ const useProfessors = () => {
     const [professors, loading, error] = useCollectionDataOnce(professorsCollection);
 
     return {
-        professors,
+        professors: professors || [],
         loading,
         error,
     }

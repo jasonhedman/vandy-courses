@@ -1,18 +1,23 @@
-import { useToast } from "@chakra-ui/react";
+import {useToast} from "@chakra-ui/react";
 
 import useAuth from "@/hooks/auth/useAuth";
-import useReviewVotes from "@/hooks/queries/useReviewVotes";
+import useCommentVotes from "@/hooks/queries/useCommentVotes";
 
-import { voteReview } from "@/services/reviews";
-import { addReviewVote, updateReviewVote } from "@/services/reviewVotes";
-import { getVoteIncrement, getToastMessage } from "@/services/voteUtils";
+import {voteComment} from "@/services/comment";
+import {addCommentVote, updateCommentVote} from "@/services/commentVotes";
+import {getVoteIncrement, getToastMessage} from "@/services/voteUtils";
 
-import { VoteStatus } from "@/types/Vote";
+import {VoteStatus} from "@/types/Vote";
 
-// custom hook to handle voting on reviews
-const useVoteReview = (reviewId: string) => {
+// custom hook to handle voting on comments
+const useVoteComment = (reviewId: string, commentId: string) => {
+
+    // gets the current user, preventing users from voting on comments if they are not logged in
     const { user } = useAuth();
-    const { votes, loading } = useReviewVotes(user?.uid || "", reviewId);
+
+    // gets the current votes for the comment
+    const { votes, loading } = useCommentVotes(user?.uid || "", reviewId, commentId);
+
     const toast = useToast();
 
     const handleVote = async (voteType: VoteStatus) => {
@@ -24,10 +29,10 @@ const useVoteReview = (reviewId: string) => {
         const amountIncrement = getVoteIncrement(currentVoteStatus, newStatus);
 
         const results = await Promise.all([
-            voteReview(reviewId, amountIncrement),
+            voteComment(reviewId, commentId, amountIncrement),
             alreadyVoted
-                ? updateReviewVote(reviewId, votes[0].id, newStatus)
-                : addReviewVote(reviewId, {
+                ? updateCommentVote(reviewId, commentId, votes[0].id, newStatus)
+                : addCommentVote(reviewId, commentId, {
                     userId: user.uid || "",
                     voteStatus: newStatus,
                 })
@@ -49,7 +54,8 @@ const useVoteReview = (reviewId: string) => {
         onDownvote,
         voteStatus: votes?.length ? votes[0].voteStatus : VoteStatus.NONE,
         loading,
-    };
-};
+    }
 
-export default useVoteReview;
+}
+
+export default useVoteComment;

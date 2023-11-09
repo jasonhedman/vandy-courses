@@ -7,10 +7,14 @@ import {
     WithFieldValue
 } from "@firebase/firestore";
 
-import {Course} from "@/types/Course";
 import firestore from "@/firebase/firestore";
+
 import {COURSES_COLLECTION} from "@/firebase/firestore/collections";
 
+import {Course} from "@/types/Course";
+
+
+// converts a course document to a Course object, allowing for typed queries and strict type checking
 const courseConverter: FirestoreDataConverter<Course> = {
     toFirestore(course: WithFieldValue<Course>): DocumentData {
         return { id: course.id, name: course.name, description: course.description, numReviews: course.numReviews };
@@ -29,6 +33,7 @@ const courseConverter: FirestoreDataConverter<Course> = {
     },
 };
 
+// collection reference for querying courses
 const coursesCollection = collection(firestore, COURSES_COLLECTION).withConverter(courseConverter);
 
 export default coursesCollection;

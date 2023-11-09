@@ -4,13 +4,17 @@ import useAuth from "@/hooks/auth/useAuth";
 
 import {addReview} from "@/services/reviews";
 
-import {ReviewInput} from "@/types/Review";
-
 import * as Yup from 'yup';
 import {ObjectSchema} from "yup";
 
+import filter from "leo-profanity";
+
 import {AVERAGE_RATING, MAXIMUM_RATING, MINIMUM_RATING} from "@/data/reviewConstants";
 
+import {ReviewInput} from "@/types/Review";
+
+
+// schema for validating review input
 const ReviewSchema: ObjectSchema<ReviewInput> = Yup.object().shape({
     courseId: Yup.string()
         .required('Course ID is Required'),
@@ -24,9 +28,11 @@ const ReviewSchema: ObjectSchema<ReviewInput> = Yup.object().shape({
     userId: Yup.string()
         .required('User ID is Required'),
     title: Yup.string()
-        .required('Title is Required'),
+        .required('Title is Required')
+        .test('profanity check', 'Profanity is not allowed', (val) => !filter.check(val)),
     content: Yup.string()
-        .required('Content is Required'),
+        .required('Content is Required')
+        .test('profanity check', 'Profanity is not allowed', (val) => !filter.check(val)),
     rating: Yup.number()
         .required('Rating is Required')
         .min(MINIMUM_RATING, `Rating must be between ${MINIMUM_RATING} and ${MAXIMUM_RATING}`)
@@ -60,10 +66,12 @@ const ReviewSchema: ObjectSchema<ReviewInput> = Yup.object().shape({
 });
 
 
+// custom hook to handle the creation of reviews
 const useCreateReview = () => {
 
     const { user } = useAuth()
 
+    // formik hook to handle the form input and validation
     const {
         values,
         errors,
@@ -109,4 +117,4 @@ const useCreateReview = () => {
     }
 }
 
-export default useCreateReview
+export default useCreateReview;

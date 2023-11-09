@@ -37,6 +37,7 @@ const CourseModal: React.FC<Props> = ({ isOpen, onClose, course }) => {
             isOpen={isOpen}
             onClose={onClose}
             size={'2xl'}
+            scrollBehavior={'inside'}
         >
             <ModalOverlay />
             <ModalContent>

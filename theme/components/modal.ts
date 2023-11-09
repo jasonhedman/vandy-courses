@@ -7,6 +7,7 @@ const { definePartsStyle, defineMultiStyleConfig } =
 
 const baseStyle = definePartsStyle((props) => ({
     overlay: {},
+    body: {},
     dialog: {
         borderRadius: 'md',
         bg: mode("white", "#2D2D2D")(props),
@@ -17,7 +18,7 @@ const baseStyle = definePartsStyle((props) => ({
 }))
 
 const Modal = defineMultiStyleConfig({
-    baseStyle
+    baseStyle,
 })
 
 export default Modal

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
+import { HStack, Text } from "@chakra-ui/react";
+
 import AutoCompleteMenu from "@/components/Utilities/AutoCompleteMenu";
 
 import useCourses from "@/hooks/queries/useCourses";
 
 import {Course} from "@/types/Course";
-import {HStack, Text} from "@chakra-ui/react";
 
 interface Props {
     courseId: string | null,

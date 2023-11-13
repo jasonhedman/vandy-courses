@@ -7,24 +7,29 @@ import {COMMENTS_COLLECTION, REVIEWS_COLLECTION} from "@/firebase/firestore/coll
 import {CommentInput} from "@/types/Comment";
 
 // adds a comment document to a review's comments subcollection
-export const addComment = async (commentInput: CommentInput) => {
-    // create the document with the input data
-    const doc = await addDoc(collection(firestore, REVIEWS_COLLECTION, commentInput.reviewId, COMMENTS_COLLECTION), {
-        ...commentInput,
-        createdAt: new Date(),
-        score: 0,
-    })
-    // update the document with the ID
-    await updateDoc(doc, {
-        id: doc.id,
-    })
+export const addComment = async (commentInput: CommentInput): Promise<boolean> => {
+    try {
+        // create the document with the input data
+        const doc = await addDoc(collection(firestore, REVIEWS_COLLECTION, commentInput.reviewId, COMMENTS_COLLECTION), {
+            ...commentInput,
+            createdAt: new Date(),
+            score: 0,
+        })
+        // update the document with the ID
+        await updateDoc(doc, {
+            id: doc.id,
+        })
+        return true
+    } catch (e) {
+        return false
+    }
+
 }
 
 // upvotes or downvotes a review
-export const voteComment = async (reviewId: string, commentId: string, amountIncrement: number): Promise<boolean> => {
-    return updateDoc(doc(firestore, REVIEWS_COLLECTION, reviewId, COMMENTS_COLLECTION, commentId), {
+export const voteComment = async (reviewId: string, commentId: string, amountIncrement: number): Promise<boolean> =>
+    updateDoc(doc(firestore, REVIEWS_COLLECTION, reviewId, COMMENTS_COLLECTION, commentId), {
         score: increment(amountIncrement),
     })
         .then(() => true)
         .catch(() => false)
-}

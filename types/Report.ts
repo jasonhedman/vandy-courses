@@ -10,8 +10,8 @@ export interface Report extends ReportInput {
 }
 
 export enum ReportType {
-    INAPPROPRIATE = "INAPPROPRIATE",
-    UNHELPFUL = "UNHELPFUL",
-    INACCURATE = "INACCURATE",
-    OTHER = "OTHER"
+    INAPPROPRIATE = "Inappropriate",
+    UNHELPFUL = "Unhelpful",
+    INACCURATE = "Inaccurate",
+    OTHER = "Other"
 }

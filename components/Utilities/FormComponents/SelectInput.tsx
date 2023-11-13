@@ -1,33 +1,44 @@
-import React, { useState } from 'react';
-import { Button, Input, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import React from 'react';
+
+import {
+    Button,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem
+} from '@chakra-ui/react';
+import {ChevronDownIcon} from "@chakra-ui/icons";
+
 import FormElement from "@/components/Utilities/FormComponents/FormElement";
 
 interface Props {
     options: string[] | null,
     selectedOption: string | null,
     setSelectedOption: (selected: String | null) => void,
-    onBlur?: () => void,
     error?: string,
-    closeButton?: boolean
 }
-const SelectInput: React.FC<Props>  = ( {options, selectedOption, setSelectedOption, onBlur, error, closeButton} ) => {
+const SelectInput: React.FC<Props>  = ( {options, selectedOption, setSelectedOption, error} ) => {
 
   return (
     <FormElement
       label={"Select a report type"}
       error={error}
     >
-      <Menu
-        onSelect={setSelectedOption}
-        onBlur={onBlur}
-        closeButton={closeButton}
-      >
-        <MenuButton as={Button}>
+      <Menu>
+        <MenuButton
+            as={Button}
+            rightIcon={<ChevronDownIcon />}
+        >
           {selectedOption}
         </MenuButton>
         <MenuList>
           {options?.map((option, index) => (
-            <MenuItem key={index} onClick={() => setSelectedOption(option)}>{option}</MenuItem>
+            <MenuItem
+                key={index}
+                onClick={() => setSelectedOption(option)}
+            >
+                {option}
+            </MenuItem>
           ))}
         </MenuList>
       </Menu>

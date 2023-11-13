@@ -8,8 +8,12 @@ import * as Yup from 'yup';
 import {ObjectSchema} from "yup";
 
 import { ReportInput, ReportType } from "@/types/Report";
+import {useEffect} from "react";
+import {useToast} from "@chakra-ui/react";
 
 const ReportSchema: ObjectSchema<ReportInput> = Yup.object().shape({
+    userId: Yup.string()
+        .required('User ID is Required'),
     reviewId: Yup.string()
         .required('Review ID is Required'),
     type: Yup.mixed<ReportType>().oneOf(Object.values(ReportType))
@@ -20,7 +24,10 @@ const ReportSchema: ObjectSchema<ReportInput> = Yup.object().shape({
 
 
 const useCreateReport = (reviewId: string) => {
-    const { user } = useAuth()
+
+    const { user } = useAuth();
+
+    const toast = useToast();
     
     const {
         values,
@@ -39,9 +46,30 @@ const useCreateReport = (reviewId: string) => {
         },
         validationSchema: ReportSchema,
         onSubmit: async (values: ReportInput) => {
-            await addReport(values);
+            const success = await addReport(values)
+            if (success) {
+                toast({
+                    title: "Report submitted.",
+                    description: "Thank you for your feedback.",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                })
+            } else {
+                toast({
+                    title: "An error occurred.",
+                    description: "Please try again.",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                })
+            }
         },
     });
+
+    useEffect(() => {
+        setFieldValue("userId", user?.uid || "");
+    }, [user?.uid])
 
     return {
         values,

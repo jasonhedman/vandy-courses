@@ -34,8 +34,9 @@ const ProfessorMenu: React.FC<Props> = ({ professor, setProfessor, onBlur, error
             inputValue={inputValue}
             setInputValue={setInputValue}
             placeholder={"Find a Professor"}
-            optionLabels={(professors || []).map(professor => professor.name)}
+            optionComponents={(professors || []).map(professor => professor.name)}
             options={professors || []}
+            optionLabels={(professors || []).map(professor => professor.name)}
             onSelect={setProfessor}
             onBlur={onBlur}
             error={error}

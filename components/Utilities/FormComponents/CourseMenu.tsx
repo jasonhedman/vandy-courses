@@ -5,6 +5,7 @@ import AutoCompleteMenu from "@/components/Utilities/AutoCompleteMenu";
 import useCourses from "@/hooks/queries/useCourses";
 
 import {Course} from "@/types/Course";
+import {HStack, Text} from "@chakra-ui/react";
 
 interface Props {
     courseId: string | null,
@@ -35,8 +36,24 @@ const CourseMenu: React.FC<Props> = ({ courseId, setCourseId, onBlur, error, clo
             inputValue={inputValue}
             setInputValue={setInputValue}
             placeholder={"Find a Course"}
-            optionLabels={(courses || []).map(course => course.id.replace("_", " ").toUpperCase())}
+            optionComponents={(courses || []).map(course => (
+                <HStack
+                    key={course.id}
+                    justifyContent={"space-between"}
+                    w={"100%"}
+                >
+                    <Text>
+                        {course.id.replace("_", " ").toUpperCase()}
+                    </Text>
+                    <Text
+                        flexShrink={0}
+                    >
+                        {course.numReviews} Reviews
+                    </Text>
+                </HStack>
+            ))}
             options={(courses || []).map(course => course.id)}
+            optionLabels={(courses || []).map(course => course.id.replace("_", " ").toUpperCase())}
             onSelect={setCourseId}
             onBlur={onBlur}
             error={error}

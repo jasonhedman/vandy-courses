@@ -6,9 +6,10 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalCloseButton, Text, Heading, VStack, ModalFooter, SimpleGrid, Divider, HStack, Skeleton
+    ModalCloseButton, Text, Heading, VStack, ModalFooter, SimpleGrid, Divider, HStack, Skeleton, Flex
 } from "@chakra-ui/react";
 
+import ReportButton from '@/components/Home/Reports/ReportButton';
 import ReviewBadges from "@/components/Home/Reviews/ReviewBadges";
 import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
 import ReviewUpvoteDownvote from "@/components/Home/Reviews/ReviewUpvoteDownvote";
@@ -43,8 +44,14 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId }) => {
                         <Skeleton />
                     ) : (
                         <>
-                            <ModalHeader />
-                            <ModalCloseButton />
+                            <ModalHeader>
+                                <HStack display='flex' justifyContent='flex-end'>
+                                    <ReportButton reviewId={review.id} />
+                                    <ModalCloseButton />
+                                </HStack>
+                            </ModalHeader>
+
+
                             <ModalBody>
                                 <VStack
                                     align={'start'}

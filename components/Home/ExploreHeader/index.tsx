@@ -5,10 +5,10 @@ import {Card, Flex, VStack} from "@chakra-ui/react";
 import WriteReviewButton from "@/components/Home/ExploreHeader/WriteReviewButton";
 import ProfessorMenu from "@/components/Utilities/FormComponents/ProfessorMenu";
 import CourseMenu from "@/components/Utilities/FormComponents/CourseMenu";
+import SortByRadio from "@/components/Utilities/SortByRadio";
 
 import {Professor} from "@/types/Professor";
 import {SortBy} from "@/types/SortBy";
-import SortByRadio from "@/components/Utilities/SortByRadio";
 
 interface Props {
     courseId: string | null,

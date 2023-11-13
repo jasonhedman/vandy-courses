@@ -14,6 +14,8 @@ const HomePage = () => {
         setCourseId,
         professor,
         setProfessor,
+        sortBy,
+        setSortBy,
         reviews,
         loading,
     } = useFeed();
@@ -28,6 +30,8 @@ const HomePage = () => {
                 setCourseId={setCourseId}
                 professor={professor}
                 setProfessor={setProfessor}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
             />
             {
                 loading ? (

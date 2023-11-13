@@ -13,8 +13,10 @@ import {
 } from '@chakra-ui/react'
 
 import TextareaInput from "@/components/Utilities/FormComponents/TextareaInput";
-import useCreateReport from "@/hooks/mutators/useCreateReport";
 import SelectInput from '@/components/Utilities/FormComponents/SelectInput';
+
+import useCreateReport from "@/hooks/mutators/useCreateReport";
+
 import { ReportType } from '@/types/Report';
 
 interface Props {
@@ -27,15 +29,7 @@ const WriteReportModal: React.FC<Props> = ({ reviewId, isOpen, onClose }) => {
 
     const { touched, errors, values, handleSubmit, setFieldValue, setFieldTouched, disabled } = useCreateReport(reviewId);
 
-    // Used to get array of report options, to display as menu options
-    const enumValuesToStringArray = (e: any) => {
-        return Object.keys(e).filter(k => typeof e[k as any] === 'string') as string[];
-    };
-    const reportOptions = enumValuesToStringArray(ReportType);
-    
     const onSubmit = async () => {
-        // // Set id of the review currently opened into report input field
-        // setFieldValue('reviewId', reviewId);
         await handleSubmit();
         onClose();
     }
@@ -45,17 +39,20 @@ const WriteReportModal: React.FC<Props> = ({ reviewId, isOpen, onClose }) => {
             isOpen={isOpen}
             onClose={onClose}
             variant={'outline'}
+            size={'2xl'}
         >
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Write a Report</ModalHeader>
+                <ModalHeader>
+                    Write a Report
+                </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <VStack
                         spacing={4}
                     >
                         <SelectInput
-                            options={reportOptions}
+                            options={Object.values(ReportType)}
                             selectedOption={values.type}
                             setSelectedOption={(reportType) => {
                                 setFieldValue('type', reportType);
@@ -65,7 +62,7 @@ const WriteReportModal: React.FC<Props> = ({ reviewId, isOpen, onClose }) => {
                         />
                         <TextareaInput
                             label={"Description"}
-                            placeholder={"Write your optional report description here"}
+                            placeholder={"Write your report description here..."}
                             value={values.description}
                             onChange={(value) => {
                                 setFieldValue('description', value);

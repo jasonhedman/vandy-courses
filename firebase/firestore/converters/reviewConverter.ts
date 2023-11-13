@@ -36,7 +36,8 @@ const reviewConverter: FirestoreDataConverter<Review> = {
             chatGptability: review.chatGptability,
             profChillScore: review.profChillScore,
             score: review.score,
-            createdAt: review.createdAt
+            createdAt: review.createdAt,
+            numReports: review.numReports,
         };
     },
     fromFirestore(
@@ -63,6 +64,7 @@ const reviewConverter: FirestoreDataConverter<Review> = {
             chatGptability: data.chatGptability,
             profChillScore: data.profChillScore,
             score: data.score,
+            numReports: data.numReports,
             // timestamps are delivered as Moment.js objects to allow for easy formatting
             createdAt: moment.unix(data.createdAt.seconds)
         };

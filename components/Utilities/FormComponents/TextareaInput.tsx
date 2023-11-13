@@ -7,15 +7,20 @@ import FormElement from "@/components/Utilities/FormComponents/FormElement";
 interface Props {
     label: string,
     placeholder: string,
+    description?: string,
     value: string,
     onChange: (value: string) => void,
     onBlur?: () => void,
     error?: string,
 }
 
-const TextareaInput: React.FC<Props> = ({ label, placeholder, value, onChange, onBlur, error}) => {
+const TextareaInput: React.FC<Props> = ({ label, placeholder, description, value, onChange, onBlur, error}) => {
     return (
-        <FormElement label={label} error={error}>
+        <FormElement
+            label={label}
+            error={error}
+            description={description}
+        >
             <Textarea
                 placeholder={placeholder}
                 value={value}

@@ -14,6 +14,7 @@ import FormElement from "@/components/Utilities/FormComponents/FormElement";
 
 interface Props<T> {
     label: string;
+    description?: string;
     value: T | null;
     inputValue: string;
     setInputValue: (inputValue: string) => void;
@@ -27,7 +28,7 @@ interface Props<T> {
     closeButton?: boolean;
 }
 
-const AutoCompleteMenu = <T,>({ label, value, inputValue, setInputValue, optionComponents, options, optionLabels, onSelect, onBlur, error, placeholder, closeButton }: Props<T>) => {
+const AutoCompleteMenu = <T,>({ label, description, value, inputValue, setInputValue, optionComponents, options, optionLabels, onSelect, onBlur, error, placeholder, closeButton }: Props<T>) => {
 
     const menuBackground = useColorModeValue('white', '#2D2D2D');
     const menuBorderColor = useColorModeValue("gray.200", "whiteAlpha.300");
@@ -38,6 +39,7 @@ const AutoCompleteMenu = <T,>({ label, value, inputValue, setInputValue, optionC
         <FormElement
             label={label}
             error={error}
+            description={description}
         >
             <AutoComplete
                 openOnFocus

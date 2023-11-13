@@ -133,7 +133,7 @@ const useCreateReview = () => {
         touched,
         handleChange,
         handleSubmit,
-        disabled: Object.keys(errors).length > 0 || Object.keys(touched).length === 0
+        disabled: Object.keys(errors).length > 0 || Object.keys(touched).length === 0 || !user?.uid
     }
 }
 

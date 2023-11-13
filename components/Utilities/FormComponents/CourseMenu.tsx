@@ -11,12 +11,13 @@ import {Course} from "@/types/Course";
 interface Props {
     courseId: string | null,
     setCourseId: (courseId: string | null) => void,
+    description?: string,
     onBlur?: () => void,
     error?: string,
     closeButton?: boolean
 }
 
-const CourseMenu: React.FC<Props> = ({ courseId, setCourseId, onBlur, error, closeButton }) => {
+const CourseMenu: React.FC<Props> = ({ courseId, setCourseId, description, onBlur, error, closeButton }) => {
 
     const { courses } = useCourses();
 
@@ -34,6 +35,7 @@ const CourseMenu: React.FC<Props> = ({ courseId, setCourseId, onBlur, error, clo
         <AutoCompleteMenu
             label={"Course"}
             value={courseId}
+            description={description}
             inputValue={inputValue}
             setInputValue={setInputValue}
             placeholder={"Find a Course"}

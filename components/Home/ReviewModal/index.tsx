@@ -6,7 +6,15 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalCloseButton, Text, Heading, VStack, ModalFooter, SimpleGrid, Divider, HStack, Skeleton, Flex
+    ModalCloseButton,
+    Heading,
+    VStack,
+    ModalFooter,
+    SimpleGrid,
+    Divider,
+    HStack,
+    Skeleton,
+    Text
 } from "@chakra-ui/react";
 
 import ReportButton from '@/components/Home/Reports/ReportButton';
@@ -50,8 +58,6 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId }) => {
                                     <ModalCloseButton />
                                 </HStack>
                             </ModalHeader>
-
-
                             <ModalBody>
                                 <VStack
                                     align={'start'}

@@ -58,10 +58,12 @@ const WriteReportModal: React.FC<Props> = ({ reviewId, isOpen, onClose }) => {
                                 setFieldValue('type', reportType);
                             }}
                             error={touched.type ? errors.type : undefined}
+                            description={"Select the type of report you want to submit"}
                         />
                         <TextareaInput
                             label={"Description"}
                             placeholder={"Write your report description here..."}
+                            description={"Write a description of your report"}
                             value={values.description}
                             onChange={(value) => {
                                 setFieldValue('description', value);

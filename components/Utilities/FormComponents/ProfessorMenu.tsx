@@ -8,12 +8,13 @@ import {Professor} from "@/types/Professor";
 interface Props {
     professor: Professor | null,
     setProfessor: (professor: Professor | null) => void,
+    description?: string,
     onBlur?: () => void,
     error?: string,
     closeButton?: boolean
 }
 
-const ProfessorMenu: React.FC<Props> = ({ professor, setProfessor, onBlur, error, closeButton }) => {
+const ProfessorMenu: React.FC<Props> = ({ professor, setProfessor, description, onBlur, error, closeButton }) => {
 
     const { professors } = useProfessors();
 
@@ -31,6 +32,7 @@ const ProfessorMenu: React.FC<Props> = ({ professor, setProfessor, onBlur, error
         <AutoCompleteMenu
             label={"Professor"}
             value={professor}
+            description={description}
             inputValue={inputValue}
             setInputValue={setInputValue}
             placeholder={"Find a Professor"}

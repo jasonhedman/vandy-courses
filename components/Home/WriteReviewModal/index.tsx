@@ -59,6 +59,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             }}
                             onBlur={() => setFieldTouched("courseId", true)}
                             error={touched.courseId ? errors.courseId : undefined}
+                            description={"Select a course to review"}
                         />
                         <ProfessorMenu
                             professor={values.professor || null}
@@ -75,6 +76,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                                 setFieldTouched("professor.name", true)
                             }}
                             error={touched.professor?.name ? errors.professor?.name : undefined}
+                            description={"Select the professor of your selected course"}
                         />
                         <TextInput
                             label={"Title"}
@@ -85,6 +87,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                                 setFieldTouched("title", true)
                             }}
                             error={touched.title ? errors.title : undefined}
+                            description={"Write a title for your review"}
                         />
                         <TextareaInput
                             label={"Content"}
@@ -95,6 +98,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                                 setFieldTouched("content", true)
                             }}
                             error={touched.content ? errors.content : undefined}
+                            description={"Write the content of your review"}
                         />
                         <SliderInput
                             label={"Difficulty"}
@@ -102,6 +106,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             onChange={(value) => setFieldValue('difficulty', value)}
                             min={MINIMUM_RATING}
                             max={MAXIMUM_RATING}
+                            description={"How difficult is this course?"}
                         />
                         <SliderInput
                             label={"Rating"}
@@ -109,6 +114,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             onChange={(value) => setFieldValue('rating', value)}
                             min={MINIMUM_RATING}
                             max={MAXIMUM_RATING}
+                            description={"How would you rate this course?"}
                         />
                         <SliderInput
                             label={"Skippability"}
@@ -116,6 +122,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             onChange={(value) => setFieldValue('skippability', value)}
                             min={MINIMUM_RATING}
                             max={MAXIMUM_RATING}
+                            description={"How skippable is this course?"}
                         />
                         <SliderInput
                             label={"Sleepy Score"}
@@ -123,6 +130,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             onChange={(value) => setFieldValue('sleepScore', value)}
                             min={MINIMUM_RATING}
                             max={MAXIMUM_RATING}
+                            description={"How likely are you to fall asleep in this course?"}
                         />
                         <SliderInput
                             label={"Effort for an A"}
@@ -130,6 +138,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             onChange={(value) => setFieldValue('effortForA', value)}
                             min={MINIMUM_RATING}
                             max={MAXIMUM_RATING}
+                            description={"How much effort is required to get an A?"}
                         />
                         <SliderInput
                             label={"How useful is ChatGPT?"}
@@ -137,6 +146,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             onChange={(value) => setFieldValue('chatGptability', value)}
                             min={MINIMUM_RATING}
                             max={MAXIMUM_RATING}
+                            description={"How useful is ChatGPT for this course?"}
                         />
                         <SliderInput
                             label={"Professor Chill Index"}
@@ -144,8 +154,8 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             onChange={(value) => setFieldValue('profChillScore', value)}
                             min={MINIMUM_RATING}
                             max={MAXIMUM_RATING}
+                            description={"How chill is the professor?"}
                         />
-
                     </VStack>
                 </ModalBody>
                 <ModalFooter

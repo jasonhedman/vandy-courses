@@ -15,6 +15,9 @@ import FormElement from "@/components/Utilities/FormComponents/FormElement";
 interface Props<T> {
     label: string;
     value: T | null;
+    inputValue: string;
+    setInputValue: (inputValue: string) => void;
+    optionComponents: React.ReactNode[];
     optionLabels: string[];
     options: T[];
     onSelect: (value: T | null) => void;
@@ -24,13 +27,12 @@ interface Props<T> {
     closeButton?: boolean;
 }
 
-const AutoCompleteMenu = <T,>({ label, value, optionLabels, options, onSelect, onBlur, error, placeholder, closeButton }: Props<T>) => {
+const AutoCompleteMenu = <T,>({ label, value, inputValue, setInputValue, optionComponents, options, optionLabels, onSelect, onBlur, error, placeholder, closeButton }: Props<T>) => {
 
     const menuBackground = useColorModeValue('white', '#2D2D2D');
     const menuBorderColor = useColorModeValue("gray.200", "whiteAlpha.300");
 
     const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
-    const [inputValue, setInputValue] = useState("");
 
     return (
         <FormElement
@@ -86,11 +88,10 @@ const AutoCompleteMenu = <T,>({ label, value, optionLabels, options, onSelect, o
                                     textTransform="capitalize"
                                     m={0}
                                     onClick={() => {
-                                        setInputValue(optionLabels[id]);
                                         onSelect(option)
                                     }}
                                 >
-                                    {optionLabels[id]}
+                                    {optionComponents[id]}
                                 </AutoCompleteItem>
                             ))}
                         </AutoCompleteList>
@@ -106,7 +107,6 @@ const AutoCompleteMenu = <T,>({ label, value, optionLabels, options, onSelect, o
                                 />
                             )
                         }
-
                     </HStack>
                 )}
             </AutoComplete>

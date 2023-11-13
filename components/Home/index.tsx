@@ -10,8 +10,8 @@ import useFeed from "@/hooks/feed/useFeed";
 const HomePage = () => {
 
     const {
-        course,
-        setCourse,
+        courseId,
+        setCourseId,
         professor,
         setProfessor,
         reviews,
@@ -24,8 +24,8 @@ const HomePage = () => {
             spacing={4}
         >
             <ExploreHeader
-                course={course}
-                setCourse={setCourse}
+                courseId={courseId}
+                setCourseId={setCourseId}
                 professor={professor}
                 setProfessor={setProfessor}
             />
@@ -37,6 +37,8 @@ const HomePage = () => {
                 ) : (
                     <Reviews
                         reviews={reviews}
+                        setCourseId={setCourseId}
+                        setProfessor={setProfessor}
                     />
                 )
             }

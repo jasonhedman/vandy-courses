@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 import {ObjectSchema} from "yup";
 
 import filter from "leo-profanity";
+import {useToast} from "@chakra-ui/react";
 
 // schema for validating comment input
 const CommentSchema: ObjectSchema<CommentInput> = Yup.object().shape({
@@ -33,6 +34,8 @@ const useCreateComment = (reviewId: string) => {
 
     const { user } = useAuth();
 
+    const toast = useToast();
+
     // handles form state and validation
     const {
         values,
@@ -52,7 +55,24 @@ const useCreateComment = (reviewId: string) => {
         validationSchema: CommentSchema,
         onSubmit: async values => {
             if(!user) return;
-            await addComment(values);
+            const success = await addComment(values);
+            if(success) {
+                toast({
+                    title: 'Comment Added',
+                    description: 'Your comment has been added to the review.',
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                })
+            } else {
+                toast({
+                    title: 'Error',
+                    description: 'There was an error adding your comment.',
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                })
+            }
             resetForm();
         },
     });

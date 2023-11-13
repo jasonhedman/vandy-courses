@@ -12,6 +12,7 @@ import filter from "leo-profanity";
 import {AVERAGE_RATING, MAXIMUM_RATING, MINIMUM_RATING} from "@/data/reviewConstants";
 
 import {ReviewInput} from "@/types/Review";
+import {useToast} from "@chakra-ui/react";
 
 
 // schema for validating review input
@@ -69,7 +70,9 @@ const ReviewSchema: ObjectSchema<ReviewInput> = Yup.object().shape({
 // custom hook to handle the creation of reviews
 const useCreateReview = () => {
 
-    const { user } = useAuth()
+    const { user } = useAuth();
+
+    const toast = useToast();
 
     // formik hook to handle the form input and validation
     const {
@@ -101,7 +104,24 @@ const useCreateReview = () => {
         },
         validationSchema: ReviewSchema,
         onSubmit: async values => {
-            await addReview(values);
+            const success = await addReview(values);
+            if (success) {
+                toast({
+                    title: "Review Created.",
+                    description: "Your review has been successfully created.",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            } else {
+                toast({
+                    title: "Review Creation Failed.",
+                    description: "Your review could not be created.",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            }
         },
     });
 

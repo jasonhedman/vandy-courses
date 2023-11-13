@@ -13,7 +13,7 @@ const useReviewVotes = (userId: string, reviewId: string) => {
     ));
 
     return {
-        votes,
+        votes: votes || [],
         loading,
         error,
     }

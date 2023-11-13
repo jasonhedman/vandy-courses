@@ -6,17 +6,16 @@ import WriteReviewButton from "@/components/Home/ExploreHeader/WriteReviewButton
 import ProfessorMenu from "@/components/Utilities/FormComponents/ProfessorMenu";
 import CourseMenu from "@/components/Utilities/FormComponents/CourseMenu";
 
-import {Course} from "@/types/Course";
 import {Professor} from "@/types/Professor";
 
 interface Props {
-    course: Course | null,
-    setCourse: (course: Course | null) => void,
+    courseId: string | null,
+    setCourseId: (courseId: string | null) => void,
     professor: Professor | null,
     setProfessor: (professor: Professor | null) => void,
 }
 
-const ExploreHeader: React.FC<Props> = ({ course, setCourse, professor, setProfessor }) => {
+const ExploreHeader: React.FC<Props> = ({ courseId, setCourseId, professor, setProfessor }) => {
     return (
         <Card>
             <Flex
@@ -25,8 +24,8 @@ const ExploreHeader: React.FC<Props> = ({ course, setCourse, professor, setProfe
                 gap={4}
             >
                 <CourseMenu
-                    course={course}
-                    setCourse={setCourse}
+                    courseId={courseId}
+                    setCourseId={setCourseId}
                     closeButton
                 />
                 <ProfessorMenu

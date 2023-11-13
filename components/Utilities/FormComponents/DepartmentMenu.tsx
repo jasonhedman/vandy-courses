@@ -5,6 +5,7 @@ import AutoCompleteMenu from "@/components/Utilities/AutoCompleteMenu";
 interface Props {
     department: string | null,
     setDepartment: (professor: string | null) => void,
+    description?: string,
     onBlur?: () => void,
     error?: string,
     closeButton?: boolean
@@ -20,7 +21,7 @@ const departments = [
     "ENGL",
 ]
 
-const DepartmentMenu: React.FC<Props> = ({ department, setDepartment, onBlur, error, closeButton }) => {
+const DepartmentMenu: React.FC<Props> = ({ department, setDepartment, description, onBlur, error, closeButton }) => {
 
     const [inputValue, setInputValue] = useState<string>("");
 
@@ -36,6 +37,7 @@ const DepartmentMenu: React.FC<Props> = ({ department, setDepartment, onBlur, er
         <AutoCompleteMenu
             value={department}
             label={"Department"}
+            description={description}
             inputValue={inputValue}
             setInputValue={setInputValue}
             placeholder={"Find a Department"}

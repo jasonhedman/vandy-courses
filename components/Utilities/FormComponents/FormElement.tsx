@@ -1,14 +1,15 @@
 import React from 'react';
 
-import {FormControl, FormErrorMessage, FormLabel} from "@chakra-ui/react";
+import {FormControl, FormErrorMessage, FormHelperText, FormLabel} from "@chakra-ui/react";
 
 interface Props {
     label: string,
-    error?: string,
+    description?: string,
     children: React.ReactNode,
+    error?: string,
 }
 
-const FormElement: React.FC<Props> = ({ label, error, children}) => {
+const FormElement: React.FC<Props> = ({ label, description, error, children}) => {
     return (
         <FormControl
             isInvalid={!!error}
@@ -18,6 +19,11 @@ const FormElement: React.FC<Props> = ({ label, error, children}) => {
         >
             <FormLabel>{label}</FormLabel>
             {children}
+            {description && (
+                <FormHelperText>
+                    {description}
+                </FormHelperText>
+            )}
             {error && (
                 <FormErrorMessage>{error}</FormErrorMessage>
             )}

@@ -25,8 +25,6 @@ const WriteComment: React.FC<Props> = ({ reviewId }) => {
                 onChange={(value) => setFieldValue("content", value)}
                 error={touched.content ? errors.content : undefined}
                 onBlur={() => {
-                    // var cleanComment = filter.clean(values.content)
-                    // setFieldValue("content", cleanComment)
                     setFieldTouched("content", true)
                 }}
                 button={

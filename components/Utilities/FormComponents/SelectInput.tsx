@@ -16,13 +16,15 @@ interface Props {
     selectedOption: string | null,
     setSelectedOption: (selected: String | null) => void,
     error?: string,
+    description?: string,
 }
-const SelectInput: React.FC<Props>  = ( {options, selectedOption, setSelectedOption, error} ) => {
+const SelectInput: React.FC<Props>  = ( {options, selectedOption, setSelectedOption, error, description} ) => {
 
   return (
     <FormElement
       label={"Select a report type"}
       error={error}
+      description={description}
     >
       <Menu>
         <MenuButton

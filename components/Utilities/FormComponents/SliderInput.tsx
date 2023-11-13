@@ -6,15 +6,19 @@ import FormElement from "@/components/Utilities/FormComponents/FormElement";
 
 interface Props {
     label: string,
+    description?: string,
     value: number,
     onChange: (value: number) => void,
     min: number,
     max: number,
 }
 
-const SliderInput: React.FC<Props> = ({ label, value, onChange, min, max }) => {
+const SliderInput: React.FC<Props> = ({ label, description, value, onChange, min, max }) => {
     return (
-        <FormElement label={label}>
+        <FormElement
+            label={label}
+            description={description}
+        >
             <HStack
                 spacing={8}
             >

@@ -21,6 +21,7 @@ import useReviews from "@/hooks/queries/useReviews";
 import Reviews from "@/components/Home/Reviews";
 
 import {Course} from "@/types/Course";
+import SortByRadio from "@/components/Utilities/SortByRadio";
 
 interface Props {
     isOpen: boolean,
@@ -30,7 +31,7 @@ interface Props {
 
 const CourseModal: React.FC<Props> = ({ isOpen, onClose, course }) => {
 
-    const { reviews, loading } = useReviews(course.id, null);
+    const { reviews, loading, sortBy, setSortBy } = useReviews(course.id, null);
 
     return (
         <Modal
@@ -73,6 +74,10 @@ const CourseModal: React.FC<Props> = ({ isOpen, onClose, course }) => {
                         >
                             Reviews
                         </Heading>
+                        <SortByRadio
+                            sortBy={sortBy} 
+                            setSortBy={setSortBy}
+                        />
                         {
                             loading ? (
                                 <Skeleton />

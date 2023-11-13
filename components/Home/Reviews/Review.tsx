@@ -10,13 +10,16 @@ import ReviewBadges from "@/components/Home/Reviews/ReviewBadges";
 import {MAXIMUM_RATING} from "@/data/reviewConstants";
 
 import { Review as ReviewType } from '@/types/Review';
+import {Professor} from "@/types/Professor";
 
 interface Props {
     review: ReviewType,
-    onClick: () => void
+    onClick: () => void,
+    setCourseId?: (courseId: string | null) => void,
+    setProfessor?: (professor: Professor | null) => void,
 }
 
-const Review: React.FC<Props> = ({ review, onClick }) => {
+const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor }) => {
 
     const timeColor = useColorModeValue("blackAlpha.700", "whiteAlpha.700");
 
@@ -33,7 +36,11 @@ const Review: React.FC<Props> = ({ review, onClick }) => {
                     spacing={2}
                     flex={1}
                 >
-                    <ReviewBadges review={review} />
+                    <ReviewBadges
+                        review={review}
+                        setCourseId={setCourseId}
+                        setProfessor={setProfessor}
+                    />
                     <Heading
                         size={'md'}
                         fontWeight={'bold'}

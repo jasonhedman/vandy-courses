@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { HStack, Text } from "@chakra-ui/react";
 
 import AutoCompleteMenu from "@/components/Utilities/AutoCompleteMenu";
 
@@ -7,25 +9,53 @@ import useCourses from "@/hooks/queries/useCourses";
 import {Course} from "@/types/Course";
 
 interface Props {
-    course: Course | null,
-    setCourse: (course: Course | null) => void,
+    courseId: string | null,
+    setCourseId: (courseId: string | null) => void,
     onBlur?: () => void,
     error?: string,
     closeButton?: boolean
 }
 
-const CourseMenu: React.FC<Props> = ({ course, setCourse, onBlur, error, closeButton }) => {
+const CourseMenu: React.FC<Props> = ({ courseId, setCourseId, onBlur, error, closeButton }) => {
 
     const { courses } = useCourses();
+
+    const [inputValue, setInputValue] = useState<string>("");
+
+    useEffect(() => {
+        if (courseId) {
+            setInputValue(courseId.replace("_", " ").toUpperCase());
+        } else {
+            setInputValue("");
+        }
+    }, [courseId]);
 
     return (
         <AutoCompleteMenu
             label={"Course"}
-            value={course}
+            value={courseId}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
             placeholder={"Find a Course"}
+            optionComponents={(courses || []).map(course => (
+                <HStack
+                    key={course.id}
+                    justifyContent={"space-between"}
+                    w={"100%"}
+                >
+                    <Text>
+                        {course.id.replace("_", " ").toUpperCase()}
+                    </Text>
+                    <Text
+                        flexShrink={0}
+                    >
+                        {course.numReviews} Reviews
+                    </Text>
+                </HStack>
+            ))}
+            options={(courses || []).map(course => course.id)}
             optionLabels={(courses || []).map(course => course.id.replace("_", " ").toUpperCase())}
-            options={courses || []}
-            onSelect={setCourse}
+            onSelect={setCourseId}
             onBlur={onBlur}
             error={error}
             closeButton={closeButton}

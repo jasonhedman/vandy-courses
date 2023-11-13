@@ -51,3 +51,10 @@ export const deleteReview = async (reviewId: string): Promise<boolean> => {
         return false;
     }
 };
+
+export const updateReviewNumReports = async (reviewId: string, amountIncrement: number): Promise<boolean> =>
+    updateDoc(doc(firestore, REVIEWS_COLLECTION, reviewId), {
+        numReports: increment(amountIncrement),
+    })
+        .then(() => true)
+        .catch(() => false)

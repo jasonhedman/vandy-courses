@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import AutoCompleteMenu from "@/components/Utilities/AutoCompleteMenu";
 
@@ -17,10 +17,22 @@ const ProfessorMenu: React.FC<Props> = ({ professor, setProfessor, onBlur, error
 
     const { professors } = useProfessors();
 
+    const [inputValue, setInputValue] = useState<string>("");
+
+    useEffect(() => {
+        if (professor) {
+            setInputValue(professor.name);
+        } else {
+            setInputValue("");
+        }
+    }, [professor]);
+
     return (
         <AutoCompleteMenu
             label={"Professor"}
             value={professor}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
             placeholder={"Find a Professor"}
             optionLabels={(professors || []).map(professor => professor.name)}
             options={professors || []}

@@ -53,7 +53,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                         spacing={4}
                     >
                         <CourseMenu
-                            courseId={null}
+                            courseId={values.courseId || null}
                             setCourseId={(courseId) => {
                                 setFieldValue('courseId', courseId || "")
                             }}
@@ -61,7 +61,7 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             error={touched.courseId ? errors.courseId : undefined}
                         />
                         <ProfessorMenu
-                            professor={null}
+                            professor={values.professor || null}
                             setProfessor={(professor) => {
                                 if(professor === null) {
                                     setFieldValue('professor.id', "");
@@ -82,8 +82,6 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             value={values.title}
                             onChange={(value) => setFieldValue("title", value)}
                             onBlur={() => {
-                                // const cleanTitle = filter.clean(values.title)
-                                // setFieldValue("title", cleanTitle)
                                 setFieldTouched("title", true)
                             }}
                             error={touched.title ? errors.title : undefined}
@@ -94,8 +92,6 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                             value={values.content}
                             onChange={(value) => setFieldValue("content", value)}
                             onBlur={() => {
-                                // var cleanContent = filter.clean(values.content)
-                                // setFieldValue("content", cleanContent)
                                 setFieldTouched("content", true)
                             }}
                             error={touched.content ? errors.content : undefined}

@@ -30,7 +30,7 @@ interface Props {
 
 const CourseModal: React.FC<Props> = ({ isOpen, onClose, course }) => {
 
-    const { reviews, loading } = useReviews(course, null);
+    const { reviews, loading } = useReviews(course.id, null);
 
     return (
         <Modal

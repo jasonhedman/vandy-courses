@@ -53,9 +53,9 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                         spacing={4}
                     >
                         <CourseMenu
-                            course={null}
-                            setCourse={(course) => {
-                                setFieldValue('courseId', course?.id || "")
+                            courseId={null}
+                            setCourseId={(courseId) => {
+                                setFieldValue('courseId', courseId || "")
                             }}
                             onBlur={() => setFieldTouched("courseId", true)}
                             error={touched.courseId ? errors.courseId : undefined}

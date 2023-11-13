@@ -4,17 +4,16 @@ import {useCollectionData} from "react-firebase-hooks/firestore";
 
 import {reviewsCollection} from "@/firebase/firestore/converters/reviewConverter";
 
-import {Course} from "@/types/Course";
 import {Professor} from "@/types/Professor";
 
-const useReviews = (course: Course | null, professor: Professor | null) => {
+const useReviews = (courseId: string | null, professor: Professor | null) => {
 
     const queryParams: QueryConstraint[] = [
         orderBy("score", "desc"),
     ];
 
-    if (course) {
-        queryParams.push(where("courseId", "==", course.id));
+    if (courseId) {
+        queryParams.push(where("courseId", "==", courseId));
     }
 
     if (professor) {

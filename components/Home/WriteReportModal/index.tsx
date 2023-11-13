@@ -57,7 +57,6 @@ const WriteReportModal: React.FC<Props> = ({ reviewId, isOpen, onClose }) => {
                             setSelectedOption={(reportType) => {
                                 setFieldValue('type', reportType);
                             }}
-                            onBlur={() => setFieldTouched('type', true)}
                             error={touched.type ? errors.type : undefined}
                         />
                         <TextareaInput

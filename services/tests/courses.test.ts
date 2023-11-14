@@ -1,77 +1,70 @@
-import { Course } from "@/types/Course"; // Make sure this path is correct
-import { setCourse, updateCourseNumReviews } from "../courses"; // Adjust the path as necessary
-import { doc, setDoc, updateDoc, increment } from "@firebase/firestore";
+import { jest, describe, it, expect } from "@jest/globals";
 
+import { doc, setDoc, updateDoc, increment } from '@firebase/firestore';
+
+import firestore from '@/firebase/firestore';
+
+import { setCourse, updateCourseNumReviews } from '@/services/courses';
+
+import {Course} from "@/types/Course";
+
+// write jest unit tests for setCourse and updateCourseNumReviews
 jest.mock("@firebase/firestore", () => ({
-  doc: jest.fn(),
-  setDoc: jest.fn(),
-  updateDoc: jest.fn(),
-  increment: jest.fn(),
+    doc: jest.fn(),
+    setDoc: jest.fn(),
+    updateDoc: jest.fn(),
+    increment: jest.fn(),
 }));
 
-jest.mock("@/firebase/firestore", () => ({
-  firestore: {}
-}));
+jest.mock("@/firebase/firestore", () => ({}));
 
-const COURSES_COLLECTION = "courses";
+describe('Courses Services', () => {
+  const mockCourse: Course = {
+    id: 'course1',
+    name: 'Test Course',
+    description: 'Test Course Description',
+    numReviews: 0,
+  };
 
-describe('Firestore Course Operations', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  describe('setCourse', () => {
+    it('successfully sets a course', async () => {
+      (setDoc as jest.MockedFunction<typeof setDoc>).mockResolvedValueOnce(undefined);
 
-  it('should add a course document and return true on success', async () => {
-    const mockCourse: Course = {
-      id: "1",
-      name: "Test Course",
-      numReviews: 0,
-      description: "A description of the Test Course"
-    };
-    (setDoc as jest.Mock).mockResolvedValueOnce(undefined);
+      const result = await setCourse(mockCourse);
 
-    const result = await setCourse(mockCourse);
-
-    expect(result).toBeTruthy();
-    expect(doc).toHaveBeenCalledWith(expect.anything(), COURSES_COLLECTION, mockCourse.id);
-    expect(setDoc).toHaveBeenCalledWith(expect.anything(), mockCourse);
-  });
-
-  it('should return false when adding a course document fails', async () => {
-    const mockCourse: Course = {
-      id: "1",
-      name: "Test Course",
-      numReviews: 0,
-      description: "A description of the Test Course"
-    };
-    (setDoc as jest.Mock).mockRejectedValueOnce(new Error("Failed to add doc"));
-
-    const result = await setCourse(mockCourse);
-
-    expect(result).toBeFalsy();
-  });
-
-  it('should increment numReviews and return true on success', async () => {
-    const courseId = "1";
-    const amountIncrement = 1;
-    (updateDoc as jest.Mock).mockResolvedValueOnce(undefined);
-
-    const result = await updateCourseNumReviews(courseId, amountIncrement);
-
-    expect(result).toBeTruthy();
-    expect(doc).toHaveBeenCalledWith(expect.anything(), COURSES_COLLECTION, courseId);
-    expect(updateDoc).toHaveBeenCalledWith(expect.anything(), {
-      numReviews: increment(amountIncrement)
+      expect(setDoc).toHaveBeenCalledWith(doc(firestore, 'courses', mockCourse.id), {...mockCourse});
+      expect(result).toBe(true);
     });
-    expect(increment).toHaveBeenCalledWith(amountIncrement);
+
+    it('handles setDoc error', async () => {
+      const mockError = new Error('Failed to set document');
+      (setDoc as jest.MockedFunction<typeof setDoc>).mockRejectedValueOnce(mockError);
+
+      const result = await setCourse(mockCourse);
+
+      expect(result).toBe(false);
+    });
   });
 
-  it('should return false when incrementing numReviews fails', async () => {
-    const courseId = "1";
-    const amountIncrement = 1;
-    (updateDoc as jest.Mock).mockRejectedValueOnce(new Error("Failed to update doc"));
+  describe('updateCourseNumReviews', () => {
+    it('successfully updates numReviews', async () => {
+      (updateDoc as jest.MockedFunction<typeof updateDoc>).mockResolvedValueOnce(undefined);
 
-    const result = await updateCourseNumReviews(courseId, amountIncrement);
+      const courseId = 'course1';
+      const amountIncrement = 5;
+      const result = await updateCourseNumReviews(courseId, amountIncrement);
 
-    expect(result).toBeFalsy();
+      expect(updateDoc).toHaveBeenCalledWith(doc(firestore, 'courses', courseId), { numReviews: increment(amountIncrement) });
+      expect(result).toBe(true);
+    });
+
+    it('handles updateDoc error', async () => {
+      const mockError = new Error('Failed to update document');
+      (updateDoc as jest.MockedFunction<typeof updateDoc>).mockRejectedValueOnce(mockError);
+
+      const result = await updateCourseNumReviews('course1', 5);
+
+      expect(result).toBe(false);
+    });
   });
 });

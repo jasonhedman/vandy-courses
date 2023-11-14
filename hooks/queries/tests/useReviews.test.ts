@@ -28,7 +28,10 @@ describe("useReviews Hook", () => {
     });
 
     it("initializes correctly and fetches reviews", () => {
-        const { result } = renderHook(() => useReviews("course123", null));
+        const { result } = renderHook(() => useReviews({
+            courseId: "course123",
+            professor: null
+        }));
 
         expect(result.current.reviews).toEqual(mockReviews);
         expect(result.current.loading).toBeFalsy();
@@ -36,7 +39,10 @@ describe("useReviews Hook", () => {
     });
 
     it("constructs query parameters correctly for courseId", () => {
-        renderHook(() => useReviews("course123", null));
+        renderHook(() => useReviews({
+            courseId: "course123",
+            professor: null
+        }));
 
         expect(query).toHaveBeenCalled();
         expect(orderBy).toHaveBeenCalledWith('createdAt', 'desc');
@@ -45,7 +51,10 @@ describe("useReviews Hook", () => {
 
     it("constructs query parameters correctly for professor", () => {
         const mockProfessor = { id: "prof123", name: "Professor X" };
-        renderHook(() => useReviews(null, mockProfessor));
+        renderHook(() => useReviews({
+            courseId: null,
+            professor: mockProfessor
+        }));
 
         expect(query).toHaveBeenCalled();
         expect(orderBy).toHaveBeenCalledWith('createdAt', 'desc');
@@ -55,13 +64,19 @@ describe("useReviews Hook", () => {
     it("handles undefined reviews data by defaulting to an empty array", () => {
         (useCollectionData as jest.Mock).mockReturnValue([undefined, false, null]);
 
-        const { result } = renderHook(() => useReviews("course123", null));
+        const { result } = renderHook(() => useReviews({
+            courseId: "course123",
+            professor: null
+        }));
 
         expect(result.current.reviews).toEqual([]);
     });
 
     it("updates query parameters correctly when sortBy is changed to MostPopular", () => {
-        const { result, rerender } = renderHook(() => useReviews("course123", null));
+        const { result, rerender } = renderHook(() => useReviews({
+            courseId: "course123",
+            professor: null
+        }));
 
         act(() => {
             result.current.setSortBy(SortBy.MostPopular);

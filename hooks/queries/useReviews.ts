@@ -9,7 +9,16 @@ import {reviewsCollection} from "@/firebase/firestore/converters/reviewConverter
 import {Professor} from "@/types/Professor";
 import {SortBy} from "@/types/SortBy";
 
-const useReviews = (courseId: string | null, professor: Professor | null, minReports?: number) => {
+interface UseReviewsProps {
+    courseId: string | null,
+    professor: Professor | null,
+    minReports?: number
+    userId?: string
+}
+
+const useReviews = (props: UseReviewsProps) => {
+
+    const {courseId, professor, minReports, userId} = props;
 
     const [sortBy, setSortBy] = useState<SortBy>(SortBy.Newest);
 
@@ -28,12 +37,15 @@ const useReviews = (courseId: string | null, professor: Professor | null, minRep
     if (courseId) queryParams.push(where("courseId", "==", courseId));
     if (professor) queryParams.push(where("professor.id", "==", professor.id));
     if (minReports) queryParams.push(where("numReports", ">=", minReports));
+    if (userId) queryParams.push(where("userId", "==", userId));
 
     // get all reviews for a course or professor, ordered by score
     const [reviews, loading, error] = useCollectionData(query(
         reviewsCollection,
         ...queryParams
     ));
+
+    console.log(error);
     
     return {
         // filter out any reviews with undefined IDs (which must be added to the record after creation)

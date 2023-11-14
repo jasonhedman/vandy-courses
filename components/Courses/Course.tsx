@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Heading, Text, VStack} from "@chakra-ui/react";
 
-import CourseBadges from "@/components/CoursesPage/CourseBadges";
+import CourseBadges from "@/components/Courses/CourseBadges";
 import ClickableCard from "@/components/Utilities/ClickableCard";
 
 import { Course as CourseType } from "@/types/Course";

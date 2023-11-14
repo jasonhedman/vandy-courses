@@ -2,16 +2,16 @@ import React from 'react';
 
 import {Flex, Heading, HStack, Text, useColorModeValue, VStack} from "@chakra-ui/react";
 
-import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
-import ReviewUpvoteDownvote from "@/components/Home/Reviews/ReviewUpvoteDownvote";
+import RatingDisplay from "@/components/Reviews/RatingDisplay";
+import ReviewUpvoteDownvote from "@/components/Reviews/ReviewUpvoteDownvote";
 import ClickableCard from "@/components/Utilities/ClickableCard";
-import ReviewBadges from "@/components/Home/Reviews/ReviewBadges";
+import ReviewBadges from "@/components/Reviews/ReviewBadges";
 
 import {MAXIMUM_RATING} from "@/data/reviewConstants";
 
 import { Review as ReviewType } from '@/types/Review';
 import {Professor} from "@/types/Professor";
-import DeleteReview from "@/components/Home/Reviews/DeleteReview";
+import DeleteReview from "@/components/Reviews/DeleteReview";
 
 interface Props {
     review: ReviewType,
@@ -19,9 +19,10 @@ interface Props {
     setCourseId?: (courseId: string | null) => void,
     setProfessor?: (professor: Professor | null) => void,
     admin?: boolean,
+    profile?: boolean,
 }
 
-const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor, admin }) => {
+const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor, admin, profile }) => {
 
     const timeColor = useColorModeValue("blackAlpha.700", "whiteAlpha.700");
 
@@ -88,7 +89,7 @@ const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor, a
                         size={"75px"}
                     />
                     {
-                        admin ? (
+                        admin || profile ? (
                             <DeleteReview
                                 reviewId={review.id}
                             />

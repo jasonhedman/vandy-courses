@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { WarningIcon } from "@chakra-ui/icons";
 
-import WriteReportModal from "@/components/Home/WriteReportModal";
+import WriteReportModal from "@/components/Home/Reports/WriteReportModal";
 
 interface Props {
     reviewId: string

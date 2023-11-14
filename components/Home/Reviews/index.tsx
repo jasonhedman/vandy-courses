@@ -14,9 +14,10 @@ interface Props {
     reviews: ReviewType[],
     setCourseId?: (courseId: string | null) => void,
     setProfessor?: (professor: Professor | null) => void,
+    admin?: boolean,
 }
 
-const Reviews: React.FC<Props> = ({ reviews, setCourseId, setProfessor }) => {
+const Reviews: React.FC<Props> = ({ reviews, setCourseId, setProfessor, admin }) => {
 
     const { reviewId, onClose, isOpen, openModal } = useReviewModal();
 
@@ -45,6 +46,7 @@ const Reviews: React.FC<Props> = ({ reviews, setCourseId, setProfessor }) => {
                                 onClick={() => openModal(review.id)}
                                 setCourseId={setCourseId}
                                 setProfessor={setProfessor}
+                                admin={admin}
                             />
                         ))
                     ) : (

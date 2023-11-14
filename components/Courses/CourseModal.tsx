@@ -16,9 +16,9 @@ import {
     Skeleton
 } from "@chakra-ui/react";
 
-import CourseBadges from "@/components/CoursesPage/CourseBadges";
+import CourseBadges from "@/components/Courses/CourseBadges";
 import useReviews from "@/hooks/queries/useReviews";
-import Reviews from "@/components/Home/Reviews";
+import Reviews from "@/components/Reviews";
 
 import {Course} from "@/types/Course";
 import SortByRadio from "@/components/Utilities/SortByRadio";
@@ -31,7 +31,10 @@ interface Props {
 
 const CourseModal: React.FC<Props> = ({ isOpen, onClose, course }) => {
 
-    const { reviews, loading, sortBy, setSortBy } = useReviews(course.id, null);
+    const { reviews, loading, sortBy, setSortBy } = useReviews({
+        courseId: course.id,
+        professor: null
+    });
 
     return (
         <Modal

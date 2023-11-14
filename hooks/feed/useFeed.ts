@@ -10,7 +10,10 @@ const useFeed = () => {
     const [courseId, setCourseId] = useState<string | null>(null);
     const [professor, setProfessor] = useState<Professor | null>(null);
 
-    const { reviews, loading, error, sortBy, setSortBy } = useReviews(courseId, professor);
+    const { reviews, loading, error, sortBy, setSortBy } = useReviews({
+        courseId,
+        professor
+    });
 
     return {
         courseId,

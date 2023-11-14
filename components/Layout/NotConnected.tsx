@@ -1,10 +1,14 @@
 import React from 'react';
+
 import {Card, Heading, Text, VStack} from "@chakra-ui/react";
+
 import SignInWithGoogleButton from "@/components/AuthButton/SignInWithGoogleButton";
 
 const NotConnected = () => {
     return (
-        <Card>
+        <Card
+            p={8}
+        >
             <VStack
                 spacing={4}
             >

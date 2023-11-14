@@ -23,18 +23,21 @@ import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
 import ReviewUpvoteDownvote from "@/components/Home/Reviews/ReviewUpvoteDownvote";
 import Comments from "@/components/Home/Comments";
 import WriteComment from "@/components/Home/Comments/WriteComment";
+import Reports from "@/components/Home/Reports/Reports";
 
 import useReview from "@/hooks/queries/useReview";
 
 import {MAXIMUM_RATING} from "@/data/reviewConstants";
+import DeleteReview from "@/components/Home/Reviews/DeleteReview";
 
 interface Props {
     isOpen: boolean,
     onClose: () => void,
-    reviewId: string
+    reviewId: string,
+    admin?: boolean,
 }
 
-const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId }) => {
+const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId, admin }) => {
 
     const { review, loading } = useReview(reviewId);
 
@@ -83,10 +86,19 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId }) => {
                                                 {review.content}
                                             </Text>
                                         </VStack>
-                                        <ReviewUpvoteDownvote
-                                            reviewId={review.id}
-                                            score={review.score}
-                                        />
+                                        {
+                                            admin ? (
+                                                <DeleteReview
+                                                    reviewId={review.id}
+                                                    afterDelete={onClose}
+                                                />
+                                            ) : (
+                                                <ReviewUpvoteDownvote
+                                                    reviewId={review.id}
+                                                    score={review.score}
+                                                />
+                                            )
+                                        }
                                     </HStack>
                                     <Divider />
                                     <Heading
@@ -139,17 +151,36 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId }) => {
                                         />
                                     </SimpleGrid>
                                     <Divider />
-                                    <Heading
-                                        size={'md'}
-                                        fontWeight={'bold'}
-                                        mb={0}
-                                    >
-                                        Comments
-                                    </Heading>
-                                    <WriteComment reviewId={review.id} />
-                                    <Comments
-                                        reviewId={review.id}
-                                    />
+                                    {
+                                        admin ? (
+                                            <>
+                                                <Heading
+                                                    size={'md'}
+                                                    fontWeight={'bold'}
+                                                    mb={0}
+                                                >
+                                                    Reports
+                                                </Heading>
+                                                <Reports
+                                                    reviewId={review.id}
+                                                />
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Heading
+                                                    size={'md'}
+                                                    fontWeight={'bold'}
+                                                    mb={0}
+                                                >
+                                                    Comments
+                                                </Heading>
+                                                <WriteComment reviewId={review.id} />
+                                                <Comments
+                                                    reviewId={review.id}
+                                                />
+                                            </>
+                                        )
+                                    }
                                 </VStack>
                             </ModalBody>
                             <ModalFooter />

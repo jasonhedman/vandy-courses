@@ -29,6 +29,7 @@ const Reviews: React.FC<Props> = ({ reviews, setCourseId, setProfessor, admin })
                         isOpen={isOpen}
                         onClose={onClose}
                         reviewId={reviewId}
+                        admin={admin}
                     />
                 )
             }

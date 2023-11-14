@@ -59,6 +59,16 @@ const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor, a
                     >
                         {review.createdAt.fromNow()}
                     </Text>
+                    {
+                        admin && (
+                            <Text
+                                fontSize='xs'
+                                color={timeColor}
+                            >
+                                {review.numReports} Report{review.numReports === 1 ? "" : "s"}
+                            </Text>
+                        )
+                    }
                 </VStack>
                 <HStack
                     spacing={4}

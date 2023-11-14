@@ -10,8 +10,6 @@ interface Props {
 
 const ProfileHeader: React.FC<Props> = ({ user }) => {
 
-    console.log(user.photoURL);
-
     return (
         <Card
             flexDirection={'row'}

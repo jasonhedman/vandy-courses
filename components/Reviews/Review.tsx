@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Flex, Heading, HStack, Text, useColorModeValue, VStack} from "@chakra-ui/react";
+import {Box, Flex, Heading, HStack, Text, useColorModeValue, VStack} from "@chakra-ui/react";
 
 import RatingDisplay from "@/components/Reviews/RatingDisplay";
 import ReviewUpvoteDownvote from "@/components/Reviews/ReviewUpvoteDownvote";
@@ -33,6 +33,10 @@ const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor, a
             <Flex
                 justifyContent={'space-between'}
                 alignItems={'center'}
+                gap={{
+                    base: 2,
+                    md: 4,
+                }}
             >
                 <VStack
                     align={'start'}
@@ -74,13 +78,20 @@ const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor, a
                 <HStack
                     spacing={4}
                 >
-                    <RatingDisplay
-                        rating={review.difficulty}
-                        maxRating={MAXIMUM_RATING}
-                        label={"Difficulty"}
-                        color={"orange.500"}
-                        size={"75px"}
-                    />
+                    <Box
+                        display={{
+                            base: "none",
+                            md: "block",
+                        }}
+                    >
+                        <RatingDisplay
+                            rating={review.difficulty}
+                            maxRating={MAXIMUM_RATING}
+                            label={"Difficulty"}
+                            color={"orange.500"}
+                            size={"75px"}
+                        />
+                    </Box>
                     <RatingDisplay
                         rating={review.rating}
                         maxRating={MAXIMUM_RATING}

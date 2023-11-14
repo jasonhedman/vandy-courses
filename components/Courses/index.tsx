@@ -39,7 +39,10 @@ const Courses = () => {
                 {/*    setDepartment={() => {}}*/}
                 {/*/>*/}
                 <SimpleGrid
-                    columns={3}
+                    columns={{
+                        base: 1,
+                        md: 3
+                    }}
                     spacing={4}
                 >
                     {

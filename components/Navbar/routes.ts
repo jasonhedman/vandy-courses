@@ -9,6 +9,10 @@ const routes : Route[] = [
         href: '/courses',
         text: 'Courses'
     },
+    {
+        href: '/admin',
+        text: 'Admin'
+    }
 ]
 
 export default routes

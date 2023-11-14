@@ -15,7 +15,7 @@ const useDeleteReview = (reviewId: string) => {
     const [isDeleted, setIsDeleted] = useState(false);
 
     const onDelete = async () => {
-        if (loading || !user) return;
+        if (loading || !user?.uid) return;
         setLoading(true);
         const deleted = await deleteReview(reviewId);
         setIsDeleted(deleted);

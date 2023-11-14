@@ -45,8 +45,6 @@ const useReviews = (props: UseReviewsProps) => {
         ...queryParams
     ));
 
-    console.log(error);
-    
     return {
         // filter out any reviews with undefined IDs (which must be added to the record after creation)
         reviews: reviews === undefined ? [] : reviews.filter((review) => review.id),

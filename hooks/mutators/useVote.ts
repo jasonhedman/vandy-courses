@@ -19,7 +19,7 @@ const useVote = (
     const handleVote = async (voteType: VoteStatus) => {
         if (loading || !userId) return;
 
-        const alreadyVoted = votes?.length;
+        const alreadyVoted = votes.length;
         const currentVoteStatus = alreadyVoted ? votes[0].voteStatus : VoteStatus.NONE;
         const newStatus = currentVoteStatus === voteType ? VoteStatus.NONE : voteType;
         const amountIncrement = getVoteIncrement(currentVoteStatus, newStatus);
@@ -48,7 +48,7 @@ const useVote = (
     return {
         onUpvote,
         onDownvote,
-        voteStatus: votes?.length ? votes[0].voteStatus : VoteStatus.NONE,
+        voteStatus: votes.length ? votes[0].voteStatus : VoteStatus.NONE,
         loading,
     }
 

@@ -79,7 +79,6 @@ const useCreateComment = (reviewId: string) => {
 
     // set the user id when the user changes
     useEffect(() => {
-        if(!user) return;
         setFieldValue('userId', user?.uid || '');
     }, [setFieldValue, user]);
 

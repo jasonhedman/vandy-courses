@@ -11,15 +11,17 @@ import {MAXIMUM_RATING} from "@/data/reviewConstants";
 
 import { Review as ReviewType } from '@/types/Review';
 import {Professor} from "@/types/Professor";
+import DeleteReview from "@/components/Home/Reviews/DeleteReview";
 
 interface Props {
     review: ReviewType,
     onClick: () => void,
     setCourseId?: (courseId: string | null) => void,
     setProfessor?: (professor: Professor | null) => void,
+    admin?: boolean,
 }
 
-const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor }) => {
+const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor, admin }) => {
 
     const timeColor = useColorModeValue("blackAlpha.700", "whiteAlpha.700");
 
@@ -75,10 +77,18 @@ const Review: React.FC<Props> = ({ review, onClick, setCourseId, setProfessor })
                         color={"green.500"}
                         size={"75px"}
                     />
-                    <ReviewUpvoteDownvote
-                        reviewId={review.id}
-                        score={review.score}
-                    />
+                    {
+                        admin ? (
+                            <DeleteReview
+                                reviewId={review.id}
+                            />
+                        ) : (
+                            <ReviewUpvoteDownvote
+                                reviewId={review.id}
+                                score={review.score}
+                            />
+                        )
+                    }
                 </HStack>
             </Flex>
         </ClickableCard>

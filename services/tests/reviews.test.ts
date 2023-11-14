@@ -4,7 +4,7 @@ import { addDoc, deleteDoc, doc, increment, updateDoc, DocumentReference } from 
 
 import firestore from "@/firebase/firestore";
 
-import { addReview, voteReview, deleteReview } from "@/services/reviews";
+import { addReview, voteReview, deleteReview, updateReviewNumReports } from "@/services/reviews";
 import { updateCourseNumReviews } from "@/services/courses";
 import { deleteSubcollection } from "@/services/firebaseUtils";
 import {ReviewInput} from "@/types/Review";
@@ -180,6 +180,30 @@ describe('Review Services', () => {
           .mockResolvedValueOnce(false); // Simulate failure in deleting votes
 
       const result = await deleteReview(reviewId);
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('updateReviewNumReports', () => {
+    const reviewId = 'review1';
+    const amountIncrement = 1;
+
+    it('successfully increments the number of reports for a review', async () => {
+      (updateDoc as jest.MockedFunction<typeof updateDoc>).mockResolvedValueOnce(undefined);
+
+      const result = await updateReviewNumReports(reviewId, amountIncrement);
+
+      expect(result).toBe(true);
+      expect(updateDoc).toHaveBeenCalledWith(doc(firestore, 'reviews', reviewId), {
+        numReports: increment(amountIncrement),
+      });
+    });
+
+    it('returns false when updateDoc fails', async () => {
+      (updateDoc as jest.MockedFunction<typeof updateDoc>).mockRejectedValueOnce(new Error('Failed to update document'));
+
+      const result = await updateReviewNumReports(reviewId, amountIncrement);
 
       expect(result).toBe(false);
     });

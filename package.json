@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --coverage --collectCoverageFrom='[\"services/*.ts\", \"pages/api/*.ts\"]'"
+    "test": "jest --coverage --collectCoverageFrom='[\"services/*.ts\", \"pages/api/*.ts\", \"hooks/auth/*.ts\", \"hooks/queries/*.ts\", \"hooks/feed/*.ts\"]'"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
@@ -37,8 +37,10 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
+    "@testing-library/react": "^14.1.0",
     "@types/leo-profanity": "^1.5.3",
     "jest": "^29.7.0",
+    "jsdom": "^22.1.0",
     "ts-jest": "^29.1.1"
   }
 }

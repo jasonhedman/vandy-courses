@@ -8,7 +8,7 @@ provider.setCustomParameters({hd: "vanderbilt.edu"})
 import {useAuthState} from "react-firebase-hooks/auth";
 
 // custom hook to handle logging users in via Google OAuth
-const useLogin = () => {
+const useSignIn = () => {
 
     const [user, loading, error] = useAuthState(auth);
 
@@ -25,4 +25,4 @@ const useLogin = () => {
     }
 }
 
-export default useLogin;
+export default useSignIn;

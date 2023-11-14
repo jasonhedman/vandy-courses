@@ -13,6 +13,9 @@ interface Props {
 
 const ReviewBadges: React.FC<Props> = ({ review, setCourseId, setProfessor}) => {
 
+    const courseId = review.courseId.replace("_", " ").toUpperCase().substring(0, 10);
+    const professorName = review.professor.name.substring(0, 10);
+
     return (
         <HStack>
             {
@@ -26,14 +29,14 @@ const ReviewBadges: React.FC<Props> = ({ review, setCourseId, setProfessor}) => 
                             setCourseId(review.courseId)
                         }}
                     >
-                        {review.courseId.replace("_", " ").toUpperCase()}
+                        {courseId}
                     </Button>
                 ) : (
                     <Badge
                         colorScheme={'green'}
                         size = 'xs'
                     >
-                        {review.courseId.replace("_", " ").toUpperCase()}
+                        {courseId}
                     </Badge>
                 )
             }
@@ -48,14 +51,14 @@ const ReviewBadges: React.FC<Props> = ({ review, setCourseId, setProfessor}) => 
                             setProfessor(review.professor)
                         }}
                     >
-                        {review.professor.name}
+                        {professorName}
                     </Button>
                 ) : (
                     <Badge
                         colorScheme={'blue'}
                         size = 'xs'
                     >
-                        {review.professor.name}
+                        {professorName}
                     </Badge>
                 )
             }

@@ -32,6 +32,7 @@ const ExploreHeader: React.FC<Props> = ({ courseId, setCourseId, professor, setP
                     alignItems={'flex-end'}
                     gap={4}
                     w={'100%'}
+                    flexDirection={{ base: 'column', md: 'row' }}
                 >
                     <CourseMenu
                         courseId={courseId}

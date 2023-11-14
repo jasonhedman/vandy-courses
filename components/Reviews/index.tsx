@@ -2,8 +2,8 @@ import React from 'react';
 
 import {Card, Text, VStack} from "@chakra-ui/react";
 
-import Review from "@/components/Home/Reviews/Review";
-import ReviewModal from "@/components/Home/ReviewModal";
+import Review from "@/components/Reviews/Review";
+import ReviewModal from "@/components/Reviews/ReviewModal";
 
 import useReviewModal from "@/hooks/feed/useReviewModal";
 
@@ -15,9 +15,10 @@ interface Props {
     setCourseId?: (courseId: string | null) => void,
     setProfessor?: (professor: Professor | null) => void,
     admin?: boolean,
+    profile?: boolean
 }
 
-const Reviews: React.FC<Props> = ({ reviews, setCourseId, setProfessor, admin }) => {
+const Reviews: React.FC<Props> = ({ reviews, setCourseId, setProfessor, admin, profile }) => {
 
     const { reviewId, onClose, isOpen, openModal } = useReviewModal();
 
@@ -30,6 +31,7 @@ const Reviews: React.FC<Props> = ({ reviews, setCourseId, setProfessor, admin })
                         onClose={onClose}
                         reviewId={reviewId}
                         admin={admin}
+                        profile={profile}
                     />
                 )
             }
@@ -48,6 +50,7 @@ const Reviews: React.FC<Props> = ({ reviews, setCourseId, setProfessor, admin })
                                 setCourseId={setCourseId}
                                 setProfessor={setProfessor}
                                 admin={admin}
+                                profile={profile}
                             />
                         ))
                     ) : (

@@ -2,12 +2,11 @@ import React from 'react';
 
 import {SimpleGrid, Skeleton, VStack} from "@chakra-ui/react";
 
-import Course from "@/components/CoursesPage/Course";
+import Course from "@/components/Courses/Course";
 
 import useCourses from "@/hooks/queries/useCourses";
-import CourseModal from "@/components/CoursesPage/CourseModal";
+import CourseModal from "@/components/Courses/CourseModal";
 import useCourseModal from "@/hooks/feed/useCourseModal";
-import CourseFilters from "@/components/CoursesPage/CourseFilters";
 
 const Courses = () => {
 

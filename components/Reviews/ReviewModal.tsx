@@ -18,9 +18,9 @@ import {
 } from "@chakra-ui/react";
 
 import ReportButton from '@/components/Home/Reports/ReportButton';
-import ReviewBadges from "@/components/Home/Reviews/ReviewBadges";
-import RatingDisplay from "@/components/Home/Reviews/RatingDisplay";
-import ReviewUpvoteDownvote from "@/components/Home/Reviews/ReviewUpvoteDownvote";
+import ReviewBadges from "@/components/Reviews/ReviewBadges";
+import RatingDisplay from "@/components/Reviews/RatingDisplay";
+import ReviewUpvoteDownvote from "@/components/Reviews/ReviewUpvoteDownvote";
 import Comments from "@/components/Home/Comments";
 import WriteComment from "@/components/Home/Comments/WriteComment";
 import Reports from "@/components/Home/Reports/Reports";
@@ -28,16 +28,17 @@ import Reports from "@/components/Home/Reports/Reports";
 import useReview from "@/hooks/queries/useReview";
 
 import {MAXIMUM_RATING} from "@/data/reviewConstants";
-import DeleteReview from "@/components/Home/Reviews/DeleteReview";
+import DeleteReview from "@/components/Reviews/DeleteReview";
 
 interface Props {
     isOpen: boolean,
     onClose: () => void,
     reviewId: string,
     admin?: boolean,
+    profile?: boolean
 }
 
-const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId, admin }) => {
+const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId, admin, profile }) => {
 
     const { review, loading } = useReview(reviewId);
 
@@ -87,7 +88,7 @@ const ReviewModal: React.FC<Props> = ({ isOpen, onClose, reviewId, admin }) => {
                                             </Text>
                                         </VStack>
                                         {
-                                            admin ? (
+                                            admin || profile ? (
                                                 <DeleteReview
                                                     reviewId={review.id}
                                                     afterDelete={onClose}

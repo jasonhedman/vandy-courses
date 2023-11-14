@@ -5,7 +5,7 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    Button
+    Button, Avatar
 } from '@chakra-ui/react'
 
 import { ChevronDownIcon } from '@chakra-ui/icons'
@@ -16,33 +16,39 @@ import useAuth from "@/hooks/auth/useAuth";
 
 const AuthButton = () => {
 
-    const { user, isConnected, onSignOut } = useAuth()
+    const { user, onSignOut } = useAuth()
 
-    if(!isConnected) {
+    if(!user) {
         return (
             <SignInWithGoogleButton />
         )
     }
 
-    if(isConnected) {
-        return (
-            <Menu>
-                <MenuButton 
-                    as={Button} 
-                    rightIcon={<ChevronDownIcon />}
+    return (
+        <Menu>
+            <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                leftIcon={
+                    <Avatar
+                        size={'sm'}
+                        name={user.displayName || undefined}
+                        src={user.photoURL || undefined}
+                        referrerPolicy="no-referrer"
+                    />
+                }
+            >
+                {user?.displayName}
+            </MenuButton>
+            <MenuList>
+                <MenuItem
+                    onClick={() => onSignOut()}
                 >
-                    {user?.displayName}
-                </MenuButton>
-                <MenuList>
-                    <MenuItem
-                        onClick={() => onSignOut()}
-                    >
-                        Sign Out
-                    </MenuItem>
-                </MenuList>
-            </Menu>
-        )
-    }
+                    Sign Out
+                </MenuItem>
+            </MenuList>
+        </Menu>
+    )
 }
 
 export default AuthButton

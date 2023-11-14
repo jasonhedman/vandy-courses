@@ -1,8 +1,8 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyA9Z8ZMChuruXGPumDwNdpXXTZ7wk_bRn8",
-    authDomain: "vandy-courses-678c6.firebaseapp.com",
-    projectId: "vandy-courses-678c6",
-    storageBucket: "vandy-courses-678c6.appspot.com",
-    messagingSenderId: "669227470241",
-    appId: "1:669227470241:web:1bccb23532dc8fcb690fe0"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };

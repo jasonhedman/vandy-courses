@@ -5,13 +5,13 @@ import {courseAdapter} from "@/services/coursesApi/adapters";
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data = {
+export type AddCoursesResponse = {
     message: string
 }
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data>
+    res: NextApiResponse<AddCoursesResponse>
 ) {
     const courses = await fetchCourses('1000');
     await Promise.all(courses.map(course => setCourse(courseAdapter(course))));

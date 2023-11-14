@@ -5,7 +5,7 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    Button, Avatar
+    Button, Avatar, IconButton, useBreakpointValue
 } from '@chakra-ui/react'
 
 import { ChevronDownIcon } from '@chakra-ui/icons'
@@ -18,6 +18,39 @@ const AuthButton = () => {
 
     const { user, onSignOut } = useAuth()
 
+    const menuButton = useBreakpointValue({
+        base: (
+            <MenuButton
+                display={{base: 'flex', md: 'none'}}
+                as={IconButton}
+                aria-label={'Profile '}
+                icon={
+                    <Avatar
+                        size={'sm'}
+                        name={user?.displayName || ""}
+                        src={user?.photoURL || ""}
+                    />
+                }
+            />
+        ),
+        md: (
+            <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                leftIcon={
+                    <Avatar
+                        size={'sm'}
+                        name={user?.displayName || undefined}
+                        src={user?.photoURL || undefined}
+                        referrerPolicy="no-referrer"
+                    />
+                }
+            >
+                {user?.displayName}
+            </MenuButton>
+        )
+    })
+
     if(!user) {
         return (
             <SignInWithGoogleButton />
@@ -26,20 +59,7 @@ const AuthButton = () => {
 
     return (
         <Menu>
-            <MenuButton
-                as={Button}
-                rightIcon={<ChevronDownIcon />}
-                leftIcon={
-                    <Avatar
-                        size={'sm'}
-                        name={user.displayName || undefined}
-                        src={user.photoURL || undefined}
-                        referrerPolicy="no-referrer"
-                    />
-                }
-            >
-                {user?.displayName}
-            </MenuButton>
+            {menuButton}
             <MenuList>
                 <MenuItem
                     onClick={() => onSignOut()}

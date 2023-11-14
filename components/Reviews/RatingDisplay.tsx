@@ -41,6 +41,7 @@ const RatingDisplay: React.FC<Props> = ({ rating, maxRating, label, color, size 
             <Text
                 fontSize={'sm'}
                 fontWeight={'medium'}
+                textAlign={'center'}
             >
                 {label}
             </Text>

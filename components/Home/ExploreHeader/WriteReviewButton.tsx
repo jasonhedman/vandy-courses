@@ -13,6 +13,10 @@ const WriteReviewButton = () => {
                 colorScheme={'brand'}
                 flexShrink={0}
                 onClick={onOpen}
+                w={{
+                    base: '100%',
+                    md: 'auto'
+                }}
             >
                 Write a Review
             </Button>

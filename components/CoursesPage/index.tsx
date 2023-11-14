@@ -35,10 +35,10 @@ const Courses = () => {
             <VStack
                 spacing={4}
             >
-                <CourseFilters
-                    department={""}
-                    setDepartment={() => {}}
-                />
+                {/*<CourseFilters*/}
+                {/*    department={""}*/}
+                {/*    setDepartment={() => {}}*/}
+                {/*/>*/}
                 <SimpleGrid
                     columns={3}
                     spacing={4}

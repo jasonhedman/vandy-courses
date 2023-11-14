@@ -5,15 +5,18 @@ import {Container, Flex, Skeleton} from "@chakra-ui/react";
 import Navbar from "@/components/Navbar";
 import useAuth from "@/hooks/auth/useAuth";
 import NotConnected from "@/components/Layout/NotConnected";
+import isAdmin from "@/data/admins";
+import NotAdmin from "@/components/Layout/NotAdmin";
 
 interface Props {
     children: React.ReactNode,
-    authGate?: boolean
+    authGate?: boolean,
+    adminGate?: boolean,
 }
 
-const Layout: React.FC<Props> = ({ children, authGate }) => {
+const Layout: React.FC<Props> = ({ children, authGate, adminGate }) => {
 
-    const { isConnected, loading } = useAuth();
+    const { loading, user } = useAuth();
 
     return (
         <Container
@@ -30,8 +33,16 @@ const Layout: React.FC<Props> = ({ children, authGate }) => {
                         loading ? (
                             <Skeleton />
                         ) : (
-                            isConnected ? (
-                                children
+                            user ? (
+                                adminGate ? (
+                                    isAdmin(user.uid) ? (
+                                        children
+                                    ) : (
+                                        <NotAdmin />
+                                    )
+                                ) : (
+                                    children
+                                )
                             ) : (
                                 <NotConnected />
                             )

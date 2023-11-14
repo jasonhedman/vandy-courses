@@ -3,7 +3,7 @@ import React from 'react';
 import {Skeleton, VStack} from "@chakra-ui/react";
 
 import ExploreHeader from "@/components/Home/ExploreHeader";
-import Reviews from "@/components/Home/Reviews";
+import Reviews from "@/components/Reviews";
 
 import useFeed from "@/hooks/feed/useFeed";
 

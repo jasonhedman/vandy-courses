@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import Layout from "@/components/Layout";
-import Courses from "@/components/CoursesPage";
+import Courses from "@/components/Courses";
 
 export default function CoursePage() {
   return (

@@ -4,13 +4,13 @@ import {setProfessor} from "@/services/professors";
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data = {
+export type AddProfessorsResponse = {
     message: string
 }
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data>
+    res: NextApiResponse<AddProfessorsResponse>
 ) {
     const professors = await fetchProfessors();
     await Promise.all(professors.map(professor => setProfessor(professor)));

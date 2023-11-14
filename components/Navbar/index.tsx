@@ -1,12 +1,12 @@
 import React from 'react'
 
-import {Card, Flex, HStack, Image} from '@chakra-ui/react'
+import {Box, Card, Flex, HStack, Image} from '@chakra-ui/react'
 
-import AuthButton from '../AuthButton/AuthButton'
-import NavLink from './NavLink'
-
-import routes from './routes'
+import AuthButton from '@/components/AuthButton/AuthButton'
 import ColorModeToggle from "@/components/Navbar/ColorModeToggle";
+import NavLinks from "@/components/Navbar/NavLinks";
+import MobileNav from "@/components/Navbar/MobileNavbar";
+
 import useAuth from "@/hooks/auth/useAuth";
 
 const Navbar = () => {
@@ -31,22 +31,24 @@ const Navbar = () => {
                         height='40px'
                         alt='Vanderbilt Logo'
                     />
-                    <HStack
-                        mr='auto'
+                    <Box
+                        display={{
+                            base: 'none',
+                            md: 'flex'
+                        }}
                     >
-                        {
-                            routes(user?.uid).map((route) => (
-                                <NavLink
-                                    key={route.href}
-                                    href={route.href}
-                                    text={route.text}
-                                />
-                            ))
-                        }
-                    </HStack>
-                    <HStack>
+                        <NavLinks
+                            userId={user?.uid}
+                        />
+                    </Box>
+                    <HStack
+                        ml='auto'
+                    >
                         <ColorModeToggle />
                         <AuthButton />
+                        <MobileNav
+                            userId={user?.uid}
+                        />
                     </HStack>
                 </Flex>
           </Card>

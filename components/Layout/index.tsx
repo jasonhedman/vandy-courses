@@ -21,7 +21,14 @@ const Layout: React.FC<Props> = ({ children, authGate, adminGate }) => {
     return (
         <Container
             maxW={'6xl'}
-            py={8}
+            py={{
+                base: 2,
+                md: 8
+            }}
+            px={{
+                base: 2,
+                md: 4
+            }}
         >
             <Flex
                 direction={'column'}

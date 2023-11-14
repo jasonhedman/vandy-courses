@@ -5,15 +5,17 @@ import useDeleteReview from "@/hooks/mutators/useDeleteReview";
 
 interface Props {
     reviewId: string,
+    afterDelete?: () => void
 }
 
-const DeleteReview: React.FC<Props> = ({ reviewId }) => {
+const DeleteReview: React.FC<Props> = ({ reviewId, afterDelete }) => {
 
     const { onDelete } = useDeleteReview(reviewId);
 
     const deleteReview = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation();
         await onDelete();
+        afterDelete && afterDelete();
     }
 
     return (

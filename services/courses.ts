@@ -1,9 +1,9 @@
 import {doc, increment, setDoc, updateDoc} from "@firebase/firestore";
 
 import firestore from "@/firebase/firestore";
+import {COURSES_COLLECTION} from "@/firebase/firestore/collections";
 
 import {Course} from "@/types/Course";
-import {COURSES_COLLECTION} from "@/firebase/firestore/collections";
 
 // adds a course document to the courses collection
 export const setCourse = async (course: Course): Promise<boolean> => {

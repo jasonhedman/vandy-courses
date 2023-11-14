@@ -1,8 +1,9 @@
 import {fetchCourses} from '@/services/coursesApi/fetch';
 
-import type { NextApiRequest, NextApiResponse } from 'next'
 import {setCourse} from "@/services/courses";
 import {courseAdapter} from "@/services/coursesApi/adapters";
+
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
     message: string

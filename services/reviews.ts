@@ -40,10 +40,13 @@ export const voteReview = async (reviewId: string, amountIncrement: number): Pro
 export const deleteReview = async (reviewId: string): Promise<boolean> => {
     try {
         // Delete all comments and votes associated with the review.
-        await Promise.all([
+        const [commentsSuccess, votesSuccess] = await Promise.all([
             deleteSubcollection(REVIEWS_COLLECTION, reviewId, COMMENTS_COLLECTION),
             deleteSubcollection(REVIEWS_COLLECTION, reviewId, VOTES_COLLECTION)
         ])
+        if (!commentsSuccess || !votesSuccess) {
+            return false;
+        }
         // Delete the review.
         await deleteDoc(doc(firestore, REVIEWS_COLLECTION, reviewId));
         return true;

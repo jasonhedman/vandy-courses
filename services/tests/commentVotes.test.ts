@@ -1,43 +1,75 @@
-import { addCommentVote, updateCommentVote } from '/Users/jamesrogers/.git/vandy-courses/services/commentVotes.ts';
-import { addDoc, collection, doc, updateDoc } from '@firebase/firestore';
+import {describe, expect, it, jest} from "@jest/globals";
 
-jest.mock('@firebase/firestore');
+import {addDoc, doc, DocumentReference, updateDoc} from "@firebase/firestore";
 
-describe('Firestore operations', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+import firestore from "@/firebase/firestore";
+
+import {addCommentVote, updateCommentVote} from "@/services/commentVotes";
+import {VoteInput, VoteStatus} from "@/types/Vote";
+
+jest.mock("@firebase/firestore", () => ({
+  addDoc: jest.fn(),
+  collection: jest.fn(),
+  doc: jest.fn(),
+  updateDoc: jest.fn(),
+}));
+
+jest.mock("@/firebase/firestore", () => ({}));
+
+describe('Comment Vote Services', () => {
+  const reviewId = 'review1';
+  const commentId = 'comment1';
+  const voteId = 'vote1';
+  const mockVoteInput: VoteInput = {
+    userId: 'user1',
+    voteStatus: VoteStatus.UPVOTED, // Or however your VoteStatus is defined
+  };
+
+  // Mock DocumentReference
+  const mockDocRef: DocumentReference = {
+    id: voteId,
+  } as DocumentReference;
+
+  describe('addCommentVote', () => {
+    it('adds a vote and updates the ID successfully', async () => {
+      (addDoc as jest.MockedFunction<typeof addDoc>).mockResolvedValueOnce(mockDocRef);
+      (updateDoc as jest.MockedFunction<typeof updateDoc>).mockResolvedValueOnce(undefined);
+
+      const result = await addCommentVote(reviewId, commentId, mockVoteInput);
+
+      expect(result).toBe(true);
+      expect(addDoc).toHaveBeenCalled();
+      expect(updateDoc).toHaveBeenCalledWith(mockDocRef, { id: voteId });
+    });
+
+    it('handles errors when adding a vote', async () => {
+      (addDoc as jest.MockedFunction<typeof addDoc>).mockRejectedValueOnce(new Error('Failed to add document'));
+
+      const result = await addCommentVote(reviewId, commentId, mockVoteInput);
+
+      expect(result).toBe(false);
+    });
   });
 
-  test('addCommentVote successfully adds a vote', async () => {
-    const reviewId = 'review123';
-    const commentId = 'comment123';
-    const vote = { userId: 'user123', voteStatus: 'upvote' };
+  describe('updateCommentVote', () => {
+    it('successfully updates the vote status', async () => {
+      (updateDoc as jest.MockedFunction<typeof updateDoc>).mockResolvedValueOnce(undefined);
 
-    const result = await addCommentVote(reviewId, commentId, vote);
+      const result = await updateCommentVote(reviewId, commentId, voteId, VoteStatus.DOWNVOTED);
 
-    expect(result).toBe(true);
-    expect(addDoc).toHaveBeenCalledWith(
-      expect.anything(), 
-      vote
-    );
-    expect(updateDoc).toHaveBeenCalledWith(
-      expect.anything(), 
-      { id: 'mockDocId' }
-    );
-  });
+      expect(result).toBe(true);
+      expect(updateDoc).toHaveBeenCalledWith(
+          doc(firestore, 'reviews', reviewId, 'comments', commentId, 'votes', voteId),
+          { voteStatus: VoteStatus.DOWNVOTED }
+      );
+    });
 
-  test('updateCommentVote successfully updates a vote status', async () => {
-    const reviewId = 'review123';
-    const commentId = 'comment123';
-    const voteId = 'vote123';
-    const voteStatus = 'downvote';
+    it('handles errors when updating the vote status', async () => {
+      (updateDoc as jest.MockedFunction<typeof updateDoc>).mockRejectedValueOnce(new Error('Failed to update document'));
 
-    const result = await updateCommentVote(reviewId, commentId, voteId, voteStatus);
+      const result = await updateCommentVote(reviewId, commentId, voteId, VoteStatus.DOWNVOTED);
 
-    expect(result).toBe(true);
-    expect(updateDoc).toHaveBeenCalledWith(
-      expect.anything(), 
-      { voteStatus }
-    );
+      expect(result).toBe(false);
+    });
   });
 });

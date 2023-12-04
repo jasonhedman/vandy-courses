@@ -17,22 +17,25 @@ import {
 } from "@chakra-ui/react";
 
 import CourseBadges from "@/components/Courses/CourseBadges";
-import useReviews from "@/hooks/queries/useReviews";
 import Reviews from "@/components/Reviews";
-
-import {Course} from "@/types/Course";
 import SortByRadio from "@/components/Utilities/SortByRadio";
+
+import useReviews from "@/hooks/queries/useReviews";
+import useCourse from "@/hooks/queries/useCourse";
 
 interface Props {
     isOpen: boolean,
     onClose: () => void,
-    course: Course
+    courseId: string
 }
 
-const CourseModal: React.FC<Props> = ({ isOpen, onClose, course }) => {
+const CourseModal: React.FC<Props> = ({ isOpen, onClose, courseId }) => {
+
+    const { course, loading: courseLoading } = useCourse(courseId);
+
 
     const { reviews, loading, sortBy, setSortBy } = useReviews({
-        courseId: course.id,
+        courseId,
         professor: null
     });
 
@@ -48,47 +51,53 @@ const CourseModal: React.FC<Props> = ({ isOpen, onClose, course }) => {
                 <ModalHeader />
                 <ModalCloseButton />
                 <ModalBody>
-                    <VStack
-                        align={'start'}
-                        spacing={4}
-                    >
-                        <HStack>
+                    {
+                        (courseLoading || !course) ? (
+                            <Skeleton />
+                        ) : (
                             <VStack
                                 align={'start'}
+                                spacing={4}
                             >
-                                <CourseBadges course={course} />
+                                <HStack>
+                                    <VStack
+                                        align={'start'}
+                                    >
+                                        <CourseBadges course={course} />
+                                        <Heading
+                                            size={'md'}
+                                            fontWeight={'bold'}
+                                            mb={0}
+                                        >
+                                            {course.name}
+                                        </Heading>
+                                        <Text>
+                                            {course.description}
+                                        </Text>
+                                    </VStack>
+                                </HStack>
+                                <Divider />
                                 <Heading
                                     size={'md'}
                                     fontWeight={'bold'}
                                     mb={0}
                                 >
-                                    {course.name}
+                                    Reviews
                                 </Heading>
-                                <Text>
-                                    {course.description}
-                                </Text>
+                                <SortByRadio
+                                    sortBy={sortBy}
+                                    setSortBy={setSortBy}
+                                />
+                                {
+                                    loading ? (
+                                        <Skeleton />
+                                    ) : (
+                                        <Reviews reviews={reviews} />
+                                    )
+                                }
                             </VStack>
-                        </HStack>
-                        <Divider />
-                        <Heading
-                            size={'md'}
-                            fontWeight={'bold'}
-                            mb={0}
-                        >
-                            Reviews
-                        </Heading>
-                        <SortByRadio
-                            sortBy={sortBy} 
-                            setSortBy={setSortBy}
-                        />
-                        {
-                            loading ? (
-                                <Skeleton />
-                            ) : (
-                                <Reviews reviews={reviews} />
-                            )
-                        }
-                    </VStack>
+                        )
+                    }
                 </ModalBody>
                 <ModalFooter />
             </ModalContent>

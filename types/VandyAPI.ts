@@ -20,3 +20,21 @@ export interface Course {
     terms: Term[];
     parent_course: string;
 }
+
+export interface Section {
+    $id: string;
+    section_number: string;
+    notes?: string;
+    course: string;
+    term: string;
+    professors: ProfessorRef[];
+}
+
+export interface ProfessorRef {
+    $id: string;
+}
+
+export interface Professor {
+    $id: string;
+    name: string;
+}

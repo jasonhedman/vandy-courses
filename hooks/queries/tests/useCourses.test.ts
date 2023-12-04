@@ -28,22 +28,6 @@ describe("useCourses Hook", () => {
         (useCollectionDataOnce as jest.Mock).mockReturnValue([mockCourses, false, null]);
     });
 
-    it("fetches courses data correctly", () => {
-        const { result } = renderHook(() => useCourses());
-
-        expect(result.current.courses).toEqual(mockCourses);
-        expect(result.current.loading).toBeFalsy();
-        expect(result.current.error).toBeNull();
-    });
-
-    it("handles undefined courses data by defaulting to an empty array", () => {
-        (useCollectionDataOnce as jest.Mock).mockReturnValue([undefined, false, null]);
-
-        const { result } = renderHook(() => useCourses());
-
-        expect(result.current.courses).toEqual([]);
-    });
-
     it("constructs query with orderBy correctly", () => {
         renderHook(() => useCourses());
 

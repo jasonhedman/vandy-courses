@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import { HStack, Text } from "@chakra-ui/react";
-
 import AutoCompleteMenu from "@/components/Utilities/AutoCompleteMenu";
 
 import useCourses from "@/hooks/queries/useCourses";
@@ -19,7 +17,7 @@ interface Props {
 
 const CourseMenu: React.FC<Props> = ({ courseId, setCourseId, description, onBlur, error, closeButton }) => {
 
-    const { courses } = useCourses();
+    const { refine, hits } = useCourses();
 
     const [inputValue, setInputValue] = useState<string>("");
 
@@ -31,32 +29,21 @@ const CourseMenu: React.FC<Props> = ({ courseId, setCourseId, description, onBlu
         }
     }, [courseId]);
 
+    const handleInputChange = (val: string) => {
+        setInputValue(val);
+        refine(val);
+    }
+
     return (
         <AutoCompleteMenu
             label={"Course"}
             value={courseId}
             description={description}
             inputValue={inputValue}
-            setInputValue={setInputValue}
+            setInputValue={handleInputChange}
             placeholder={"Find a Course"}
-            optionComponents={(courses || []).map(course => (
-                <HStack
-                    key={course.id}
-                    justifyContent={"space-between"}
-                    w={"100%"}
-                >
-                    <Text>
-                        {course.id.replace("_", " ").toUpperCase()}
-                    </Text>
-                    <Text
-                        flexShrink={0}
-                    >
-                        {course.numReviews} Reviews
-                    </Text>
-                </HStack>
-            ))}
-            options={(courses || []).map(course => course.id)}
-            optionLabels={(courses || []).map(course => course.id.replace("_", " ").toUpperCase())}
+            options={(hits).map(course => course.objectID)}
+            optionLabels={(hits).map(course => course.objectID.replace("_", " ").toUpperCase())}
             onSelect={setCourseId}
             onBlur={onBlur}
             error={error}

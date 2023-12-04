@@ -2,8 +2,6 @@ import {useState} from "react";
 
 import {useDisclosure} from "@chakra-ui/react";
 
-import {Course} from "@/types/Course";
-
 // custom hook to handle the course modal, which opens when a user clicks on a course from the courses page
 const useCourseModal = () => {
 
@@ -11,18 +9,18 @@ const useCourseModal = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     // holds the course that the user clicked on
-    const [course, setCourse] = useState<Course>();
+    const [courseId, setCourseId] = useState<string>();
 
     // opens the modal and sets the course
-    const openCourseModal = (course: Course) => {
-        setCourse(course);
+    const openCourseModal = (courseId: string) => {
+        setCourseId(courseId);
         onOpen();
     }
 
     return {
         isOpen,
         onClose,
-        course,
+        courseId,
         openCourseModal
     }
 }

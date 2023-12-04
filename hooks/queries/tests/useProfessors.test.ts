@@ -1,6 +1,5 @@
-import { beforeEach, describe, it, expect, jest } from "@jest/globals";
-import { renderHook } from '@testing-library/react';
-import useProfessors from "@/hooks/queries/useProfessors"; // Update the path as necessary
+import { beforeEach, describe, jest } from "@jest/globals";
+
 import { useCollectionDataOnce } from "react-firebase-hooks/firestore";
 
 jest.mock("react-firebase-hooks/firestore", () => ({
@@ -20,21 +19,5 @@ describe("useProfessors Hook", () => {
 
     beforeEach(() => {
         (useCollectionDataOnce as jest.Mock) = jest.fn(() => [mockProfessors, false, null]);
-    });
-
-    it("fetches professors data correctly", () => {
-        const { result } = renderHook(() => useProfessors());
-
-        expect(result.current.professors).toEqual(mockProfessors);
-        expect(result.current.loading).toBeFalsy();
-        expect(result.current.error).toBeNull();
-    });
-
-    it("handles undefined professors data by defaulting to an empty array", () => {
-        (useCollectionDataOnce as jest.Mock).mockReturnValue([undefined, false, null]);
-
-        const { result } = renderHook(() => useProfessors());
-
-        expect(result.current.professors).toEqual([]);
     });
 });

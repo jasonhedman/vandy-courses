@@ -1,56 +1,54 @@
 import React from 'react';
 
-import {SimpleGrid, Skeleton, VStack} from "@chakra-ui/react";
+import {Card, Input, SimpleGrid, VStack} from "@chakra-ui/react";
 
 import Course from "@/components/Courses/Course";
-
-import useCourses from "@/hooks/queries/useCourses";
 import CourseModal from "@/components/Courses/CourseModal";
+
 import useCourseModal from "@/hooks/feed/useCourseModal";
+import useCourses from "@/hooks/queries/useCourses";
 
 const Courses = () => {
 
-    const { courses, loading } = useCourses();
+    const { isOpen, onClose, courseId, openCourseModal } = useCourseModal();
 
-    const { isOpen, onClose, course, openCourseModal } = useCourseModal();
-
-    if (loading) {
-        return (
-            <Skeleton />
-        )
-    }
+    const { hits, refine } = useCourses();
 
     return (
         <>
             {
-                course && (
+                courseId && (
                     <CourseModal
                         isOpen={isOpen}
                         onClose={onClose}
-                        course={course}
+                        courseId={courseId}
                     />
                 )
             }
             <VStack
                 spacing={4}
             >
-                {/*<CourseFilters*/}
-                {/*    department={""}*/}
-                {/*    setDepartment={() => {}}*/}
-                {/*/>*/}
+                <Card>
+                    <Input
+                        placeholder={'Search for a course'}
+                        onChange={(e) => refine(e.target.value)}
+                        focusBorderColor={'brand.500'}
+                    />
+                </Card>
                 <SimpleGrid
                     columns={{
                         base: 1,
                         md: 3
                     }}
                     spacing={4}
+                    w={'100%'}
                 >
                     {
-                        courses.map(course => (
+                        hits.map(course => (
                             <Course
-                                key={course.id}
-                                course={course}
-                                onClick={() => openCourseModal(course)}
+                                key={course.objectID}
+                                courseId={course.objectID}
+                                onClick={() => openCourseModal(course.objectID)}
                             />
                         ))
                     }

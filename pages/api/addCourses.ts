@@ -13,7 +13,8 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<AddCoursesResponse>
 ) {
-    const courses = await fetchCourses('1000');
+    const { page } = req.query;
+    const courses = await fetchCourses('1000', parseInt(page as string));
     await Promise.all(courses.map(course => setCourse(courseAdapter(course))));
     res.status(200).json({ message: 'Success' })
 }

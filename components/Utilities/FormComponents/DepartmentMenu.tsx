@@ -41,7 +41,6 @@ const DepartmentMenu: React.FC<Props> = ({ department, setDepartment, descriptio
             inputValue={inputValue}
             setInputValue={setInputValue}
             placeholder={"Find a Department"}
-            optionComponents={departments}
             options={departments}
             optionLabels={departments}
             onSelect={setDepartment}

@@ -18,7 +18,6 @@ interface Props<T> {
     value: T | null;
     inputValue: string;
     setInputValue: (inputValue: string) => void;
-    optionComponents: React.ReactNode[];
     optionLabels: string[];
     options: T[];
     onSelect: (value: T | null) => void;
@@ -28,7 +27,7 @@ interface Props<T> {
     closeButton?: boolean;
 }
 
-const AutoCompleteMenu = <T,>({ label, description, value, inputValue, setInputValue, optionComponents, options, optionLabels, onSelect, onBlur, error, placeholder, closeButton }: Props<T>) => {
+const AutoCompleteMenu = <T,>({ label, description, value, inputValue, setInputValue, options, optionLabels, onSelect, onBlur, error, placeholder, closeButton }: Props<T>) => {
 
     const menuBackground = useColorModeValue('white', '#2D2D2D');
     const menuBorderColor = useColorModeValue("gray.200", "whiteAlpha.300");
@@ -77,26 +76,30 @@ const AutoCompleteMenu = <T,>({ label, description, value, inputValue, setInputV
                                 />
                             </InputRightElement>
                         </InputGroup>
-                        <AutoCompleteList
-                            bg={menuBackground}
-                            p={0}
-                            border='1px solid'
-                            borderColor={menuBorderColor}
-                        >
-                            {options.map((option, id) => (
-                                <AutoCompleteItem
-                                    key={`option-${id}`}
-                                    value={optionLabels[id]}
-                                    textTransform="capitalize"
-                                    m={0}
-                                    onClick={() => {
-                                        onSelect(option)
-                                    }}
+                        {
+                            inputValue && (
+                                <AutoCompleteList
+                                    bg={menuBackground}
+                                    p={0}
+                                    border='1px solid'
+                                    borderColor={menuBorderColor}
                                 >
-                                    {optionComponents[id]}
-                                </AutoCompleteItem>
-                            ))}
-                        </AutoCompleteList>
+                                    {(options).map((option, id) => (
+                                        <AutoCompleteItem
+                                            key={`option-${id}`}
+                                            value={optionLabels[id]}
+                                            textTransform="capitalize"
+                                            m={0}
+                                            onClick={() => {
+                                                onSelect(option)
+                                            }}
+                                        >
+                                            {optionLabels[id]}
+                                        </AutoCompleteItem>
+                                    ))}
+                                </AutoCompleteList>
+                            )
+                        }
                         {
                             (closeButton && value != null) && (
                                 <IconButton

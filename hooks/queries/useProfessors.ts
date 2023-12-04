@@ -1,18 +1,16 @@
-import {useCollectionDataOnce} from "react-firebase-hooks/firestore";
-
-import professorsCollection from "@/firebase/firestore/converters/professorConverter";
+import {useHits, useSearchBox} from "react-instantsearch";
 
 // custom hook to get all professors
 const useProfessors = () => {
 
-    const [professors, loading, error] = useCollectionDataOnce(professorsCollection);
+    const { query, refine } = useSearchBox();
+    const { hits } = useHits();
 
     return {
-        professors: professors || [],
-        loading,
-        error,
+        hits,
+        query,
+        refine
     }
-
 }
 
 export default useProfessors;

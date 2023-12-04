@@ -1,5 +1,5 @@
 import {
-    collection,
+    collection, doc,
     DocumentData,
     FirestoreDataConverter,
     QueryDocumentSnapshot,
@@ -35,5 +35,7 @@ const courseConverter: FirestoreDataConverter<Course> = {
 
 // collection reference for querying courses
 const coursesCollection = collection(firestore, COURSES_COLLECTION).withConverter(courseConverter);
+
+export const courseDocument = (id: string) => doc(coursesCollection, id).withConverter(courseConverter);
 
 export default coursesCollection;

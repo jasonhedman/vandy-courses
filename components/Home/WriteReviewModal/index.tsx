@@ -21,6 +21,8 @@ import TextareaInput from "@/components/Utilities/FormComponents/TextareaInput";
 import useCreateReview from "@/hooks/mutators/useCreateReview";
 
 import {MAXIMUM_RATING, MINIMUM_RATING} from "@/data/reviewConstants";
+import {InstantSearch} from "react-instantsearch";
+import searchClient, {courseIndex, professorIndex} from "@/algolia";
 
 interface Props {
     isOpen: boolean,
@@ -52,32 +54,42 @@ const WriteReviewModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     <VStack
                         spacing={4}
                     >
-                        <CourseMenu
-                            courseId={values.courseId || null}
-                            setCourseId={(courseId) => {
-                                setFieldValue('courseId', courseId || "")
-                            }}
-                            onBlur={() => setFieldTouched("courseId", true)}
-                            error={touched.courseId ? errors.courseId : undefined}
-                            description={"Select a course to review"}
-                        />
-                        <ProfessorMenu
-                            professor={values.professor || null}
-                            setProfessor={(professor) => {
-                                if(professor === null) {
-                                    setFieldValue('professor.id', "");
-                                    setFieldValue('professor.name', "");
-                                } else {
-                                    setFieldValue('professor', professor)
-                                }
-                            }}
-                            onBlur={() => {
-                                setFieldTouched("professor.id", true)
-                                setFieldTouched("professor.name", true)
-                            }}
-                            error={touched.professor?.name ? errors.professor?.name : undefined}
-                            description={"Select the professor of your selected course"}
-                        />
+                        <InstantSearch
+                            searchClient={searchClient}
+                            indexName={courseIndex}
+                        >
+                            <CourseMenu
+                                courseId={values.courseId || null}
+                                setCourseId={(courseId) => {
+                                    setFieldValue('courseId', courseId || "")
+                                }}
+                                onBlur={() => setFieldTouched("courseId", true)}
+                                error={touched.courseId ? errors.courseId : undefined}
+                                description={"Select a course to review"}
+                            />
+                        </InstantSearch>
+                        <InstantSearch
+                            searchClient={searchClient}
+                            indexName={professorIndex}
+                        >
+                            <ProfessorMenu
+                                professor={values.professor || null}
+                                setProfessor={(professor) => {
+                                    if(professor === null) {
+                                        setFieldValue('professor.id', "");
+                                        setFieldValue('professor.name', "");
+                                    } else {
+                                        setFieldValue('professor', professor)
+                                    }
+                                }}
+                                onBlur={() => {
+                                    setFieldTouched("professor.id", true)
+                                    setFieldTouched("professor.name", true)
+                                }}
+                                error={touched.professor?.name ? errors.professor?.name : undefined}
+                                description={"Select the professor of your selected course"}
+                            />
+                        </InstantSearch>
                         <TextInput
                             label={"Title"}
                             placeholder={"Review Title"}

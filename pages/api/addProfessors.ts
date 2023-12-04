@@ -1,4 +1,4 @@
-import {fetchProfessors} from '@/services/coursesApi/fetch';
+import {fetchAllProfessors} from '@/services/coursesApi/fetch';
 
 import {setProfessor} from "@/services/professors";
 
@@ -12,7 +12,8 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<AddProfessorsResponse>
 ) {
-    const professors = await fetchProfessors();
+    const page = req.query.page as string;
+    const professors = await fetchAllProfessors("1000", parseInt(page));
     await Promise.all(professors.map(professor => setProfessor(professor)));
-    res.status(200).json({ message: 'Success' })
+    res.status(200).json({ message: 'Success' });
 }

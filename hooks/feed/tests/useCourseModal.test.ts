@@ -36,12 +36,12 @@ describe("useCourseModal Hook", () => {
         const { result } = renderHook(() => useCourseModal());
 
         act(() => {
-            result.current.openCourseModal(mockCourse);
+            result.current.openCourseModal(mockCourse.id);
         });
 
         expect(onOpen).toHaveBeenCalled();
         expect(result.current.isOpen).toBe(true);
-        expect(result.current.course).toEqual(mockCourse);
+        expect(result.current.courseId).toEqual(mockCourse.id);
     });
 
     it("should handle closing the modal", () => {
@@ -49,7 +49,7 @@ describe("useCourseModal Hook", () => {
 
         // Open the modal first
         act(() => {
-            result.current.openCourseModal(mockCourse);
+            result.current.openCourseModal(mockCourse.id);
         });
 
         // Then close it

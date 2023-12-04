@@ -16,7 +16,7 @@ interface Props {
 
 const ProfessorMenu: React.FC<Props> = ({ professor, setProfessor, description, onBlur, error, closeButton }) => {
 
-    const { professors } = useProfessors();
+    const { hits, refine } = useProfessors();
 
     const [inputValue, setInputValue] = useState<string>("");
 
@@ -28,17 +28,24 @@ const ProfessorMenu: React.FC<Props> = ({ professor, setProfessor, description, 
         }
     }, [professor]);
 
+    const handleInputChange = (val: string) => {
+        setInputValue(val);
+        refine(val);
+    }
+
     return (
         <AutoCompleteMenu
             label={"Professor"}
             value={professor}
             description={description}
             inputValue={inputValue}
-            setInputValue={setInputValue}
+            setInputValue={handleInputChange}
             placeholder={"Find a Professor"}
-            optionComponents={(professors || []).map(professor => professor.name)}
-            options={professors || []}
-            optionLabels={(professors || []).map(professor => professor.name)}
+            options={hits.map(professor => ({
+                id: professor.objectID,
+                name: professor.name as string
+            })) || []}
+            optionLabels={(hits || []).map(professor => professor.name as string)}
             onSelect={setProfessor}
             onBlur={onBlur}
             error={error}

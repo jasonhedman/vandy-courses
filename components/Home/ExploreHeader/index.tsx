@@ -9,6 +9,8 @@ import SortByRadio from "@/components/Utilities/SortByRadio";
 
 import {Professor} from "@/types/Professor";
 import {SortBy} from "@/types/SortBy";
+import searchClient, {courseIndex, professorIndex} from "@/algolia";
+import {InstantSearch} from "react-instantsearch";
 
 interface Props {
     courseId: string | null,
@@ -34,16 +36,23 @@ const ExploreHeader: React.FC<Props> = ({ courseId, setCourseId, professor, setP
                     w={'100%'}
                     flexDirection={{ base: 'column', md: 'row' }}
                 >
-                    <CourseMenu
-                        courseId={courseId}
-                        setCourseId={setCourseId}
-                        closeButton
-                    />
-                    <ProfessorMenu
-                        professor={professor}
-                        setProfessor={setProfessor}
-                        closeButton
-                    />
+                    <InstantSearch
+                        searchClient={searchClient}
+                        indexName={courseIndex}
+                    >
+                        <CourseMenu
+                            courseId={courseId}
+                            setCourseId={setCourseId}
+                            closeButton
+                        />
+                    </InstantSearch>
+                    <InstantSearch searchClient={searchClient} indexName={professorIndex}>
+                        <ProfessorMenu
+                            professor={professor}
+                            setProfessor={setProfessor}
+                            closeButton
+                        />
+                    </InstantSearch>
                     <WriteReviewButton />
                 </Flex>
                 <SortByRadio

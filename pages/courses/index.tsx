@@ -2,6 +2,8 @@ import Head from 'next/head'
 
 import Layout from "@/components/Layout";
 import Courses from "@/components/Courses";
+import {InstantSearch} from "react-instantsearch";
+import searchClient, {courseIndex} from "@/algolia";
 
 export default function CoursePage() {
   return (
@@ -15,7 +17,12 @@ export default function CoursePage() {
         <Layout
             authGate
         >
-            <Courses />
+            <InstantSearch
+                searchClient={searchClient}
+                indexName={courseIndex}
+            >
+                <Courses />
+            </InstantSearch>
         </Layout>
     </>
   )

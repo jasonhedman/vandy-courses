@@ -1,37 +1,33 @@
 import { beforeEach, describe, it, expect, jest } from "@jest/globals";
 import { renderHook } from '@testing-library/react';
-import useCourses from "@/hooks/queries/useCourses"; // Update the path as necessary
-import { useCollectionDataOnce } from "react-firebase-hooks/firestore";
-import { orderBy, query } from "@firebase/firestore";
+import useCourses from "@/hooks/queries/useCourses";
+import { useHits, useSearchBox } from "react-instantsearch";
 
-jest.mock("@firebase/firestore", () => ({
-    orderBy: jest.fn(),
-    query: jest.fn()
-}));
-
-jest.mock("react-firebase-hooks/firestore", () => ({
-    useCollectionDataOnce: jest.fn()
-}));
-
-// Mock the coursesCollection
-jest.mock("@/firebase/firestore/converters/courseConverter", () => ({
-    coursesCollection: {}
+jest.mock("react-instantsearch", () => ({
+    useHits: jest.fn(),
+    useSearchBox: jest.fn()
 }));
 
 describe("useCourses Hook", () => {
-    const mockCourses = [
-        { id: "course1", name: "Course 1", numReviews: 100 },
-        { id: "course2", name: "Course 2", numReviews: 50 }
-    ];
+    const mockHits = [{ id: "course1", name: "Course 1" }, { id: "course2", name: "Course 2" }];
+    const mockQuery = "test query";
+    const mockRefine = jest.fn();
 
     beforeEach(() => {
-        (useCollectionDataOnce as jest.Mock).mockReturnValue([mockCourses, false, null]);
+        (useHits as jest.Mock).mockReturnValue({ hits: mockHits });
+        (useSearchBox as jest.Mock).mockReturnValue({ query: mockQuery, refine: mockRefine });
     });
 
-    it("constructs query with orderBy correctly", () => {
-        renderHook(() => useCourses());
+    it("returns hits from useHits", () => {
+        const { result } = renderHook(() => useCourses());
 
-        expect(query).toHaveBeenCalled();
-        expect(orderBy).toHaveBeenCalledWith('numReviews', 'desc');
+        expect(result.current.hits).toEqual(mockHits);
+    });
+
+    it("returns query and refine from useSearchBox", () => {
+        const { result } = renderHook(() => useCourses());
+
+        expect(result.current.query).toBe(mockQuery);
+        expect(result.current.refine).toBe(mockRefine);
     });
 });

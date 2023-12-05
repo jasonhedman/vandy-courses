@@ -1,7 +1,7 @@
 import { beforeEach, describe, it, expect, jest } from "@jest/globals";
 import { act, renderHook } from '@testing-library/react';
 import { signInWithPopup } from "firebase/auth";
-import useSignIn from "@/hooks/auth/useSignIn"; // Update the path as necessary
+import useSignIn from "@/hooks/auth/useSignIn";
 
 // Mock Firebase auth functions and react-firebase-hooks
 jest.mock("firebase/auth", () => ({
@@ -13,6 +13,7 @@ jest.mock("firebase/auth", () => ({
 jest.mock("react-firebase-hooks/auth", () => ({
     useAuthState: jest.fn()
 }));
+jest.mock('@/firebase/auth', () => ({}));
 
 describe("useSignIn Hook", () => {
     const mockUser = { uid: '123', email: 'user@example.com' }; // Mock user object

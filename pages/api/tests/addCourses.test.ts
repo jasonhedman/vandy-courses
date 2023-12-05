@@ -13,10 +13,14 @@ jest.mock('@/services/courses');
 jest.mock('@/services/coursesApi/adapters');
 
 describe('/api/addCourses', () => {
-    const mockReq = {} as NextApiRequest;
+    let mockReq: NextApiRequest;
     let mockRes: NextApiResponse<AddCoursesResponse>;
 
     beforeEach(() => {
+        mockReq = {
+            query: { page: '1' } // Include a page key with a value
+        } as unknown as NextApiRequest;
+
         mockRes = {
             status: jest.fn(() => mockRes),
             json: jest.fn()
@@ -58,7 +62,7 @@ describe('/api/addCourses', () => {
 
         await handler(mockReq, mockRes);
 
-        expect(fetchCourses).toHaveBeenCalledWith('1000');
+        expect(fetchCourses).toHaveBeenCalledWith('1000', 1);
         expect(courseAdapter).toHaveBeenCalledTimes(2);
         expect(setCourse).toHaveBeenCalledTimes(2);
         expect(mockRes.status).toHaveBeenCalledWith(200);

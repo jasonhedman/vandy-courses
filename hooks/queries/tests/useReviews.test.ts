@@ -86,5 +86,29 @@ describe("useReviews Hook", () => {
         expect(query).toHaveBeenCalled();
         expect(orderBy).toHaveBeenCalledWith('score', 'desc');
     });
+
+    it("constructs query parameters correctly for minReports", () => {
+        renderHook(() => useReviews({
+            courseId: "course123",
+            professor: null,
+            minReports: 5
+        }));
+
+        expect(query).toHaveBeenCalled();
+        expect(orderBy).toHaveBeenCalledWith('numReports', 'desc'); // Sorting changes when minReports is provided
+        expect(where).toHaveBeenCalledWith("numReports", ">=", 5);
+    });
+
+    it("constructs query parameters correctly for userId", () => {
+        const mockUserId = "user123";
+        renderHook(() => useReviews({
+            courseId: "course123",
+            professor: null,
+            userId: mockUserId
+        }));
+
+        expect(query).toHaveBeenCalled();
+        expect(where).toHaveBeenCalledWith("userId", "==", mockUserId);
+    });
 });
 
